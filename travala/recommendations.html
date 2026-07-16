@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>travala — rate &amp; recommend</title>
+<style>
+  :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--teal-dark:#237a6e;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .app{display:flex;min-height:100vh}
+  .side{width:240px;background:var(--white);border-right:1px solid var(--line-soft);padding:22px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;flex-shrink:0}
+  .wordmark{font-weight:600;letter-spacing:-0.03em;font-size:22px;position:relative;display:inline-block;padding:6px 8px 20px}
+  .wordmark .dot{position:absolute;width:5.5px;height:5.5px;border-radius:50%;background:var(--coral);top:8px;right:6px}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-size:14.5px;color:var(--ink-soft);margin-bottom:3px;transition:all .15s}
+  .nav-item .ic{font-size:18px;width:22px;text-align:center}
+  .nav-item:hover{background:var(--cream)}.nav-item.active{background:var(--ink);color:var(--cream);font-weight:500}
+  .side .spacer{flex:1}
+  .wallet-mini{background:var(--cream);border-radius:13px;padding:14px;font-size:13px}
+  .wallet-mini .row{display:flex;justify-content:space-between;align-items:center}
+  .wallet-mini .bal{font-weight:600;font-size:16px}.wallet-mini .addr{font-family:'SF Mono',monospace;font-size:12px;color:var(--ink-soft)}
+  .wallet-mini .mon{font-size:11px;color:var(--teal);background:rgba(47,158,143,0.1);padding:2px 7px;border-radius:100px}
+  .main{flex:1;padding:32px 40px 64px;max-width:1000px;margin:0 auto;width:100%}
+  @media(max-width:900px){.side{display:none}.main{padding:24px 20px 60px}}
+  .page-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:10px}
+  .page-head h1{font-size:26px;letter-spacing:-0.02em;font-weight:600}
+  .sign-mode{font-size:12.5px;display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:100px;background:var(--white);border:1px solid var(--line)}
+  .sign-mode .d{width:7px;height:7px;border-radius:50%;background:var(--ink-soft)}
+  .sign-mode.auto .d{background:var(--teal)}
+  .page-sub{font-size:14px;color:var(--ink-soft);margin-bottom:24px}
+  .tabs{display:flex;gap:6px;margin-bottom:20px}
+  .tab{font-family:inherit;font-size:13.5px;padding:9px 15px;border-radius:100px;border:1px solid var(--line);background:var(--white);cursor:pointer}
+  .tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink);font-weight:500}
+  .svc-card{background:var(--white);border:1px solid var(--line-soft);border-radius:16px;padding:18px 20px;margin-bottom:12px;display:flex;align-items:center;gap:16px}
+  .svc-card .ic{width:50px;height:50px;border-radius:13px;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+  .svc-card .info{flex:1}
+  .svc-card .nm{font-size:15.5px;font-weight:600}
+  .svc-card .meta{font-size:13px;color:var(--ink-soft);display:flex;align-items:center;gap:8px;margin-top:2px}
+  .svc-card .stars-sm{color:var(--coral);font-size:13px}
+  .svc-card .chain{font-size:11px;color:var(--teal-dark);background:rgba(47,158,143,0.1);padding:2px 8px;border-radius:100px}
+  .rate-btn{font-family:inherit;font-size:13.5px;font-weight:500;padding:10px 16px;border-radius:10px;background:var(--coral);color:#fff;border:none;cursor:pointer;flex-shrink:0}
+  .rate-btn:hover{background:var(--coral-dark)}
+  .rate-btn.rated{background:var(--cream-deep);color:var(--ink-soft);pointer-events:none}
+
+  /* modal */
+  .modal-bg{position:fixed;inset:0;background:rgba(34,32,24,0.5);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--cream);border-radius:20px;padding:26px;width:100%;max-width:400px}
+  .modal .svc-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .modal .svc-head .ic{width:46px;height:46px;border-radius:12px;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;font-size:22px}
+  .modal .svc-head .nm{font-weight:600;font-size:15px}.modal .svc-head .mt{font-size:12.5px;color:var(--ink-soft)}
+  .rate-stars{display:flex;gap:8px;justify-content:center;margin:8px 0 20px}
+  .rate-stars span{font-size:38px;color:var(--line);cursor:pointer;transition:transform .1s}
+  .rate-stars span:hover{transform:scale(1.12)}
+  .rate-stars span.on{color:var(--coral)}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;justify-content:center}
+  .rtag{font-family:inherit;font-size:12.5px;padding:7px 13px;border-radius:100px;border:1px solid var(--line);background:var(--white);cursor:pointer}
+  .rtag.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+  .step-label{font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--coral);text-align:center;margin-bottom:14px}
+  /* approve panel */
+  .approve-box{background:var(--white);border:1px solid var(--line-soft);border-radius:14px;padding:18px;margin-bottom:16px}
+  .approve-box .arow{display:flex;justify-content:space-between;font-size:14px;padding:7px 0}
+  .approve-box .arow .k{color:var(--ink-soft)}
+  .approve-box .arow .v{font-weight:500}
+  .approve-box .fee-row{border-top:1px solid var(--line-soft);margin-top:8px;padding-top:12px}
+  .approve-box .fee-row .v{color:var(--teal-dark)}
+  /* chain status */
+  .chain-panel{text-align:center;padding:14px 0}
+  .chain-spin{width:44px;height:44px;border:3px solid var(--line);border-top-color:var(--coral);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .chain-panel .msg{font-size:15px;font-weight:500;margin-bottom:6px}
+  .chain-panel .tx{font-family:'SF Mono',monospace;font-size:12.5px;color:var(--ink-soft)}
+  .chain-done{width:56px;height:56px;border-radius:50%;background:rgba(47,158,143,0.12);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px}
+  .btn{font-family:inherit;font-size:14.5px;font-weight:500;border-radius:12px;padding:13px 20px;cursor:pointer;border:none;transition:all .18s;width:100%;justify-content:center;display:inline-flex;align-items:center;gap:8px}
+  .btn-primary{background:var(--coral);color:#fff}.btn-primary:hover{background:var(--coral-dark)}
+  .btn-dark{background:var(--ink);color:var(--cream)}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border:none;font-size:13.5px;margin-top:6px}
+  .sign-hint{font-size:12px;color:var(--ink-soft);text-align:center;margin-top:12px;display:flex;gap:6px;justify-content:center}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="wordmark">travala<span class="dot"></span></div>
+    <a href="dashboard.html" class="nav-item"><span class="ic">▦</span>Dashboard</a>
+    <a href="guide.html" class="nav-item"><span class="ic">🧭</span>City guide</a>
+    <a href="help.html" class="nav-item"><span class="ic">🆘</span>Local help</a>
+    <a href="money.html" class="nav-item"><span class="ic">💸</span>Money</a>
+    <a href="recommendations.html" class="nav-item active"><span class="ic">⭐</span>Rate &amp; recommend</a>
+    <div class="spacer"></div>
+    <a href="settings.html" class="nav-item"><span class="ic">⚙️</span>Settings</a>
+    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div><div class="row"><span class="bal">1.9 MON</span></div></div></a>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <h1>Rate &amp; recommend</h1>
+      <span class="sign-mode" id="signMode"><span class="d"></span>Manual signing</span>
+    </div>
+    <p class="page-sub">Real ratings from real travelers, stored onchain so no one can fake them. Rate what you actually used.</p>
+
+    <div class="tabs">
+      <button class="tab active">All</button>
+      <button class="tab">Cabs</button>
+      <button class="tab">Restaurants</button>
+      <button class="tab">Stays</button>
+    </div>
+
+    <div class="svc-card">
+      <div class="ic">🚕</div>
+      <div class="info"><div class="nm">Miguel's Airport Transfer</div><div class="meta"><span class="stars-sm">★★★★☆</span> 4.3 · <span class="chain">128 onchain ratings</span></div></div>
+      <button class="rate-btn" onclick="openRate('Miguel\'s Airport Transfer','🚕')">Rate</button>
+    </div>
+    <div class="svc-card">
+      <div class="ic">🍽️</div>
+      <div class="info"><div class="nm">Taberna da Rua das Flores</div><div class="meta"><span class="stars-sm">★★★★★</span> 4.8 · <span class="chain">203 onchain ratings</span></div></div>
+      <button class="rate-btn" onclick="openRate('Taberna da Rua das Flores','🍽️')">Rate</button>
+    </div>
+    <div class="svc-card">
+      <div class="ic">🍮</div>
+      <div class="info"><div class="nm">Manteigaria (pastéis de nata)</div><div class="meta"><span class="stars-sm">★★★★★</span> 4.9 · <span class="chain">417 onchain ratings</span></div></div>
+      <button class="rate-btn" onclick="openRate('Manteigaria','🍮')">Rate</button>
+    </div>
+    <div class="svc-card">
+      <div class="ic">🚕</div>
+      <div class="info"><div class="nm">City Center Bolt drivers (avg)</div><div class="meta"><span class="stars-sm">★★★★☆</span> 4.1 · <span class="chain">96 onchain ratings</span></div></div>
+      <button class="rate-btn" onclick="openRate('City Center Bolt drivers','🚕')">Rate</button>
+    </div>
+    <div class="svc-card">
+      <div class="ic">🏠</div>
+      <div class="info"><div class="nm">Casa do Bairro — Graça</div><div class="meta"><span class="stars-sm">★★★★☆</span> 4.4 · <span class="chain">54 onchain ratings</span></div></div>
+      <button class="rate-btn" onclick="openRate('Casa do Bairro','🏠')">Rate</button>
+    </div>
+  </main>
+</div>
+
+<!-- RATING MODAL: multi-step -->
+<div class="modal-bg" id="rateModal">
+  <div class="modal">
+    <!-- step 1: rate -->
+    <div id="rStep1">
+      <div class="svc-head"><div class="ic" id="rIc">🚕</div><div><div class="nm" id="rNm">Service</div><div class="mt">Lisbon · your rating goes onchain</div></div></div>
+      <div class="rate-stars" id="rStars"><span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span></div>
+      <div class="tag-row">
+        <button class="rtag" onclick="tog(this)">Great value</button>
+        <button class="rtag" onclick="tog(this)">On time</button>
+        <button class="rtag" onclick="tog(this)">Overcharged</button>
+        <button class="rtag" onclick="tog(this)">Friendly</button>
+        <button class="rtag" onclick="tog(this)">Would return</button>
+      </div>
+      <button class="btn btn-primary" onclick="toApprove()">Continue →</button>
+      <button class="btn btn-ghost" onclick="closeRate()">Cancel</button>
+    </div>
+
+    <!-- step 2: approve -->
+    <div id="rStep2" class="hidden">
+      <div class="step-label">Step 1 of 2 · Approve rating</div>
+      <div class="approve-box">
+        <div class="arow"><span class="k">Service</span><span class="v" id="aNm">Service</span></div>
+        <div class="arow"><span class="k">Your rating</span><span class="v" id="aStars">★★★★☆</span></div>
+        <div class="arow"><span class="k">Tags</span><span class="v" id="aTags">—</span></div>
+        <div class="arow fee-row"><span class="k">Network fee</span><span class="v">0.1 MON</span></div>
+      </div>
+      <button class="btn btn-primary" onclick="toSign()">Approve &amp; continue →</button>
+      <button class="btn btn-ghost" onclick="backToRate()">← Back</button>
+    </div>
+
+    <!-- step 3: sign (manual) -->
+    <div id="rStep3" class="hidden">
+      <div class="step-label">Step 2 of 2 · Sign</div>
+      <div class="approve-box" style="text-align:center">
+        <div style="font-size:30px;margin-bottom:10px">✍️</div>
+        <div style="font-size:15px;font-weight:500;margin-bottom:6px">Sign to post your rating</div>
+        <div style="font-size:13px;color:var(--ink-soft)">This authorizes writing your rating to Monad. Fee: 0.1 MON.</div>
+      </div>
+      <button class="btn btn-dark" onclick="doSign()">Sign transaction</button>
+      <div class="sign-hint">💡 Turn on auto-sign in Settings to skip this step next time.</div>
+    </div>
+
+    <!-- step 4: chain -->
+    <div id="rStep4" class="hidden">
+      <div class="chain-panel" id="chainPending">
+        <div class="chain-spin"></div>
+        <div class="msg">Pushing rating to chain…</div>
+        <div class="tx">submitting to Monad</div>
+      </div>
+      <div class="chain-panel hidden" id="chainDone">
+        <div class="chain-done">✓</div>
+        <div class="msg">Rating confirmed onchain</div>
+        <div class="tx">tx 0x7a3f…e21b · 0.1 MON</div>
+        <button class="btn btn-primary" style="margin-top:20px" onclick="finishRate()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // auto-sign state read from a shared key (simulated). Toggle in settings sets this.
+  let autoSign = localStorage_getSafe();
+  function localStorage_getSafe(){ try{return window.__travalaAutoSign||false;}catch(e){return false;} }
+  updateSignBadge();
+  function updateSignBadge(){
+    const b=document.getElementById('signMode');
+    if(autoSign){b.classList.add('auto');b.innerHTML='<span class="d"></span>Auto-sign on';}
+    else{b.classList.remove('auto');b.innerHTML='<span class="d"></span>Manual signing';}
+  }
+
+  let cur={nm:'',ic:'',stars:0,tags:[]};
+  function openRate(nm,ic){
+    cur={nm,ic,stars:0,tags:[]};
+    document.getElementById('rNm').textContent=nm;
+    document.getElementById('rIc').textContent=ic;
+    document.querySelectorAll('#rStars span').forEach(s=>s.classList.remove('on'));
+    document.querySelectorAll('.rtag').forEach(t=>t.classList.remove('on'));
+    showStep('rStep1');
+    document.getElementById('rateModal').classList.add('show');
+  }
+  function closeRate(){document.getElementById('rateModal').classList.remove('show')}
+  document.querySelectorAll('#rStars span').forEach(s=>{
+    s.addEventListener('click',()=>{
+      cur.stars=+s.dataset.v;
+      document.querySelectorAll('#rStars span').forEach(x=>x.classList.toggle('on',+x.dataset.v<=cur.stars));
+    });
+  });
+  function tog(el){el.classList.toggle('on');
+    cur.tags=[...document.querySelectorAll('.rtag.on')].map(t=>t.textContent);
+  }
+  function showStep(id){['rStep1','rStep2','rStep3','rStep4'].forEach(s=>document.getElementById(s).classList.add('hidden'));document.getElementById(id).classList.remove('hidden')}
+  function toApprove(){
+    if(cur.stars===0){alert('Pick a star rating first');return;}
+    document.getElementById('aNm').textContent=cur.nm;
+    document.getElementById('aStars').textContent='★★★★★☆☆☆☆☆'.slice(5-cur.stars,10-cur.stars);
+    document.getElementById('aTags').textContent=cur.tags.length?cur.tags.join(', '):'—';
+    showStep('rStep2');
+  }
+  function backToRate(){showStep('rStep1')}
+  function toSign(){
+    if(autoSign){ toChain(); }         // auto-sign skips manual sign step
+    else showStep('rStep3');
+  }
+  function doSign(){ toChain(); }
+  function toChain(){
+    showStep('rStep4');
+    document.getElementById('chainPending').classList.remove('hidden');
+    document.getElementById('chainDone').classList.add('hidden');
+    setTimeout(()=>{
+      document.getElementById('chainPending').classList.add('hidden');
+      document.getElementById('chainDone').classList.remove('hidden');
+    },2200);
+  }
+  function finishRate(){closeRate()}
+  document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+</script>
+</body>
+</html>

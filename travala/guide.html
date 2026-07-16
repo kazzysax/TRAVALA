@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>travala — city guide</title>
+<style>
+  :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .app{display:flex;min-height:100vh}
+  .side{width:240px;background:var(--white);border-right:1px solid var(--line-soft);padding:22px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;flex-shrink:0}
+  .wordmark{font-weight:600;letter-spacing:-0.03em;font-size:22px;position:relative;display:inline-block;padding:6px 8px 20px}
+  .wordmark .dot{position:absolute;width:5.5px;height:5.5px;border-radius:50%;background:var(--coral);top:8px;right:6px}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-size:14.5px;color:var(--ink-soft);margin-bottom:3px;transition:all .15s}
+  .nav-item .ic{font-size:18px;width:22px;text-align:center}
+  .nav-item:hover{background:var(--cream)}
+  .nav-item.active{background:var(--ink);color:var(--cream);font-weight:500}
+  .side .spacer{flex:1}
+  .wallet-mini{background:var(--cream);border-radius:13px;padding:14px;font-size:13px}
+  .wallet-mini .row{display:flex;justify-content:space-between;align-items:center}
+  .wallet-mini .bal{font-weight:600;font-size:16px}.wallet-mini .addr{font-family:'SF Mono',monospace;font-size:12px;color:var(--ink-soft)}
+  .wallet-mini .mon{font-size:11px;color:var(--teal);background:rgba(47,158,143,0.1);padding:2px 7px;border-radius:100px}
+  .main{flex:1;padding:32px 40px 64px;max-width:1000px;margin:0 auto;width:100%}
+  @media(max-width:900px){.side{display:none}.main{padding:24px 20px 60px}}
+  .page-head{margin-bottom:26px}
+  .page-head h1{font-size:26px;letter-spacing:-0.02em;font-weight:600}
+  .page-head .loc{font-size:14px;color:var(--ink-soft);margin-top:4px}
+  .dl-strip{display:flex;align-items:center;gap:10px;background:rgba(47,158,143,0.08);border:1px solid rgba(47,158,143,0.2);border-radius:12px;padding:12px 16px;font-size:13.5px;color:var(--teal-dark,#237a6e);margin-bottom:24px}
+  .dl-strip button{margin-left:auto;font-family:inherit;font-size:13px;font-weight:500;background:var(--teal);color:#fff;border:none;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
+  .tab{font-family:inherit;font-size:13.5px;font-weight:450;padding:9px 15px;border-radius:100px;border:1px solid var(--line);background:var(--white);cursor:pointer;transition:all .15s}
+  .tab:hover{border-color:var(--ink)}
+  .tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink);font-weight:500}
+  .card{background:var(--white);border:1px solid var(--line-soft);border-radius:16px;padding:24px;margin-bottom:16px}
+  .card h2{font-size:17px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .card h2 .ico{font-size:20px}
+  .kv{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .kv:last-child{border-bottom:none;padding-bottom:0}
+  .kv .k{flex-shrink:0;width:140px;font-size:14px;font-weight:500}
+  .kv .v{font-size:14px;color:var(--ink-soft)}
+  .hood{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+  .hood:last-child{border-bottom:none;padding-bottom:0}
+  .hood .tag{flex-shrink:0;font-size:11px;font-weight:500;padding:4px 10px;border-radius:100px;height:fit-content}
+  .tag-tour{background:rgba(232,98,46,0.12);color:var(--coral-dark)}
+  .tag-res{background:rgba(47,158,143,0.12);color:#237a6e}
+  .tag-night{background:rgba(107,70,193,0.12);color:#5b3ac4}
+  .hood .nm{font-size:15px;font-weight:500}.hood .ds{font-size:13.5px;color:var(--ink-soft)}
+  .phrase{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line-soft)}
+  .phrase:last-child{border-bottom:none;padding-bottom:0}
+  .phrase .en{font-size:14px;color:var(--ink-soft)}
+  .phrase .fo{font-size:15px;font-weight:500;text-align:right}
+  .phrase .fo small{display:block;font-weight:400;color:var(--ink-soft);font-size:12px;font-style:italic}
+  .panel{display:none}.panel.show{display:block}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="wordmark">travala<span class="dot"></span></div>
+    <a href="dashboard.html" class="nav-item"><span class="ic">▦</span>Dashboard</a>
+    <a href="guide.html" class="nav-item active"><span class="ic">🧭</span>City guide</a>
+    <a href="help.html" class="nav-item"><span class="ic">🆘</span>Local help</a>
+    <a href="money.html" class="nav-item"><span class="ic">💸</span>Money</a>
+    <a href="recommendations.html" class="nav-item"><span class="ic">⭐</span>Rate &amp; recommend</a>
+    <div class="spacer"></div>
+    <a href="settings.html" class="nav-item"><span class="ic">⚙️</span>Settings</a>
+    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div><div class="row"><span class="bal">1.9 MON</span></div></div></a>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <h1>Lisbon city guide</h1>
+      <div class="loc">🇵🇹 Portugal · everything to help you fit right in</div>
+    </div>
+    <div class="dl-strip">⬇ Download this guide for offline use — works when your signal doesn't.<button>Download</button></div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="show('etiquette',this)">Etiquette</button>
+      <button class="tab" onclick="show('hoods',this)">Neighborhoods</button>
+      <button class="tab" onclick="show('rhythm',this)">Daily rhythm</button>
+      <button class="tab" onclick="show('getting',this)">Getting around</button>
+      <button class="tab" onclick="show('phrases',this)">Phrases</button>
+    </div>
+
+    <div class="panel show" id="etiquette">
+      <div class="card">
+        <h2><span class="ico">🤝</span>Customs &amp; etiquette</h2>
+        <div class="kv"><div class="k">Tipping</div><div class="v">Not expected but appreciated — round up or leave 5–10% for good service. No tipping at cafés.</div></div>
+        <div class="kv"><div class="k">Greetings</div><div class="v">Two cheek kisses (right first) between friends. A handshake is fine when meeting someone new.</div></div>
+        <div class="kv"><div class="k">Dining</div><div class="v">The couvert (bread, olives) on your table isn't free — send it back if you don't want it. Lunch is 13:00, dinner rarely before 20:00.</div></div>
+        <div class="kv"><div class="k">Dress</div><div class="v">Smart-casual. Beachwear stays at the beach; churches expect covered shoulders.</div></div>
+        <div class="kv"><div class="k">Don't</div><div class="v">Don't rush the meal or ask for the bill too early — it reads as rude. Flag the waiter when you're ready.</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="hoods">
+      <div class="card">
+        <h2><span class="ico">🗺️</span>Neighborhoods</h2>
+        <div class="hood"><span class="tag tag-tour">Touristy</span><div><div class="nm">Alfama &amp; Baixa</div><div class="ds">Postcard Lisbon — tram 28, castle views, tiled streets. Beautiful but pricey and packed midday.</div></div></div>
+        <div class="hood"><span class="tag tag-night">Nightlife</span><div><div class="nm">Bairro Alto &amp; Cais do Sodré</div><div class="ds">Quiet by day, roaring by night. Bars spill into the streets; Pink Street is the late-night hub.</div></div></div>
+        <div class="hood"><span class="tag tag-res">Local</span><div><div class="nm">Graça &amp; Mouraria</div><div class="ds">Where Lisboetas actually live. Cheaper food, real neighborhood feel, some of the best viewpoints.</div></div></div>
+        <div class="hood"><span class="tag tag-res">Local</span><div><div class="nm">Campo de Ourique</div><div class="ds">Residential, relaxed, great market food hall. Almost no tourists.</div></div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="rhythm">
+      <div class="card">
+        <h2><span class="ico">🕰️</span>Daily rhythm</h2>
+        <div class="kv"><div class="k">Shops</div><div class="v">Small shops open ~10:00, many close 13:00–15:00 for lunch, then until 19:00. Malls stay open late.</div></div>
+        <div class="kv"><div class="k">Meals</div><div class="v">Lunch 13:00–15:00, dinner 20:00–22:30. Kitchens often close between.</div></div>
+        <div class="kv"><div class="k">Quiet days</div><div class="v">Many family-run spots close Sundays and Monday. Museums often shut Mondays.</div></div>
+        <div class="kv"><div class="k">Rush hour</div><div class="v">08:00–09:30 and 18:00–19:30 — trams and metro get very full.</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="getting">
+      <div class="card">
+        <h2><span class="ico">🚇</span>Getting around like a local</h2>
+        <div class="kv"><div class="k">Best app</div><div class="v">Get the "Carris Metropolitana" and metro app; locals top up a rechargeable Navegante card, not paper tickets.</div></div>
+        <div class="kv"><div class="k">Paying</div><div class="v">Contactless works on metro gates. For trams/buses, tap your Navegante card — buying onboard costs more.</div></div>
+        <div class="kv"><div class="k">Taxis</div><div class="v">Bolt is cheaper and more reliable than street taxis. A ride across the center runs €5–8.</div></div>
+        <div class="kv"><div class="k">Unwritten rule</div><div class="v">Stand on the right on escalators. Let people off the tram before boarding — pushing marks you as a tourist.</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="phrases">
+      <div class="card">
+        <h2><span class="ico">💬</span>Phrases that actually help</h2>
+        <div class="phrase"><span class="en">Hello / good day</span><span class="fo">Olá / Bom dia<small>oh-LAH / bong DEE-ah</small></span></div>
+        <div class="phrase"><span class="en">Thank you (said by a man / woman)</span><span class="fo">Obrigado / Obrigada<small>oh-bree-GAH-doo / dah</small></span></div>
+        <div class="phrase"><span class="en">A coffee, please</span><span class="fo">Um café, se faz favor<small>oong kah-FEH</small></span></div>
+        <div class="phrase"><span class="en">The bill, please</span><span class="fo">A conta, por favor<small>ah KON-tah</small></span></div>
+        <div class="phrase"><span class="en">Where is…?</span><span class="fo">Onde fica…?<small>ON-deh FEE-kah</small></span></div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+  function show(id,btn){
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+    document.getElementById(id).classList.add('show');
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>

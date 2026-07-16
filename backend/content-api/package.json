@@ -1,0 +1,17 @@
+{
+  "name": "@travala/backend-content-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "City Guide + Local Help content API - versioned per-city JSON, offline-cacheable.",
+  "type": "commonjs",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ethers": "^6.14.0",
+    "dotenv": "^17.4.2"
+  }
+}

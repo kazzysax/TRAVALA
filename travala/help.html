@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>travala — local help</title>
+<style>
+  :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff;--red:#c0392b}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .app{display:flex;min-height:100vh}
+  .side{width:240px;background:var(--white);border-right:1px solid var(--line-soft);padding:22px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;flex-shrink:0}
+  .wordmark{font-weight:600;letter-spacing:-0.03em;font-size:22px;position:relative;display:inline-block;padding:6px 8px 20px}
+  .wordmark .dot{position:absolute;width:5.5px;height:5.5px;border-radius:50%;background:var(--coral);top:8px;right:6px}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-size:14.5px;color:var(--ink-soft);margin-bottom:3px;transition:all .15s}
+  .nav-item .ic{font-size:18px;width:22px;text-align:center}
+  .nav-item:hover{background:var(--cream)}
+  .nav-item.active{background:var(--ink);color:var(--cream);font-weight:500}
+  .side .spacer{flex:1}
+  .wallet-mini{background:var(--cream);border-radius:13px;padding:14px;font-size:13px}
+  .wallet-mini .row{display:flex;justify-content:space-between;align-items:center}
+  .wallet-mini .bal{font-weight:600;font-size:16px}.wallet-mini .addr{font-family:'SF Mono',monospace;font-size:12px;color:var(--ink-soft)}
+  .wallet-mini .mon{font-size:11px;color:var(--teal);background:rgba(47,158,143,0.1);padding:2px 7px;border-radius:100px}
+  .main{flex:1;padding:32px 40px 64px;max-width:1000px;margin:0 auto;width:100%}
+  @media(max-width:900px){.side{display:none}.main{padding:24px 20px 60px}.grid2{grid-template-columns:1fr!important}}
+  .page-head{margin-bottom:22px}
+  .page-head h1{font-size:26px;letter-spacing:-0.02em;font-weight:600}
+  .page-head .loc{font-size:14px;color:var(--ink-soft);margin-top:4px}
+  .offline-badge{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:#237a6e;background:rgba(47,158,143,0.1);padding:5px 12px;border-radius:100px;margin-top:10px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .card{background:var(--white);border:1px solid var(--line-soft);border-radius:16px;padding:22px}
+  .card h2{font-size:16px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+  .card h2 .ico{font-size:19px}
+  /* emergency */
+  .sos-card{background:#2a1512;border:1px solid #7a2e22;color:#f7e8e4}
+  .sos-card h2{color:#fff}
+  .sos-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .sos-row:last-child{border-bottom:none;padding-bottom:0}
+  .sos-row .lbl{font-size:14px}.sos-row .num{font-size:17px;font-weight:600;font-family:'SF Mono',monospace;color:#ff8a6f}
+  /* translator */
+  .tr-box{background:var(--cream);border-radius:12px;padding:16px;margin-bottom:12px}
+  .tr-box input{width:100%;border:none;background:none;font-family:inherit;font-size:15px;color:var(--ink)}
+  .tr-box input:focus{outline:none}
+  .tr-box .out{font-size:16px;font-weight:500;color:var(--coral-dark);margin-top:10px;padding-top:10px;border-top:1px solid var(--line-soft);display:none}
+  .tr-box .out.show{display:block}
+  .tr-box .out small{display:block;font-style:italic;color:var(--ink-soft);font-weight:400;font-size:12.5px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{font-family:inherit;font-size:12.5px;padding:7px 12px;border-radius:100px;border:1px solid var(--line);background:var(--white);cursor:pointer}
+  .chip:hover{border-color:var(--coral);color:var(--coral-dark)}
+  /* fares */
+  .fare{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .fare:last-child{border-bottom:none;padding-bottom:0}
+  .fare .route{font-size:14px}.fare .route small{display:block;color:var(--ink-soft);font-size:12px}
+  .fare .price{font-size:15px;font-weight:600;color:#237a6e}
+  /* scams */
+  .scam{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .scam:last-child{border-bottom:none;padding-bottom:0}
+  .scam .warn{color:var(--coral);flex-shrink:0}
+  .scam .t{font-size:14px;font-weight:500}.scam .d{font-size:13px;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="wordmark">travala<span class="dot"></span></div>
+    <a href="dashboard.html" class="nav-item"><span class="ic">▦</span>Dashboard</a>
+    <a href="guide.html" class="nav-item"><span class="ic">🧭</span>City guide</a>
+    <a href="help.html" class="nav-item active"><span class="ic">🆘</span>Local help</a>
+    <a href="money.html" class="nav-item"><span class="ic">💸</span>Money</a>
+    <a href="recommendations.html" class="nav-item"><span class="ic">⭐</span>Rate &amp; recommend</a>
+    <div class="spacer"></div>
+    <a href="settings.html" class="nav-item"><span class="ic">⚙️</span>Settings</a>
+    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div><div class="row"><span class="bal">1.9 MON</span></div></div></a>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <h1>Local help</h1>
+      <div class="loc">🇵🇹 Lisbon, Portugal — help when you need it fast</div>
+      <div class="offline-badge">◆ Saved offline — available with no signal</div>
+    </div>
+
+    <!-- emergency first, always -->
+    <div class="card sos-card" style="margin-bottom:16px">
+      <h2><span class="ico">🚨</span>Emergency</h2>
+      <div class="sos-row"><span class="lbl">All emergencies (police, fire, medical)</span><span class="num">112</span></div>
+      <div class="sos-row"><span class="lbl">Tourist police (Lisbon)</span><span class="num">+351 213 421 623</span></div>
+      <div class="sos-row"><span class="lbl">Nearest embassy — set your country in Settings</span><span class="num">—</span></div>
+    </div>
+
+    <div class="grid2">
+      <!-- translator -->
+      <div class="card">
+        <h2><span class="ico">💬</span>Survival translator</h2>
+        <div class="tr-box">
+          <input type="text" placeholder="Type what you need to say…" id="trIn" oninput="translate()">
+          <div class="out" id="trOut"></div>
+        </div>
+        <div class="chips">
+          <button class="chip" onclick="quick('Where is the bathroom?')">Where's the bathroom?</button>
+          <button class="chip" onclick="quick('Help, please')">Help, please</button>
+          <button class="chip" onclick="quick('How much is this?')">How much?</button>
+          <button class="chip" onclick="quick('I need a doctor')">I need a doctor</button>
+          <button class="chip" onclick="quick('Call the police')">Call the police</button>
+        </div>
+      </div>
+
+      <!-- fares -->
+      <div class="card">
+        <h2><span class="ico">🚕</span>Fair transport fares</h2>
+        <div class="fare"><div class="route">Airport → city center<small>Bolt / Uber</small></div><div class="price">€10–14</div></div>
+        <div class="fare"><div class="route">Across the center<small>short taxi ride</small></div><div class="price">€5–8</div></div>
+        <div class="fare"><div class="route">Single metro/tram<small>on Navegante card</small></div><div class="price">€1.65</div></div>
+        <div class="fare"><div class="route">Day transit pass<small>unlimited</small></div><div class="price">€6.80</div></div>
+      </div>
+    </div>
+
+    <!-- scams -->
+    <div class="card">
+      <h2><span class="ico">⚠️</span>Common scams here</h2>
+      <div class="scam"><span class="warn">▲</span><div><div class="t">Fake taxi "broken meter"</div><div class="d">If a driver says the meter's broken, agree a price first or use Bolt. Airport taxis should always run the meter.</div></div></div>
+      <div class="scam"><span class="warn">▲</span><div><div class="t">Tram 28 pickpockets</div><div class="d">The crowded 28 is a hotspot. Keep bags in front, phones away from open windows at stops.</div></div></div>
+      <div class="scam"><span class="warn">▲</span><div><div class="t">"Free" restaurant couvert</div><div class="d">Bread and olives brought unasked are charged. Wave them away if you don't want them.</div></div></div>
+      <div class="scam"><span class="warn">▲</span><div><div class="t">Euronet ATMs</div><div class="d">The blue Euronet machines add heavy fees. Use bank (Multibanco) ATMs instead.</div></div></div>
+    </div>
+  </main>
+</div>
+<script>
+  const dict={
+    'where is the bathroom?':['Onde é a casa de banho?','ON-deh eh ah KAH-zah deh BAHN-yoo'],
+    'help, please':['Ajuda, por favor','ah-ZHOO-dah'],
+    'how much is this?':['Quanto custa?','KWAN-too KOOSH-tah'],
+    'how much?':['Quanto custa?','KWAN-too KOOSH-tah'],
+    'i need a doctor':['Preciso de um médico','preh-SEE-zoo deh oong MEH-dee-koo'],
+    'call the police':['Chame a polícia','SHA-meh ah poo-LEE-see-ah']
+  };
+  function render(txt){
+    const key=txt.trim().toLowerCase();
+    const out=document.getElementById('trOut');
+    if(dict[key]){out.innerHTML=dict[key][0]+'<small>'+dict[key][1]+'</small>';out.classList.add('show');}
+    else if(key.length>0){out.innerHTML='Olá — '+txt+'<small>(demo translation)</small>';out.classList.add('show');}
+    else out.classList.remove('show');
+  }
+  function translate(){render(document.getElementById('trIn').value)}
+  function quick(t){document.getElementById('trIn').value=t;render(t)}
+</script>
+</body>
+</html>

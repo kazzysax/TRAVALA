@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>travala — money</title>
+<style>
+  :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff;--amber:#c98a1a}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .app{display:flex;min-height:100vh}
+  .side{width:240px;background:var(--white);border-right:1px solid var(--line-soft);padding:22px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;flex-shrink:0}
+  .wordmark{font-weight:600;letter-spacing:-0.03em;font-size:22px;position:relative;display:inline-block;padding:6px 8px 20px}
+  .wordmark .dot{position:absolute;width:5.5px;height:5.5px;border-radius:50%;background:var(--coral);top:8px;right:6px}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-size:14.5px;color:var(--ink-soft);margin-bottom:3px;transition:all .15s}
+  .nav-item .ic{font-size:18px;width:22px;text-align:center}
+  .nav-item:hover{background:var(--cream)}.nav-item.active{background:var(--ink);color:var(--cream);font-weight:500}
+  .side .spacer{flex:1}
+  .wallet-mini{background:var(--cream);border-radius:13px;padding:14px;font-size:13px}
+  .wallet-mini .row{display:flex;justify-content:space-between;align-items:center}
+  .wallet-mini .bal{font-weight:600;font-size:16px}.wallet-mini .addr{font-family:'SF Mono',monospace;font-size:12px;color:var(--ink-soft)}
+  .wallet-mini .mon{font-size:11px;color:var(--teal);background:rgba(47,158,143,0.1);padding:2px 7px;border-radius:100px}
+  .main{flex:1;padding:32px 40px 64px;max-width:1000px;margin:0 auto;width:100%}
+  @media(max-width:900px){.side{display:none}.main{padding:24px 20px 60px}.grid2{grid-template-columns:1fr!important}}
+  .page-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+  .page-head h1{font-size:26px;letter-spacing:-0.02em;font-weight:600}
+  .page-head .loc{font-size:14px;color:var(--ink-soft);margin-top:4px}
+  .btn{font-family:inherit;font-size:14px;font-weight:500;border-radius:11px;padding:11px 16px;cursor:pointer;border:none;transition:all .18s;display:inline-flex;align-items:center;gap:8px}
+  .btn-primary{background:var(--coral);color:#fff}.btn-primary:hover{background:var(--coral-dark)}
+  .btn-ghost{background:var(--white);color:var(--ink);border:1px solid var(--line)}.btn-ghost:hover{border-color:var(--ink)}
+  .grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-bottom:16px}
+  .card{background:var(--white);border:1px solid var(--line-soft);border-radius:16px;padding:22px}
+  .card h2{font-size:15px;font-weight:600;margin-bottom:16px}
+  .budget-top{display:flex;justify-content:space-between;align-items:baseline}
+  .budget-top .spent{font-size:32px;font-weight:600;letter-spacing:-0.02em}
+  .budget-top .of{font-size:15px;color:var(--ink-soft)}
+  .bar{height:10px;background:var(--cream-deep);border-radius:100px;overflow:hidden;margin:16px 0 8px}
+  .bar .fill{height:100%;background:var(--teal);border-radius:100px}
+  .budget-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
+  .trip-line{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
+  .trip-line .lbl{font-size:13px;color:var(--ink-soft);display:flex;justify-content:space-between;margin-bottom:8px}
+  .bar.sm{height:7px;margin:0}
+  .bar.sm .fill{background:var(--coral)}
+  /* breakdown */
+  .cat{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line-soft)}
+  .cat:last-child{border-bottom:none;padding-bottom:0}
+  .cat .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .cat .nm{font-size:14px;flex:1}
+  .cat .amt{font-size:14px;font-weight:600}
+  .cat .pct{font-size:12px;color:var(--ink-soft);width:38px;text-align:right}
+  /* expenses list */
+  .exp{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line-soft)}
+  .exp:last-child{border-bottom:none;padding-bottom:0}
+  .exp .ic{width:38px;height:38px;border-radius:11px;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .exp .info{flex:1}.exp .info .d{font-size:14px;font-weight:500}.exp .info .m{font-size:12.5px;color:var(--ink-soft)}
+  .exp .amt{text-align:right}.exp .amt .home{font-size:15px;font-weight:600}.exp .amt .orig{font-size:12px;color:var(--ink-soft)}
+  .exp .flag{font-size:11px;color:var(--amber);background:rgba(201,138,26,0.12);padding:2px 8px;border-radius:100px;margin-top:3px;display:inline-block}
+  /* modal reuse */
+  .modal-bg{position:fixed;inset:0;background:rgba(34,32,24,0.45);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--cream);border-radius:20px;padding:26px;width:100%;max-width:400px}
+  .modal h3{font-size:19px;font-weight:600;margin-bottom:6px}.modal p.sub{font-size:14px;color:var(--ink-soft);margin-bottom:20px}
+  .field{margin-bottom:14px}.field label{font-size:13px;font-weight:500;display:block;margin-bottom:6px}
+  .field input,.field select{width:100%;font-family:inherit;font-size:15px;padding:12px 14px;border:1px solid var(--line);border-radius:11px;background:var(--white)}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--coral)}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .flag-note{font-size:12.5px;color:var(--amber);background:rgba(201,138,26,0.1);padding:10px 12px;border-radius:10px;margin-bottom:16px;display:none;gap:7px}
+  .flag-note.show{display:flex}
+  .modal-actions{display:flex;gap:10px}.modal-actions .btn{flex:1;justify-content:center}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="wordmark">travala<span class="dot"></span></div>
+    <a href="dashboard.html" class="nav-item"><span class="ic">▦</span>Dashboard</a>
+    <a href="guide.html" class="nav-item"><span class="ic">🧭</span>City guide</a>
+    <a href="help.html" class="nav-item"><span class="ic">🆘</span>Local help</a>
+    <a href="money.html" class="nav-item active"><span class="ic">💸</span>Money</a>
+    <a href="recommendations.html" class="nav-item"><span class="ic">⭐</span>Rate &amp; recommend</a>
+    <div class="spacer"></div>
+    <a href="settings.html" class="nav-item"><span class="ic">⚙️</span>Settings</a>
+    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div><div class="row"><span class="bal">1.9 MON</span></div></div></a>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div><h1>Money</h1><div class="loc">🇵🇹 Lisbon · home currency GBP £</div></div>
+      <button class="btn btn-primary" onclick="openExpense()">＋ Add expense</button>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>Today</h2>
+        <div class="budget-top"><span class="spent">€38</span><span class="of">of €60 daily budget</span></div>
+        <div class="bar"><div class="fill" style="width:63%"></div></div>
+        <div class="budget-meta"><span>€22 left today</span><span>63%</span></div>
+        <div class="trip-line">
+          <div class="lbl"><span>Whole trip</span><span>€412 of €800</span></div>
+          <div class="bar sm"><div class="fill" style="width:51%"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Where it's going</h2>
+        <div class="cat"><span class="dot" style="background:var(--teal)"></span><span class="nm">Food &amp; drink</span><span class="amt">€164</span><span class="pct">40%</span></div>
+        <div class="cat"><span class="dot" style="background:var(--coral)"></span><span class="nm">Lodging</span><span class="amt">€130</span><span class="pct">32%</span></div>
+        <div class="cat"><span class="dot" style="background:#5b3ac4"></span><span class="nm">Transport</span><span class="amt">€72</span><span class="pct">17%</span></div>
+        <div class="cat"><span class="dot" style="background:var(--amber)"></span><span class="nm">Activities</span><span class="amt">€46</span><span class="pct">11%</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Recent expenses</h2>
+      <div class="exp"><div class="ic">🍽️</div><div class="info"><div class="d">Lunch — Time Out Market</div><div class="m">Today · 13:24 · Food &amp; drink</div></div><div class="amt"><div class="home">£15.40</div><div class="orig">€18.00</div></div></div>
+      <div class="exp"><div class="ic">🚕</div><div class="info"><div class="d">Taxi from Alfama<div class="flag">⚠ high for this ride</div></div><div class="m">Today · 11:05 · Transport</div></div><div class="amt"><div class="home">£15.40</div><div class="orig">€18.00</div></div></div>
+      <div class="exp"><div class="ic">☕</div><div class="info"><div class="d">Coffee &amp; pastel de nata</div><div class="m">Today · 09:12 · Food &amp; drink</div></div><div class="amt"><div class="home">£2.90</div><div class="orig">€3.40</div></div></div>
+      <div class="exp"><div class="ic">🎫</div><div class="info"><div class="d">Castelo de São Jorge entry</div><div class="m">Yesterday · Activities</div></div><div class="amt"><div class="home">£13.60</div><div class="orig">€15.00</div></div></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-bg" id="expenseModal">
+  <div class="modal">
+    <h3>Add expense</h3>
+    <p class="sub">Converted to your home currency automatically.</p>
+    <div class="field"><label>What was it?</label><input type="text" placeholder="Taxi from airport" id="expDesc"></div>
+    <div class="field-row">
+      <div class="field"><label>Amount</label><input type="number" placeholder="0.00" id="expAmt" oninput="checkFair()"></div>
+      <div class="field"><label>Currency</label><select id="expCur"><option>EUR €</option><option>USD $</option><option>GBP £</option></select></div>
+    </div>
+    <div class="field"><label>Category</label><select id="expCat" onchange="checkFair()"><option>Food &amp; drink</option><option>Transport</option><option>Lodging</option><option>Activities</option></select></div>
+    <div class="flag-note" id="fairFlag">⚠️ That's high for a taxi in Lisbon — a fair fare from the center is usually €6–10. Double-check you're not being overcharged.</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('expenseModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="closeModal('expenseModal')">Save expense</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openExpense(){document.getElementById('expenseModal').classList.add('show')}
+  function closeModal(id){document.getElementById(id).classList.remove('show')}
+  function checkFair(){
+    const amt=parseFloat(document.getElementById('expAmt').value||0);
+    const cat=document.getElementById('expCat').value;
+    document.getElementById('fairFlag').classList.toggle('show', cat==='Transport'&&amt>15);
+  }
+  document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "@travala/backend-expense",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Expense & budget service - off-chain expense tracking, currency conversion, daily budget bar.",
+  "type": "commonjs",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "dotenv": "^17.4.2"
+  }
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>travala — settings</title>
+<style>
+  :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--teal-dark:#237a6e;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff;--amber:#c98a1a;--red:#c0392b}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .app{display:flex;min-height:100vh}
+  .side{width:240px;background:var(--white);border-right:1px solid var(--line-soft);padding:22px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;flex-shrink:0}
+  .wordmark{font-weight:600;letter-spacing:-0.03em;font-size:22px;position:relative;display:inline-block;padding:6px 8px 20px}
+  .wordmark .dot{position:absolute;width:5.5px;height:5.5px;border-radius:50%;background:var(--coral);top:8px;right:6px}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-size:14.5px;color:var(--ink-soft);margin-bottom:3px;transition:all .15s}
+  .nav-item .ic{font-size:18px;width:22px;text-align:center}
+  .nav-item:hover{background:var(--cream)}.nav-item.active{background:var(--ink);color:var(--cream);font-weight:500}
+  .side .spacer{flex:1}
+  .wallet-mini{background:var(--cream);border-radius:13px;padding:14px;font-size:13px}
+  .wallet-mini .row{display:flex;justify-content:space-between;align-items:center}
+  .wallet-mini .bal{font-weight:600;font-size:16px}.wallet-mini .addr{font-family:'SF Mono',monospace;font-size:12px;color:var(--ink-soft)}
+  .wallet-mini .mon{font-size:11px;color:var(--teal);background:rgba(47,158,143,0.1);padding:2px 7px;border-radius:100px}
+  .main{flex:1;padding:32px 40px 64px;max-width:760px;margin:0 auto;width:100%}
+  @media(max-width:900px){.side{display:none}.main{padding:24px 20px 60px}}
+  h1{font-size:26px;letter-spacing:-0.02em;font-weight:600;margin-bottom:24px}
+  .sec-label{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);margin:24px 0 12px}
+  .card{background:var(--white);border:1px solid var(--line-soft);border-radius:16px;padding:6px 22px}
+  .row{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--line-soft)}
+  .row:last-child{border-bottom:none}
+  .row .lbl{font-size:14.5px;font-weight:500}
+  .row .lbl small{display:block;font-weight:400;color:var(--ink-soft);font-size:12.5px;margin-top:2px;max-width:44ch}
+  .switch{position:relative;width:46px;height:26px;flex-shrink:0}
+  .switch input{opacity:0;width:0;height:0}
+  .slider{position:absolute;cursor:pointer;inset:0;background:var(--line);border-radius:100px;transition:.2s}
+  .slider:before{content:"";position:absolute;height:20px;width:20px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
+  input:checked+.slider{background:var(--teal)}input:checked+.slider:before{transform:translateX(20px)}
+  select{font-family:inherit;font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--cream)}
+  /* wallet card */
+  .wallet-card{background:var(--ink);color:var(--cream);border-radius:16px;padding:24px;margin-bottom:8px}
+  .wallet-card .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+  .wallet-card .bal-big{font-size:34px;font-weight:600;letter-spacing:-0.02em}
+  .wallet-card .bal-lbl{font-size:13px;color:#a8a394}
+  .wallet-card .addr-pill{font-family:'SF Mono',monospace;font-size:12px;background:rgba(247,245,239,0.1);padding:6px 12px;border-radius:100px}
+  .wallet-card .acts{display:flex;gap:10px}
+  .wc-btn{flex:1;font-family:inherit;font-size:13.5px;font-weight:500;padding:11px;border-radius:11px;border:none;cursor:pointer;text-align:center}
+  .wc-btn.fund{background:var(--coral);color:#fff}
+  .wc-btn.withdraw{background:rgba(247,245,239,0.12);color:var(--cream)}
+  .advisory-strip{font-size:12.5px;color:var(--teal-dark);background:rgba(47,158,143,0.1);border:1px solid rgba(47,158,143,0.2);border-radius:12px;padding:12px 15px;margin-bottom:20px;display:flex;gap:8px}
+  .danger-btn{font-family:inherit;font-size:13.5px;font-weight:500;color:var(--red);background:rgba(192,57,43,0.08);border:1px solid rgba(192,57,43,0.2);padding:9px 15px;border-radius:10px;cursor:pointer}
+  /* modal */
+  .modal-bg{position:fixed;inset:0;background:rgba(34,32,24,0.5);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--cream);border-radius:20px;padding:26px;width:100%;max-width:400px}
+  .modal h3{font-size:19px;font-weight:600;margin-bottom:6px}.modal p.sub{font-size:14px;color:var(--ink-soft);margin-bottom:18px}
+  .field{margin-bottom:14px}.field label{font-size:13px;font-weight:500;display:block;margin-bottom:6px}
+  .field input{width:100%;font-family:inherit;font-size:15px;padding:12px 14px;border:1px solid var(--line);border-radius:11px;background:var(--white)}
+  .field input:focus{outline:none;border-color:var(--coral)}
+  .advisory-note{font-size:12.5px;color:var(--teal-dark);background:rgba(47,158,143,0.1);padding:10px 12px;border-radius:10px;margin-bottom:16px;display:flex;gap:7px}
+  .manual-note{font-size:12.5px;color:var(--amber);background:rgba(201,138,26,0.1);padding:10px 12px;border-radius:10px;margin-bottom:16px;display:flex;gap:7px}
+  .btn{font-family:inherit;font-size:14.5px;font-weight:500;border-radius:12px;padding:13px;cursor:pointer;border:none;width:100%;justify-content:center;display:inline-flex;align-items:center;gap:8px}
+  .btn-primary{background:var(--coral);color:#fff}.btn-dark{background:var(--ink);color:var(--cream)}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border:none;font-size:13.5px;margin-top:6px}
+  .modal-actions{display:flex;gap:10px}.modal-actions .btn{flex:1}
+  .chain-spin{width:40px;height:40px;border:3px solid var(--line);border-top-color:var(--coral);border-radius:50%;animation:spin .8s linear infinite;margin:10px auto 14px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .wd-status{text-align:center}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="wordmark">travala<span class="dot"></span></div>
+    <a href="dashboard.html" class="nav-item"><span class="ic">▦</span>Dashboard</a>
+    <a href="guide.html" class="nav-item"><span class="ic">🧭</span>City guide</a>
+    <a href="help.html" class="nav-item"><span class="ic">🆘</span>Local help</a>
+    <a href="money.html" class="nav-item"><span class="ic">💸</span>Money</a>
+    <a href="recommendations.html" class="nav-item"><span class="ic">⭐</span>Rate &amp; recommend</a>
+    <div class="spacer"></div>
+    <a href="settings.html" class="nav-item active"><span class="ic">⚙️</span>Settings</a>
+    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div><div class="row"><span class="bal">1.9 MON</span></div></div></a>
+  </aside>
+
+  <main class="main">
+    <h1>Settings</h1>
+
+    <div class="sec-label">Wallet</div>
+    <div class="wallet-card">
+      <div class="top">
+        <div><div class="bal-big">1.9 MON</div><div class="bal-lbl">gas balance · Monad</div></div>
+        <span class="addr-pill">0x7a3f…e21b</span>
+      </div>
+      <div class="acts">
+        <button class="wc-btn fund" onclick="openFund()">Add MON</button>
+        <button class="wc-btn withdraw" onclick="openWithdraw()">Withdraw</button>
+      </div>
+    </div>
+    <div class="advisory-strip">◆ You only need about 50 MON for ratings — there's no need to keep more than that here.</div>
+
+    <div class="sec-label">Signing</div>
+    <div class="card">
+      <div class="row">
+        <div class="lbl">Auto-sign ratings <small>Skip the manual signature when you rate. Applies to ratings only — never to withdrawals or anything else. Recommended to reduce friction.</small></div>
+        <label class="switch"><input type="checkbox" id="autoSign" onchange="toggleAuto()"><span class="slider"></span></label>
+      </div>
+    </div>
+
+    <div class="sec-label">Preferences</div>
+    <div class="card">
+      <div class="row">
+        <div class="lbl">Home currency <small>Expenses are converted to this automatically.</small></div>
+        <select><option>GBP £</option><option>USD $</option><option>EUR €</option><option>NGN ₦</option></select>
+      </div>
+      <div class="row">
+        <div class="lbl">Home country <small>Used to show your nearest embassy in Local Help.</small></div>
+        <select><option>United Kingdom</option><option>United States</option><option>Nigeria</option><option>Portugal</option></select>
+      </div>
+      <div class="row">
+        <div class="lbl">Daily budget <small>You'll get a nudge as you approach it.</small></div>
+        <select><option>€60</option><option>€40</option><option>€80</option><option>€100</option></select>
+      </div>
+      <div class="row">
+        <div class="lbl">Budget &amp; tip notifications</div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+    </div>
+
+    <div class="sec-label">Your stamps</div>
+    <div class="card">
+      <a href="stamp.html" class="row" style="cursor:pointer"><div class="lbl">Lisbon, Portugal <small>Stamp NO. 014 · soulbound · tied to your wallet</small></div><span style="font-size:12px;color:var(--teal-dark)">◆ owned →</span></a>
+      <a href="stamp.html" class="row" style="cursor:pointer"><div class="lbl">Tokyo, Japan <small>Stamp NO. 027 · soulbound</small></div><span style="font-size:12px;color:var(--teal-dark)">◆ owned →</span></a>
+      <a href="stamp.html" class="row" style="cursor:pointer"><div class="lbl">Lagos, Nigeria <small>Stamp NO. 041 · soulbound</small></div><span style="font-size:12px;color:var(--teal-dark)">◆ owned →</span></a>
+    </div>
+
+    <div class="sec-label">Access</div>
+    <div class="card">
+      <div class="row">
+        <div class="lbl">Revoke app permissions <small>Removes Travala's ability to auto-sign ratings. You can re-grant anytime.</small></div>
+        <button class="danger-btn" onclick="alert('Auto-sign permission revoked. Ratings will require manual signing.')">Revoke</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Fund modal -->
+<div class="modal-bg" id="fundModal">
+  <div class="modal">
+    <h3>Add MON</h3>
+    <p class="sub">Send MON to your Travala wallet to cover rating fees.</p>
+    <div class="advisory-note">◆ You only need about 50 MON — sending more isn't necessary. Each rating costs just 0.1 MON.</div>
+    <div class="field"><label>Your wallet address</label><input type="text" value="0x7a3f…e21b" readonly></div>
+    <button class="btn btn-primary" onclick="closeM('fundModal')">Copy address</button>
+    <button class="btn btn-ghost" onclick="closeM('fundModal')">Close</button>
+  </div>
+</div>
+
+<!-- Withdraw modal (manual sign always) -->
+<div class="modal-bg" id="withdrawModal">
+  <div class="modal" id="wdBody">
+    <h3>Withdraw MON</h3>
+    <p class="sub">Move MON out of your Travala wallet.</p>
+    <div class="manual-note">🔒 Withdrawals always require a manual signature — auto-sign never applies here.</div>
+    <div class="field"><label>Amount</label><input type="number" placeholder="0.0" value="1.9"></div>
+    <div class="field"><label>Send to address</label><input type="text" placeholder="0x…"></div>
+    <button class="btn btn-dark" onclick="signWithdraw()">Sign &amp; withdraw</button>
+    <button class="btn btn-ghost" onclick="closeM('withdrawModal')">Cancel</button>
+  </div>
+  <div class="modal hidden" id="wdDone">
+    <div class="wd-status">
+      <div class="chain-spin" id="wdSpin"></div>
+      <div id="wdMsg" style="font-size:15px;font-weight:500">Signing &amp; sending…</div>
+      <div id="wdTx" style="font-family:'SF Mono',monospace;font-size:12.5px;color:var(--ink-soft);margin-top:6px"></div>
+      <button class="btn btn-primary hidden" id="wdClose" style="margin-top:20px" onclick="closeM('withdrawModal')">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleAuto(){
+    const on=document.getElementById('autoSign').checked;
+    window.__travalaAutoSign=on; // shared with recommendations page in-session
+  }
+  function openFund(){document.getElementById('fundModal').classList.add('show')}
+  function openWithdraw(){
+    document.getElementById('wdBody').classList.remove('hidden');
+    document.getElementById('wdDone').classList.add('hidden');
+    document.getElementById('withdrawModal').classList.add('show');
+  }
+  function closeM(id){document.getElementById(id).classList.remove('show')}
+  function signWithdraw(){
+    document.getElementById('wdBody').classList.add('hidden');
+    document.getElementById('wdDone').classList.remove('hidden');
+    setTimeout(()=>{
+      document.getElementById('wdSpin').style.display='none';
+      document.getElementById('wdMsg').textContent='Withdrawal confirmed';
+      document.getElementById('wdTx').textContent='tx 0x9c2e…f4a1';
+      document.getElementById('wdClose').classList.remove('hidden');
+    },2200);
+  }
+  document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+</script>
+</body>
+</html>

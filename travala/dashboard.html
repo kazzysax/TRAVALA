@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>travala — dashboard</title>
+<style>
+  :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--teal-dark:#237a6e;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff;--amber:#c98a1a}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+
+  /* ===== shared shell ===== */
+  .app{display:flex;min-height:100vh}
+  .side{width:240px;background:var(--white);border-right:1px solid var(--line-soft);padding:22px 16px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;flex-shrink:0}
+  .wordmark{font-weight:600;letter-spacing:-0.03em;font-size:22px;position:relative;display:inline-block;padding:6px 8px 20px}
+  .wordmark .dot{position:absolute;width:5.5px;height:5.5px;border-radius:50%;background:var(--coral);top:8px;right:6px}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-size:14.5px;font-weight:450;color:var(--ink-soft);margin-bottom:3px;transition:all .15s;cursor:pointer}
+  .nav-item .ic{font-size:18px;width:22px;text-align:center}
+  .nav-item:hover{background:var(--cream)}
+  .nav-item.active{background:var(--ink);color:var(--cream);font-weight:500}
+  .side .spacer{flex:1}
+  .wallet-mini{background:var(--cream);border-radius:13px;padding:14px;font-size:13px}
+  .wallet-mini .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .wallet-mini .bal{font-weight:600;font-size:16px}
+  .wallet-mini .addr{font-family:'SF Mono',monospace;font-size:12px;color:var(--ink-soft)}
+  .wallet-mini .mon{font-size:11px;color:var(--teal);background:rgba(47,158,143,0.1);padding:2px 7px;border-radius:100px}
+
+  .main{flex:1;padding:32px 40px 64px;max-width:1080px;margin:0 auto;width:100%}
+  .page-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;flex-wrap:wrap;gap:16px}
+  .greet h1{font-size:26px;letter-spacing:-0.02em;font-weight:600}
+  .greet .loc{font-size:14px;color:var(--ink-soft);display:flex;align-items:center;gap:7px;margin-top:4px}
+  .greet .loc .flag{font-size:16px}
+  .head-actions{display:flex;gap:10px}
+  .btn{font-family:inherit;font-size:14px;font-weight:500;border-radius:11px;padding:11px 16px;cursor:pointer;border:none;transition:all .18s;display:inline-flex;align-items:center;gap:8px}
+  .btn-primary{background:var(--coral);color:#fff}.btn-primary:hover{background:var(--coral-dark)}
+  .btn-dark{background:var(--ink);color:var(--cream)}.btn-dark:hover{opacity:.9}
+  .btn-ghost{background:var(--white);color:var(--ink);border:1px solid var(--line)}.btn-ghost:hover{border-color:var(--ink)}
+
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+  .card{background:var(--white);border:1px solid var(--line-soft);border-radius:16px;padding:22px}
+  .card h2{font-size:15px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+  .card h2 a{font-size:12.5px;color:var(--coral);font-weight:500}
+  .col-8{grid-column:span 8}.col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-12{grid-column:span 12}
+  @media(max-width:900px){.col-8,.col-4,.col-6{grid-column:span 12}.side{display:none}.main{padding:24px 20px 60px}}
+
+  /* budget */
+  .budget-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .budget-top .spent{font-size:30px;font-weight:600;letter-spacing:-0.02em}
+  .budget-top .of{font-size:14px;color:var(--ink-soft)}
+  .bar{height:9px;background:var(--cream-deep);border-radius:100px;overflow:hidden;margin:14px 0 8px}
+  .bar .fill{height:100%;background:var(--teal);border-radius:100px;transition:width .6s}
+  .budget-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
+  .budget-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;padding-top:18px;border-top:1px solid var(--line-soft)}
+  .bmini{font-size:13px;color:var(--ink-soft)}
+  .bmini .v{font-size:18px;font-weight:600;color:var(--ink);display:block}
+
+  /* quick scan */
+  .scan-card{background:var(--ink);color:var(--cream);border:none;position:relative;overflow:hidden}
+  .scan-card h2{color:var(--cream)}
+  .scan-card p{font-size:13.5px;color:#a8a394;margin-bottom:18px}
+  .scan-btn{background:var(--coral);color:#fff;width:100%;justify-content:center;font-size:14.5px;padding:13px}
+  .scan-icon{font-size:34px;margin-bottom:10px}
+
+  /* stamps */
+  .stamp-strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:4px}
+  .mini-stamp{flex-shrink:0;width:96px;height:96px;border-radius:13px;background:var(--ink);border:1.5px dashed rgba(232,98,46,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);position:relative}
+  .mini-stamp .c{font-size:14px;font-weight:600}
+  .mini-stamp .n{font-size:9px;color:var(--coral);font-family:'SF Mono',monospace;margin-top:6px}
+  .mini-stamp.add{background:var(--cream);border:1.5px dashed var(--line);color:var(--ink-soft);cursor:pointer}
+  .mini-stamp.add .plus{font-size:26px;font-weight:300}
+  .mini-stamp.add .lbl{font-size:10px;margin-top:2px}
+
+  /* events */
+  .ev{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .ev:last-child{border-bottom:none;padding-bottom:0}
+  .ev .date{flex-shrink:0;width:46px;text-align:center;background:var(--cream);border-radius:10px;padding:7px 0}
+  .ev .date .d{font-size:17px;font-weight:600;line-height:1}
+  .ev .date .m{font-size:10px;color:var(--ink-soft);text-transform:uppercase}
+  .ev .info .t{font-size:14px;font-weight:500}
+  .ev .info .sub{font-size:12.5px;color:var(--ink-soft)}
+
+  /* tips */
+  .tip{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .tip:last-child{border-bottom:none;padding-bottom:0}
+  .tip .av{width:34px;height:34px;border-radius:50%;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+  .tip .body{font-size:13.5px}
+  .tip .body .who{font-weight:500;font-size:12.5px;color:var(--ink-soft)}
+  .tip .body .verified{color:var(--teal);font-size:11px;margin-left:5px}
+
+  /* tip of day */
+  .totd{background:linear-gradient(0deg,var(--cream-deep),var(--cream-deep));border:1px solid var(--line-soft);border-radius:16px;padding:20px 22px}
+  .totd .k{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
+  .totd .txt{font-size:15px;line-height:1.5}
+
+  /* modal */
+  .modal-bg{position:fixed;inset:0;background:rgba(34,32,24,0.45);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--cream);border-radius:20px;padding:26px;width:100%;max-width:400px}
+  .modal h3{font-size:19px;font-weight:600;margin-bottom:6px}
+  .modal p.sub{font-size:14px;color:var(--ink-soft);margin-bottom:20px}
+  .field{margin-bottom:14px}
+  .field label{font-size:13px;font-weight:500;display:block;margin-bottom:6px}
+  .field input,.field select{width:100%;font-family:inherit;font-size:15px;padding:12px 14px;border:1px solid var(--line);border-radius:11px;background:var(--white)}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--coral)}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .flag-note{font-size:12.5px;color:var(--amber);background:rgba(201,138,26,0.1);padding:10px 12px;border-radius:10px;margin-bottom:16px;display:none;gap:7px}
+  .flag-note.show{display:flex}
+  .modal-actions{display:flex;gap:10px;margin-top:6px}
+  .modal-actions .btn{flex:1;justify-content:center}
+  .scan-sim{text-align:center;padding:10px 0}
+  .scan-frame{background:var(--ink);border-radius:14px;height:150px;display:flex;align-items:center;justify-content:center;color:#6b675c;font-size:13px;margin-bottom:16px;position:relative;overflow:hidden}
+  .scan-line{position:absolute;left:0;right:0;height:2px;background:var(--coral);animation:scanmove 1.6s ease-in-out infinite}
+  @keyframes scanmove{0%,100%{top:16px}50%{top:132px}}
+  .scan-result{text-align:left;font-size:13.5px;display:none}
+  .scan-result.show{display:block}
+  .scan-result .line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line-soft)}
+  .scan-result .orig{color:var(--ink-soft)}
+  .scan-result .tr{font-weight:500}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- SIDEBAR (shared) -->
+  <aside class="side">
+    <div class="wordmark">travala<span class="dot"></span></div>
+    <a href="dashboard.html" class="nav-item active"><span class="ic">▦</span>Dashboard</a>
+    <a href="guide.html" class="nav-item"><span class="ic">🧭</span>City guide</a>
+    <a href="help.html" class="nav-item"><span class="ic">🆘</span>Local help</a>
+    <a href="money.html" class="nav-item"><span class="ic">💸</span>Money</a>
+    <a href="recommendations.html" class="nav-item"><span class="ic">⭐</span>Rate &amp; recommend</a>
+    <div class="spacer"></div>
+    <a href="settings.html" class="nav-item"><span class="ic">⚙️</span>Settings</a>
+    <a href="settings.html" style="margin-top:8px">
+      <div class="wallet-mini">
+        <div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div>
+        <div class="row"><span class="bal">1.9 MON</span></div>
+      </div>
+    </a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-head">
+      <div class="greet">
+        <h1>Good afternoon, traveler</h1>
+        <div class="loc"><span class="flag">🇵🇹</span> You're in Lisbon, Portugal · sunny, 24°C</div>
+      </div>
+      <div class="head-actions">
+        <button class="btn btn-ghost" onclick="openScan()">📷 Quick scan</button>
+        <button class="btn btn-primary" onclick="openExpense()">＋ Add expense</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- budget -->
+      <div class="card col-8">
+        <h2>Today's spending <a href="money.html">View money →</a></h2>
+        <div class="budget-top">
+          <span class="spent">€38<span class="of" style="font-size:16px"> / €60</span></span>
+          <span class="of">63% of daily budget</span>
+        </div>
+        <div class="bar"><div class="fill" style="width:63%"></div></div>
+        <div class="budget-meta"><span>€22 left today</span><span>Trip: €412 / €800</span></div>
+        <div class="budget-split">
+          <div class="bmini"><span class="v">€18</span>Food &amp; drink</div>
+          <div class="bmini"><span class="v">€12</span>Transport</div>
+        </div>
+      </div>
+
+      <!-- quick scan -->
+      <div class="card col-4 scan-card">
+        <div class="scan-icon">📷</div>
+        <h2 style="margin-bottom:6px">Quick scan</h2>
+        <p>Point at a menu, sign, or poster — read it in English instantly.</p>
+        <button class="btn scan-btn" onclick="openScan()">Open scanner</button>
+      </div>
+
+      <!-- tip of day -->
+      <div class="col-12">
+        <div class="totd">
+          <div class="k">Local tip of the day</div>
+          <div class="txt">In Lisbon, a coffee means an <b>espresso (um café)</b> — order "um galão" if you want something closer to a latte. Locals drink it standing at the counter, which is cheaper than sitting.</div>
+        </div>
+      </div>
+
+      <!-- stamps -->
+      <div class="card col-12">
+        <h2>Your city stamps <a href="settings.html">3 cities visited</a></h2>
+        <div class="stamp-strip">
+          <a href="stamp.html" class="mini-stamp"><div class="c">Lisbon</div><div class="n">NO. 014</div></a>
+          <a href="stamp.html" class="mini-stamp"><div class="c">Tokyo</div><div class="n">NO. 027</div></a>
+          <a href="stamp.html" class="mini-stamp"><div class="c">Lagos</div><div class="n">NO. 041</div></a>
+          <a href="login.html" class="mini-stamp add"><span class="plus">+</span><span class="lbl">New city</span></a>
+        </div>
+      </div>
+
+      <!-- events -->
+      <div class="card col-6">
+        <h2>Happening soon <a href="guide.html">All events →</a></h2>
+        <div class="ev"><div class="date"><div class="d">17</div><div class="m">Jul</div></div><div class="info"><div class="t">Feira da Ladra flea market</div><div class="sub">Campo de Santa Clara · from 9:00</div></div></div>
+        <div class="ev"><div class="date"><div class="d">18</div><div class="m">Jul</div></div><div class="info"><div class="t">Fado night at Tasca do Chico</div><div class="sub">Bairro Alto · 21:30 · no cover</div></div></div>
+        <div class="ev"><div class="date"><div class="d">20</div><div class="m">Jul</div></div><div class="info"><div class="t">Sunset at Miradouro da Graça</div><div class="sub">Free · arrive by 20:00</div></div></div>
+      </div>
+
+      <!-- community tips -->
+      <div class="card col-6">
+        <h2>Community tips <a href="guide.html">More →</a></h2>
+        <div class="tip"><div class="av">🚋</div><div class="body"><div>Skip the tourist Tram 28 queue — catch it at Prazeres (the end) for a seat.<div class="who">— wanderjules <span class="verified">◆ verified local</span></div></div></div></div>
+        <div class="tip"><div class="av">🏧</div><div class="body"><div>Use Multibanco ATMs, not the blue Euronet ones — no junk fees.<div class="who">— tomtravels <span class="verified">◆ verified traveler</span></div></div></div></div>
+        <div class="tip"><div class="av">🍮</div><div class="body"><div>Manteigaria beats the famous Belém queue for pastéis de nata, honestly.<div class="who">— mariaeats</div></div></div></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Add expense modal -->
+<div class="modal-bg" id="expenseModal">
+  <div class="modal">
+    <h3>Add expense</h3>
+    <p class="sub">Logged in your home currency automatically.</p>
+    <div class="field"><label>What was it?</label><input type="text" placeholder="Taxi from airport" id="expDesc"></div>
+    <div class="field-row">
+      <div class="field"><label>Amount</label><input type="number" placeholder="0.00" id="expAmt" oninput="checkFair()"></div>
+      <div class="field"><label>Currency</label><select id="expCur"><option>EUR €</option><option>USD $</option><option>GBP £</option></select></div>
+    </div>
+    <div class="field"><label>Category</label><select id="expCat" onchange="checkFair()"><option>Food &amp; drink</option><option>Transport</option><option>Lodging</option><option>Activities</option></select></div>
+    <div class="flag-note" id="fairFlag">⚠️ That's high for a taxi in Lisbon — a fair fare from the center is usually €6–10. Double-check you're not being overcharged.</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('expenseModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="closeModal('expenseModal')">Save expense</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scan modal -->
+<div class="modal-bg" id="scanModal">
+  <div class="modal">
+    <h3>Quick scan</h3>
+    <p class="sub" id="scanSub">Point at a menu, sign, or poster.</p>
+    <div class="scan-sim">
+      <div class="scan-frame" id="scanFrame"><div class="scan-line"></div>Reading menu…</div>
+      <div class="scan-result" id="scanResult">
+        <div class="line"><span class="orig">Bacalhau à Brás</span><span class="tr">Shredded cod, egg &amp; potato</span></div>
+        <div class="line"><span class="orig">Bifana</span><span class="tr">Pork sandwich</span></div>
+        <div class="line"><span class="orig">Imperial</span><span class="tr">Small draft beer</span></div>
+        <div class="line"><span class="orig">Conta, por favor</span><span class="tr">The bill, please</span></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('scanModal')">Close</button>
+      <button class="btn btn-primary" onclick="closeModal('scanModal')" id="scanSave" style="display:none">Save translation</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openExpense(){document.getElementById('expenseModal').classList.add('show')}
+  function closeModal(id){document.getElementById(id).classList.remove('show')}
+  function checkFair(){
+    const amt=parseFloat(document.getElementById('expAmt').value||0);
+    const cat=document.getElementById('expCat').value;
+    document.getElementById('fairFlag').classList.toggle('show', cat==='Transport'&&amt>15);
+  }
+  function openScan(){
+    const m=document.getElementById('scanModal');m.classList.add('show');
+    document.getElementById('scanFrame').style.display='flex';
+    document.getElementById('scanResult').classList.remove('show');
+    document.getElementById('scanSave').style.display='none';
+    document.getElementById('scanSub').textContent='Reading…';
+    setTimeout(()=>{
+      document.getElementById('scanFrame').style.display='none';
+      document.getElementById('scanResult').classList.add('show');
+      document.getElementById('scanSub').textContent='Menu translated to English';
+      document.getElementById('scanSave').style.display='inline-flex';
+    },2000);
+  }
+  document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+</script>
+</body>
+</html>

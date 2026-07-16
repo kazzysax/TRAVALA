@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>travala — getting you set up</title>
+<style>
+  :root{
+    --ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;
+    --cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--line:#e2ddd0;
+    --line-soft:#ebe7db;--white:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+  .wordmark{font-weight:600;letter-spacing:-0.03em;font-size:22px;color:var(--ink);position:relative;display:inline-block}
+  .wordmark .dot{position:absolute;width:5.5px;height:5.5px;border-radius:50%;background:var(--coral);top:2px;right:8px}
+  .top{height:64px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line-soft)}
+  .stage{max-width:460px;margin:0 auto;padding:48px 24px 64px;min-height:calc(100vh - 64px);display:flex;flex-direction:column;justify-content:center}
+
+  /* progress dots */
+  .prog{display:flex;gap:8px;justify-content:center;margin-bottom:40px}
+  .prog i{width:34px;height:4px;border-radius:100px;background:var(--line);transition:background .3s}
+  .prog i.on{background:var(--coral)}
+  .prog i.done{background:var(--teal)}
+
+  .panel{text-align:center}
+  h1{font-size:28px;letter-spacing:-0.03em;font-weight:600;margin-bottom:12px;line-height:1.15}
+  .sub{font-size:16px;color:var(--ink-soft);margin-bottom:36px}
+
+  /* wallet creation animation */
+  .orb{width:120px;height:120px;margin:0 auto 32px;position:relative;display:flex;align-items:center;justify-content:center}
+  .orb .ring{position:absolute;border-radius:50%;border:2px solid var(--line)}
+  .orb .r1{inset:0;border-top-color:var(--coral);animation:spin 1.4s linear infinite}
+  .orb .r2{inset:16px;border-right-color:var(--teal);animation:spin 2s linear infinite reverse}
+  .orb .core{width:56px;height:56px;border-radius:16px;background:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:26px;color:var(--cream);position:relative}
+  .orb .core .cdot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--coral);top:12px;right:13px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .wallet-ready{width:120px;height:120px;margin:0 auto 32px;border-radius:50%;background:rgba(47,158,143,0.1);display:flex;align-items:center;justify-content:center;font-size:52px;color:var(--teal)}
+
+  .addr{font-family:'SF Mono',ui-monospace,monospace;font-size:14px;background:var(--white);border:1px solid var(--line-soft);border-radius:12px;padding:14px 18px;display:inline-flex;align-items:center;gap:10px;margin-bottom:8px}
+  .addr .chip{font-size:11px;background:var(--cream-deep);padding:3px 8px;border-radius:100px;color:var(--ink-soft)}
+  .fund-note{font-size:13.5px;color:var(--teal);margin-bottom:32px;display:flex;gap:7px;align-items:center;justify-content:center}
+
+  .btn{font-family:inherit;font-size:15.5px;font-weight:500;border-radius:12px;padding:14px 24px;cursor:pointer;border:none;transition:all .18s;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+  .btn-primary{background:var(--coral);color:#fff}
+  .btn-primary:hover{background:var(--coral-dark)}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border:none;font-size:14px;padding:10px;margin-top:4px}
+  .btn-ghost:hover{color:var(--ink)}
+
+  /* advisory card */
+  .advisory{background:var(--white);border:1px solid var(--line-soft);border-radius:16px;padding:24px;text-align:left;margin-bottom:24px}
+  .advisory .head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .advisory .ico{width:40px;height:40px;border-radius:11px;background:rgba(232,98,46,0.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .advisory h3{font-size:16px;font-weight:600}
+  .advisory p{font-size:14px;color:var(--ink-soft);margin-bottom:16px}
+  .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--cream);border-radius:12px}
+  .toggle-row .lbl{font-size:14px;font-weight:500}
+  .toggle-row .lbl small{display:block;font-weight:400;color:var(--ink-soft);font-size:12.5px}
+  .switch{position:relative;width:46px;height:26px;flex-shrink:0}
+  .switch input{opacity:0;width:0;height:0}
+  .slider{position:absolute;cursor:pointer;inset:0;background:var(--line);border-radius:100px;transition:.2s}
+  .slider:before{content:"";position:absolute;height:20px;width:20px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
+  input:checked+.slider{background:var(--teal)}
+  input:checked+.slider:before{transform:translateX(20px)}
+  .advisory .tip{font-size:12.5px;color:var(--ink-soft);margin-top:14px;display:flex;gap:6px}
+
+  /* location step */
+  .city-search{position:relative;margin-bottom:16px}
+  .city-search input{width:100%;font-family:inherit;font-size:16px;padding:15px 18px 15px 46px;border:1px solid var(--line);border-radius:13px;background:var(--white);color:var(--ink)}
+  .city-search input:focus{outline:none;border-color:var(--coral)}
+  .city-search .pin{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px;opacity:.5}
+  .city-list{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
+  .city-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--white);border:1px solid var(--line-soft);border-radius:13px;cursor:pointer;transition:all .15s;text-align:left}
+  .city-opt:hover{border-color:var(--coral)}
+  .city-opt.sel{border-color:var(--coral);background:rgba(232,98,46,0.04)}
+  .city-opt .flag{font-size:26px}
+  .city-opt .nm{font-weight:500;font-size:15px}
+  .city-opt .cn{font-size:13px;color:var(--ink-soft)}
+  .city-opt .chk{margin-left:auto;color:var(--coral);font-size:18px;opacity:0}
+  .city-opt.sel .chk{opacity:1}
+  .loc-btn{font-size:13.5px;color:var(--teal);background:none;border:none;cursor:pointer;display:inline-flex;gap:7px;align-items:center;margin:4px auto 28px}
+
+  /* minting */
+  .stamp-mint{width:180px;height:180px;margin:0 auto 28px;border-radius:20px;background:var(--ink);border:2px dashed rgba(232,98,46,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);position:relative;box-shadow:0 24px 50px -22px rgba(34,32,24,0.5)}
+  .stamp-mint .ring{position:absolute;inset:14px;border:1.5px solid rgba(247,245,239,0.15);border-radius:14px}
+  .stamp-mint .city{font-size:26px;font-weight:600;letter-spacing:-0.02em}
+  .stamp-mint .country{font-size:12px;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-top:6px}
+  .stamp-mint .no{font-size:12px;color:var(--coral);margin-top:18px;font-family:'SF Mono',monospace}
+  .mint-status{font-family:'SF Mono',monospace;font-size:13px;color:var(--ink-soft);display:flex;gap:9px;align-items:center;justify-content:center;margin-bottom:28px}
+  .mint-status .spin{width:13px;height:13px;border:2px solid var(--line);border-top-color:var(--coral);border-radius:50%;animation:spin .8s linear infinite}
+  .mint-status.ok{color:var(--teal)}
+
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="top"><div class="wordmark">travala<span class="dot"></span></div></div>
+
+<div class="stage">
+  <div class="prog">
+    <i id="p1" class="on"></i><i id="p2"></i><i id="p3"></i>
+  </div>
+
+  <!-- STEP 1: creating wallet -->
+  <div class="panel" id="step1">
+    <div class="orb">
+      <div class="ring r1"></div><div class="ring r2"></div>
+      <div class="core">t<span class="cdot"></span></div>
+    </div>
+    <h1>Setting up your travel wallet</h1>
+    <p class="sub">No seed phrase, no downloads. We're creating a secure wallet for you — this takes a second.</p>
+  </div>
+
+  <!-- STEP 1b: wallet ready + advisory -->
+  <div class="panel hidden" id="step1b">
+    <div class="wallet-ready">✓</div>
+    <h1>You're all set</h1>
+    <p class="sub">Your wallet is ready and we've covered your gas to get started.</p>
+    <div class="addr">0x7a3f…e21b <span class="chip">your wallet</span></div>
+    <div class="fund-note">◆ 2 MON added for you · you're traveler #14 this month</div>
+
+    <div class="advisory">
+      <div class="head">
+        <div class="ico">✍️</div>
+        <h3>Rating made effortless</h3>
+      </div>
+      <p>By default, you'll approve each rating with a quick signature. Turn on auto-sign and your ratings post instantly — no repeated taps. It only ever applies to ratings, nothing else.</p>
+      <div class="toggle-row">
+        <div class="lbl">Auto-sign ratings <small>Recommended — skip the taps</small></div>
+        <label class="switch"><input type="checkbox" id="autoSign"><span class="slider"></span></label>
+      </div>
+      <div class="tip">💡 You can change this anytime in Settings. Withdrawals always need a manual signature.</div>
+    </div>
+
+    <button class="btn btn-primary" onclick="goStep2()">Continue →</button>
+  </div>
+
+  <!-- STEP 2: set location -->
+  <div class="panel hidden" id="step2">
+    <h1>Where are you right now?</h1>
+    <p class="sub">This loads your city guide and mints your first stamp. You can change cities anytime.</p>
+    <div class="city-search">
+      <span class="pin">📍</span>
+      <input type="text" placeholder="Search a city…" id="citySearch" oninput="filterCities()">
+    </div>
+    <button class="loc-btn" onclick="useLocation()">◎ Use my current location</button>
+    <div class="city-list" id="cityList">
+      <button class="city-opt" data-city="Lisbon" data-country="Portugal" data-flag="🇵🇹" onclick="selCity(this)">
+        <span class="flag">🇵🇹</span><div><div class="nm">Lisbon</div><div class="cn">Portugal</div></div><span class="chk">✓</span>
+      </button>
+      <button class="city-opt" data-city="Tokyo" data-country="Japan" data-flag="🇯🇵" onclick="selCity(this)">
+        <span class="flag">🇯🇵</span><div><div class="nm">Tokyo</div><div class="cn">Japan</div></div><span class="chk">✓</span>
+      </button>
+      <button class="city-opt" data-city="Lagos" data-country="Nigeria" data-flag="🇳🇬" onclick="selCity(this)">
+        <span class="flag">🇳🇬</span><div><div class="nm">Lagos</div><div class="cn">Nigeria</div></div><span class="chk">✓</span>
+      </button>
+      <button class="city-opt" data-city="Mexico City" data-country="Mexico" data-flag="🇲🇽" onclick="selCity(this)">
+        <span class="flag">🇲🇽</span><div><div class="nm">Mexico City</div><div class="cn">Mexico</div></div><span class="chk">✓</span>
+      </button>
+    </div>
+    <button class="btn btn-primary" id="mintBtn" style="margin-top:16px;opacity:.5;pointer-events:none" onclick="goStep3()">Set city &amp; mint stamp →</button>
+  </div>
+
+  <!-- STEP 3: minting -->
+  <div class="panel hidden" id="step3">
+    <div class="stamp-mint">
+      <div class="ring"></div>
+      <div class="city" id="mCity">Lisbon</div>
+      <div class="country" id="mCountry">Portugal</div>
+      <div class="no" id="mNo">NO. 014</div>
+    </div>
+    <div class="mint-status" id="mintStatus"><span class="spin"></span> minting your soulbound stamp…</div>
+    <button class="btn btn-primary hidden" id="enterBtn" onclick="enterApp()">Enter Travala →</button>
+  </div>
+</div>
+
+<script>
+  // Step 1 -> 1b after "creating wallet"
+  setTimeout(()=>{
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step1b').classList.remove('hidden');
+    document.getElementById('p1').classList.replace('on','done');
+    document.getElementById('p2').classList.add('on');
+  }, 2400);
+
+  function goStep2(){
+    document.getElementById('step1b').classList.add('hidden');
+    document.getElementById('step2').classList.remove('hidden');
+    document.getElementById('p2').classList.replace('on','done');
+    document.getElementById('p3').classList.add('on');
+  }
+
+  let picked=null;
+  function selCity(el){
+    document.querySelectorAll('.city-opt').forEach(o=>o.classList.remove('sel'));
+    el.classList.add('sel');
+    picked={city:el.dataset.city,country:el.dataset.country,flag:el.dataset.flag};
+    const b=document.getElementById('mintBtn');
+    b.style.opacity='1';b.style.pointerEvents='auto';
+  }
+  function filterCities(){
+    const q=document.getElementById('citySearch').value.toLowerCase();
+    document.querySelectorAll('.city-opt').forEach(o=>{
+      const m=o.dataset.city.toLowerCase().includes(q)||o.dataset.country.toLowerCase().includes(q);
+      o.style.display=m?'flex':'none';
+    });
+  }
+  function useLocation(){
+    // simulate geolocation resolving to Lisbon
+    const el=document.querySelector('.city-opt[data-city="Lisbon"]');
+    selCity(el);
+    document.getElementById('citySearch').value='Lisbon';
+  }
+
+  function goStep3(){
+    if(!picked)return;
+    document.getElementById('step2').classList.add('hidden');
+    document.getElementById('step3').classList.remove('hidden');
+    document.getElementById('mCity').textContent=picked.city;
+    document.getElementById('mCountry').textContent=picked.country;
+    // mint sim
+    setTimeout(()=>{
+      const s=document.getElementById('mintStatus');
+      s.classList.add('ok');
+      s.innerHTML='◆ stamp minted · tied to 0x7a3f…e21b';
+      document.getElementById('enterBtn').classList.remove('hidden');
+    }, 2600);
+  }
+  function enterApp(){ window.location.href='dashboard.html'; }
+</script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>travala — travel like you belong</title>
+<style>
+  :root{
+    --ink:#222018;
+    --ink-soft:#4a463b;
+    --coral:#E8622E;
+    --coral-dark:#c44e20;
+    --cream:#F7F5EF;
+    --cream-deep:#efece2;
+    --teal:#2F9E8F;
+    --line:#e2ddd0;
+    --line-soft:#ebe7db;
+    --white:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  /* ---- wordmark ---- */
+  .wordmark{font-weight:600;letter-spacing:-0.03em;font-size:24px;color:var(--ink);position:relative;display:inline-block}
+  .wordmark .dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--coral);top:3px;right:9px}
+  .mark-t{font-weight:600;font-size:24px;color:var(--ink);position:relative;display:inline-block;letter-spacing:-0.03em}
+  .mark-t .dot{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--coral);top:2px;right:-3px}
+
+  /* ---- nav ---- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(247,245,239,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .nav-links{display:flex;gap:32px;align-items:center}
+  .nav-links a{color:var(--ink-soft);text-decoration:none;font-size:14.5px;font-weight:450;transition:color .15s}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{font-family:inherit;font-size:14.5px;font-weight:500;border-radius:10px;padding:11px 20px;cursor:pointer;border:none;transition:all .18s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+  .btn-primary{background:var(--coral);color:#fff}
+  .btn-primary:hover{background:var(--coral-dark);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--ink);background:var(--white)}
+  @media(max-width:720px){.nav-links .hide-sm{display:none}}
+
+  /* ---- hero ---- */
+  .hero{padding:96px 0 80px;position:relative;overflow:hidden}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--teal);background:rgba(47,158,143,0.1);padding:6px 14px;border-radius:100px;margin-bottom:28px}
+  .eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-size:60px;line-height:1.04;letter-spacing:-0.035em;font-weight:600;max-width:15ch;margin-bottom:24px}
+  h1 .accent{color:var(--coral);position:relative}
+  .hero p.lead{font-size:19px;color:var(--ink-soft);max-width:52ch;margin-bottom:36px;line-height:1.55}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-note{font-size:13.5px;color:var(--ink-soft);margin-top:20px;display:flex;align-items:center;gap:8px}
+  @media(max-width:720px){h1{font-size:40px}.hero{padding:64px 0 56px}}
+
+  /* floating stamp cards in hero */
+  .stamps{position:absolute;right:-40px;top:80px;display:none}
+  @media(min-width:1000px){.stamps{display:block}}
+  .stamp{position:absolute;width:150px;height:150px;border-radius:16px;background:var(--ink);border:2px dashed rgba(232,98,46,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);box-shadow:0 20px 40px -18px rgba(34,32,24,0.45)}
+  .stamp .city{font-size:20px;font-weight:600;letter-spacing:-0.02em}
+  .stamp .country{font-size:12px;color:var(--teal);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px}
+  .stamp .no{font-size:11px;color:var(--coral);margin-top:14px;font-family:'SF Mono',monospace}
+  .stamp .ring{position:absolute;inset:12px;border:1.5px solid rgba(247,245,239,0.15);border-radius:10px}
+  .stamp.s1{transform:rotate(-8deg);top:0;right:180px}
+  .stamp.s2{transform:rotate(6deg);top:120px;right:20px;background:#2a2820}
+  .stamp.s3{transform:rotate(-3deg);top:250px;right:150px;background:#1c1a14}
+
+  /* ---- trust strip ---- */
+  .trust{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:22px 0;background:var(--cream-deep)}
+  .trust-inner{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;font-size:14px;color:var(--ink-soft)}
+  .trust-inner span{display:flex;align-items:center;gap:9px}
+  .trust-inner b{color:var(--ink);font-weight:600}
+
+  /* ---- features ---- */
+  .section{padding:88px 0}
+  .section-head{max-width:60ch;margin-bottom:56px}
+  .section-head .kicker{font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:14px}
+  .section-head h2{font-size:38px;letter-spacing:-0.03em;font-weight:600;line-height:1.1;margin-bottom:16px}
+  .section-head p{font-size:17px;color:var(--ink-soft)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--white);border:1px solid var(--line-soft);border-radius:18px;padding:30px 28px;transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 24px 48px -24px rgba(34,32,24,0.22)}
+  .card .ico{width:46px;height:46px;border-radius:12px;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px}
+  .card h3{font-size:19px;font-weight:600;letter-spacing:-0.02em;margin-bottom:10px}
+  .card p{font-size:15px;color:var(--ink-soft);line-height:1.6}
+  .card .tag{display:inline-block;margin-top:16px;font-size:12px;font-weight:500;color:var(--teal);background:rgba(47,158,143,0.1);padding:4px 11px;border-radius:100px}
+
+  /* ---- how it works ---- */
+  .how{background:var(--ink);color:var(--cream);border-radius:28px;padding:64px 56px;margin:20px 0}
+  .how h2{font-size:34px;letter-spacing:-0.03em;font-weight:600;margin-bottom:8px;color:#fff}
+  .how .sub{color:#a8a394;font-size:16px;margin-bottom:48px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:step}
+  @media(max-width:860px){.steps{grid-template-columns:1fr 1fr}.how{padding:44px 28px}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+  .step{position:relative}
+  .step .num{font-family:'SF Mono',monospace;font-size:13px;color:var(--coral);margin-bottom:14px;font-weight:500}
+  .step h4{font-size:17px;font-weight:600;margin-bottom:8px;color:#fff}
+  .step p{font-size:14px;color:#a8a394;line-height:1.55}
+  .step:not(:last-child):after{content:"";position:absolute;top:6px;right:-10px;width:1px;height:calc(100% + 10px);background:rgba(247,245,239,0.08)}
+
+  /* ---- onchain callout ---- */
+  .onchain{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center}
+  @media(max-width:860px){.onchain{grid-template-columns:1fr;gap:32px}}
+  .onchain h2{font-size:36px;letter-spacing:-0.03em;font-weight:600;line-height:1.1;margin-bottom:18px}
+  .onchain p{font-size:16.5px;color:var(--ink-soft);margin-bottom:16px}
+  .onchain ul{list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:14px}
+  .onchain li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;color:var(--ink-soft)}
+  .onchain li .check{color:var(--teal);font-weight:700;flex-shrink:0}
+  .rating-demo{background:var(--white);border:1px solid var(--line-soft);border-radius:20px;padding:28px;box-shadow:0 24px 60px -30px rgba(34,32,24,0.3)}
+  .rating-demo .svc{display:flex;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--line-soft);margin-bottom:18px}
+  .rating-demo .avatar{width:44px;height:44px;border-radius:12px;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;font-size:20px}
+  .rating-demo .svc-name{font-weight:600;font-size:15px}
+  .rating-demo .svc-meta{font-size:13px;color:var(--ink-soft)}
+  .stars{display:flex;gap:5px;margin-bottom:18px}
+  .stars span{font-size:26px;color:var(--coral);cursor:pointer;transition:transform .1s}
+  .stars span:hover{transform:scale(1.15)}
+  .stars span.off{color:var(--line)}
+  .chain-status{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--teal);background:rgba(47,158,143,0.08);padding:12px 16px;border-radius:12px;font-family:'SF Mono',monospace}
+  .chain-status .spin{width:14px;height:14px;border:2px solid rgba(47,158,143,0.3);border-top-color:var(--teal);border-radius:50%;animation:spin 0.8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---- final cta ---- */
+  .final{text-align:center;padding:96px 0}
+  .final h2{font-size:46px;letter-spacing:-0.035em;font-weight:600;margin-bottom:18px;line-height:1.05}
+  .final p{font-size:18px;color:var(--ink-soft);margin-bottom:32px;max-width:46ch;margin-left:auto;margin-right:auto}
+  @media(max-width:720px){.final h2{font-size:34px}}
+
+  /* ---- footer ---- */
+  footer{border-top:1px solid var(--line-soft);padding:40px 0;background:var(--cream-deep)}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+  .foot-inner .tiny{font-size:13px;color:var(--ink-soft)}
+  .foot-links{display:flex;gap:24px}
+  .foot-links a{color:var(--ink-soft);text-decoration:none;font-size:13.5px}
+  .foot-links a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="wordmark">travala<span class="dot"></span></div>
+    <div class="nav-links">
+      <a href="#features" class="hide-sm">Features</a>
+      <a href="#how" class="hide-sm">How it works</a>
+      <a href="#onchain" class="hide-sm">Ratings</a>
+      <a href="login.html" class="btn btn-primary">Start exploring</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="pulse"></span>Real ratings, stored onchain</div>
+    <h1>Travel like you <span class="accent">belong</span> there.</h1>
+    <p class="lead">Travala helps you find your feet in a new city — how to get around, what things should cost, what to say — and keeps your spending in check. Every place you visit becomes a collectible stamp you truly own.</p>
+    <div class="hero-cta">
+      <a href="login.html" class="btn btn-primary">Start exploring →</a>
+      <a href="#how" class="btn btn-ghost">See how it works</a>
+    </div>
+    <div class="hero-note">
+      <span style="color:var(--teal)">◆</span> No seed phrase. First 20 travelers each month get gas covered.
+    </div>
+  </div>
+  <div class="stamps">
+    <div class="stamp s1"><div class="ring"></div><div class="city">Lisbon</div><div class="country">Portugal</div><div class="no">NO. 014</div></div>
+    <div class="stamp s2"><div class="ring"></div><div class="city">Tokyo</div><div class="country">Japan</div><div class="no">NO. 027</div></div>
+    <div class="stamp s3"><div class="ring"></div><div class="city">Lagos</div><div class="country">Nigeria</div><div class="no">NO. 041</div></div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="wrap trust-inner">
+    <span><b>3</b> tools in one — guide, help, money</span>
+    <span><b>Offline</b>-ready per city</span>
+    <span><b>Soulbound</b> city stamps</span>
+    <span>Built on <b>Monad</b></span>
+  </div>
+</div>
+
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">What's inside</div>
+      <h2>Everything you need to function in an unfamiliar place.</h2>
+      <p>Three problems every traveler hits — fitting in, getting help fast, and not overspending — solved in one app that works even when your signal doesn't.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">🧭</div>
+        <h3>City guide</h3>
+        <p>Etiquette, neighborhoods, daily rhythms, and how locals actually get around and pay. The unwritten rules nobody tells you.</p>
+        <span class="tag">Local etiquette · phrases · transit</span>
+      </div>
+      <div class="card">
+        <div class="ico">🆘</div>
+        <h3>Real-time local help</h3>
+        <p>Survival phrase translator, fair taxi fares so you're never overcharged, emergency numbers and scam warnings — all downloadable per city.</p>
+        <span class="tag">Works offline</span>
+      </div>
+      <div class="card">
+        <div class="ico">💸</div>
+        <h3>Money that keeps up</h3>
+        <p>Log expenses in any currency, track your budget, and get a nudge when a price looks high for where you are.</p>
+        <span class="tag">Multi-currency · fair-price flag</span>
+      </div>
+      <div class="card">
+        <div class="ico">📷</div>
+        <h3>Quick scan</h3>
+        <p>Point your camera at a menu, sign, or poster and read it in your own language on the spot.</p>
+        <span class="tag">Menu · signs · posters</span>
+      </div>
+      <div class="card">
+        <div class="ico">⭐</div>
+        <h3>Onchain ratings</h3>
+        <p>Rate the cab or restaurant you actually used. Ratings live onchain, so no one can fake or bury them — and the next traveler gets the truth.</p>
+        <span class="tag">Tamper-resistant</span>
+      </div>
+      <div class="card">
+        <div class="ico">🎫</div>
+        <h3>City stamps you own</h3>
+        <p>Set your location and mint a soulbound NFT stamp for that city. A permanent, un-fakeable record of where you've been.</p>
+        <span class="tag">One per city</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how" style="padding-top:20px">
+  <div class="wrap">
+    <div class="how">
+      <h2>From stranger to local in four steps.</h2>
+      <p class="sub">No crypto experience needed. The wallet is created for you.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="num">STEP 01</div>
+          <h4>Start</h4>
+          <p>Tap once and a wallet is created for you — no seed phrase, no extension, nothing to install.</p>
+        </div>
+        <div class="step">
+          <div class="num">STEP 02</div>
+          <h4>Set your city</h4>
+          <p>Pick where you are and mint your soulbound city stamp, tied to your wallet.</p>
+        </div>
+        <div class="step">
+          <div class="num">STEP 03</div>
+          <h4>Explore</h4>
+          <p>Lean on the guide, local help, and money tools to move through the city like you know it.</p>
+        </div>
+        <div class="step">
+          <div class="num">STEP 04</div>
+          <h4>Rate</h4>
+          <p>Used a great cab or a bad one? Rate it. Your take goes onchain for the next traveler.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="onchain">
+  <div class="wrap onchain">
+    <div>
+      <div class="kicker" style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:14px">Why onchain</div>
+      <h2>Reviews you can trust, because no one can rig them.</h2>
+      <p>Regular review sites can be gamed — businesses buy fake stars and delete the bad ones. Travala writes every rating to the blockchain, tied to a real traveler's wallet.</p>
+      <ul>
+        <li><span class="check">✓</span> Ratings can't be edited, hidden, or bought after the fact</li>
+        <li><span class="check">✓</span> Each comes from a wallet with a real travel history</li>
+        <li><span class="check">✓</span> Rate manually, or switch on auto-sign to skip the taps</li>
+        <li><span class="check">✓</span> Tiny 0.1 MON network fee per rating — that's it, no payments anywhere else</li>
+      </ul>
+    </div>
+    <div class="rating-demo">
+      <div class="svc">
+        <div class="avatar">🚕</div>
+        <div>
+          <div class="svc-name">Miguel's Airport Transfer</div>
+          <div class="svc-meta">Lisbon · 128 onchain ratings</div>
+        </div>
+      </div>
+      <div class="stars" id="demoStars">
+        <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5" class="off">★</span>
+      </div>
+      <div class="chain-status" id="chainStatus">
+        <span class="spin"></span> pushing rating to chain…
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <div class="mark-t" style="font-size:40px;margin-bottom:24px">t<span class="dot"></span></div>
+    <h2>Your next city is waiting.</h2>
+    <p>Join Travala and turn every trip into something you carry with you — literally.</p>
+    <a href="login.html" class="btn btn-primary" style="font-size:16px;padding:14px 28px">Start exploring →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>
+      <div class="wordmark" style="font-size:20px">travala<span class="dot" style="top:2px;right:7px"></span></div>
+      <div class="tiny" style="margin-top:6px">Travel like you belong. Built on Monad.</div>
+    </div>
+    <div class="foot-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#onchain">Ratings</a>
+      <a href="login.html">Start exploring</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // hero rating demo: cycle the "pushing to chain" -> "confirmed" state
+  const status = document.getElementById('chainStatus');
+  function confirmChain(){
+    status.innerHTML = '<span style="color:var(--teal)">◆</span> confirmed · 0x7a3f…e21b';
+  }
+  setTimeout(confirmChain, 2600);
+
+  // interactive stars
+  const stars = document.querySelectorAll('#demoStars span');
+  stars.forEach(s=>{
+    s.addEventListener('click', ()=>{
+      const v = +s.dataset.v;
+      stars.forEach(x=> x.classList.toggle('off', +x.dataset.v > v));
+      status.innerHTML = '<span class="spin"></span> pushing rating to chain…';
+      setTimeout(confirmChain, 1800);
+    });
+  });
+</script>
+
+</body>
+</html>

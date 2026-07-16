@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "city": "Lisbon",
+  "country": "Portugal",
+  "etiquette": [
+    { "title": "Greetings", "text": "A handshake is standard; close friends do two cheek kisses." },
+    { "title": "Dining pace", "text": "Meals run long and unhurried - don't expect the bill until you ask for it." },
+    { "title": "Tipping", "text": "Not obligatory; rounding up or 5-10% for good service is generous." }
+  ],
+  "neighborhoods": [
+    { "name": "Graça & Mouraria", "tag": "Local", "description": "Where Lisboetas actually live. Cheaper food, real neighborhood feel, some of the best viewpoints." },
+    { "name": "Baixa & Chiado", "tag": "Central", "description": "The postcard center - grand squares, shopping, easy walking, busiest with visitors." },
+    { "name": "Alfama", "tag": "Historic", "description": "The oldest district, steep and narrow, fado music spilling out of small bars at night." }
+  ],
+  "phrases": [
+    { "en": "Hello / good day", "local": "Olá / Bom dia", "phonetic": "oh-LAH / bong DEE-ah" },
+    { "en": "Thank you (said by a man / woman)", "local": "Obrigado / Obrigada", "phonetic": "oh-bree-GAH-doo / dah" },
+    { "en": "A coffee, please", "local": "Um café, se faz favor", "phonetic": "oong kah-FEH" },
+    { "en": "The bill, please", "local": "A conta, por favor", "phonetic": "ah KON-tah" },
+    { "en": "Where is...?", "local": "Onde fica...?", "phonetic": "ON-deh FEE-kah" }
+  ],
+  "transportFares": [
+    { "route": "Airport to city center", "note": "Bolt / Uber", "price": "EUR 10-14" },
+    { "route": "Across the center", "note": "short taxi ride", "price": "EUR 5-8" },
+    { "route": "Single metro/tram", "note": "on Navegante card", "price": "EUR 1.65" },
+    { "route": "Day transit pass", "note": "unlimited", "price": "EUR 6.80" }
+  ],
+  "emergency": [
+    { "label": "General emergency", "number": "112" },
+    { "label": "Tourist police line", "number": "21 342 1623" }
+  ],
+  "scams": [
+    { "title": "Fake taxi meters", "description": "Some drivers claim a broken meter and quote a flat inflated fare - insist on the meter or a pre-agreed ride-app price." },
+    { "title": "Bracelet/rose 'gift'", "description": "A stranger ties on a bracelet or hands you a rose, then demands payment - decline any unsolicited item outright." }
+  ]
+}
