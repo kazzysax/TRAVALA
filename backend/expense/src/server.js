@@ -5,6 +5,13 @@ const budgetRoutes = require("./routes/budget");
 const splitRoutes = require("./routes/splits");
 
 const app = express();
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "GET,POST,PUT,OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
 app.use(express.json());
 app.use(expenseRoutes);
 app.use(budgetRoutes);

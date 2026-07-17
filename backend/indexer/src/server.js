@@ -4,6 +4,13 @@ const feedRoutes = require("./routes/feed");
 const { startListening } = require("./lib/listener");
 
 const app = express();
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "GET,OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
 app.use(feedRoutes);
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
