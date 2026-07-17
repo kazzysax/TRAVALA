@@ -1,24 +1,23 @@
 // REQUIRES: EXCHANGE_RATE_API_BASE_URL / EXCHANGE_RATE_API_KEY - written
-// against the common "base URL + access_key query param, rates in response.rates"
-// shape shared by most providers (exchangerate.host, openexchangerates.org,
-// currencylayer). Adjust the query param name / response field below to
-// match whichever provider you pick; this is not runnable against a
-// specific live API until you do.
+// against Currencylayer's /live endpoint (the actual API behind
+// exchangerate.host as of 2026, not its marketing homepage - that distinction
+// cost a debugging round, so it's worth stating plainly: BASE_URL must be
+// something like https://api.currencylayer.com/live, not the bare domain).
+//
+// Currencylayer's free tier only allows USD as the source currency - asking
+// for an arbitrary "source" requires a paid plan. So every call fetches USD
+// quotes for both currencies involved and computes the cross rate locally,
+// which works on the free tier and costs nothing extra on a paid one either.
 
-async function getConversionRate(fromCurrency, toCurrency) {
-  if (fromCurrency === toCurrency) return 1;
-
+async function fetchUsdQuotes() {
   const { EXCHANGE_RATE_API_BASE_URL, EXCHANGE_RATE_API_KEY } = process.env;
   if (!EXCHANGE_RATE_API_BASE_URL || !EXCHANGE_RATE_API_KEY) {
     throw new Error("EXCHANGE_RATE_API_BASE_URL / EXCHANGE_RATE_API_KEY not set - see .env.example");
   }
 
-  const url = `${EXCHANGE_RATE_API_BASE_URL}?access_key=${EXCHANGE_RATE_API_KEY}&base=${fromCurrency}&symbols=${toCurrency}`;
+  const url = `${EXCHANGE_RATE_API_BASE_URL}?access_key=${EXCHANGE_RATE_API_KEY}`;
   const res = await fetch(url);
   const text = await res.text();
-  // Diagnostic only - logs status/URL-shape/response-prefix, never the API
-  // key itself, so a misconfigured base URL or unexpected provider response
-  // shape is debuggable from Render's logs without exposing the secret.
   console.log(`[currency] ${res.status} from ${EXCHANGE_RATE_API_BASE_URL} - body starts: ${text.slice(0, 150)}`);
   if (!res.ok) throw new Error(`exchange rate lookup failed: ${res.status}`);
 
@@ -26,11 +25,26 @@ async function getConversionRate(fromCurrency, toCurrency) {
   try {
     data = JSON.parse(text);
   } catch {
-    throw new Error(`exchange rate API returned non-JSON (status ${res.status}) - check EXCHANGE_RATE_API_BASE_URL is the actual API endpoint, not a docs/homepage URL`);
+    throw new Error(
+      `exchange rate API returned non-JSON (status ${res.status}) - check EXCHANGE_RATE_API_BASE_URL is the actual API endpoint (e.g. https://api.currencylayer.com/live), not a docs/homepage URL`
+    );
   }
-  const rate = data?.rates?.[toCurrency];
-  if (!rate) throw new Error(`no rate returned for ${fromCurrency}->${toCurrency}: ${JSON.stringify(data).slice(0,200)}`);
-  return rate;
+  if (!data.success || !data.quotes) {
+    throw new Error(`exchange rate API error: ${JSON.stringify(data.error || data).slice(0, 200)}`);
+  }
+  return data.quotes; // e.g. { USDGBP: 0.79, USDEUR: 0.92, ... }
+}
+
+async function getConversionRate(fromCurrency, toCurrency) {
+  if (fromCurrency === toCurrency) return 1;
+
+  const quotes = await fetchUsdQuotes();
+  const usdToFrom = fromCurrency === "USD" ? 1 : quotes[`USD${fromCurrency}`];
+  const usdToTarget = toCurrency === "USD" ? 1 : quotes[`USD${toCurrency}`];
+  if (!usdToFrom || !usdToTarget) {
+    throw new Error(`no USD quote for ${fromCurrency} or ${toCurrency}`);
+  }
+  return usdToTarget / usdToFrom;
 }
 
 async function convert(amount, fromCurrency, toCurrency) {
