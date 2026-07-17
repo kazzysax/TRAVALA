@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "city": "Rome",
+  "country": "Italy",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "All Purpose",
+      "number": "112"
+    },
+    {
+      "label": "Medical Direct",
+      "number": "118"
+    },
+    {
+      "label": "Police Direct",
+      "number": "113"
+    },
+    {
+      "label": "Fire Direct",
+      "number": "115"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Schengen area — same 90-day visa-free rule (within 180 days) as Paris for most Western nationalities.",
+    "officialSource": "Italian Ministry of Foreign Affairs"
+  },
+  "transportInfo": {
+    "paymentCard": "Roma Pass (includes transit + museum discounts) or standard BIT paper/contactless tickets",
+    "mainSystems": [
+      "Metro (2 main lines, limited compared to other major capitals)",
+      "Buses and trams",
+      "Walking (historic center is largely walkable)"
+    ],
+    "note": "Rome's Metro network is notably smaller than other major European capitals — buses and walking fill the gaps considerably."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Jan 6",
+      "name": "Epiphany"
+    },
+    {
+      "date": "Apr 5",
+      "name": "Easter Sunday"
+    },
+    {
+      "date": "Apr 6",
+      "name": "Easter Monday"
+    },
+    {
+      "date": "Apr 25",
+      "name": "Liberation Day"
+    },
+    {
+      "date": "May 1",
+      "name": "Labour Day"
+    },
+    {
+      "date": "Jun 2",
+      "name": "Republic Day"
+    },
+    {
+      "date": "Aug 15",
+      "name": "Ferragosto"
+    },
+    {
+      "date": "Nov 1",
+      "name": "All Saints' Day"
+    },
+    {
+      "date": "Dec 8",
+      "name": "Immaculate Conception"
+    },
+    {
+      "date": "Dec 25-26",
+      "name": "Christmas & Santo Stefano"
+    }
+  ],
+  "majorEventsNote": "Ferragosto (Aug 15) is when much of Rome itself closes as locals leave the city for holiday — many small businesses shut for the surrounding week.",
+  "rankGlobalArrivals": 16,
+  "sourceVerified": true
+}

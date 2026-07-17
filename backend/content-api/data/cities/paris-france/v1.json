@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "city": "Paris",
+  "country": "France",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "All Purpose",
+      "number": "112 (EU-wide, English-speaking operators available)"
+    },
+    {
+      "label": "Medical Samu",
+      "number": "15"
+    },
+    {
+      "label": "Police",
+      "number": "17"
+    },
+    {
+      "label": "Fire",
+      "number": "18"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Schengen area — most Western nationalities visa-free for up to 90 days within a 180-day period for tourism/business.",
+    "officialSource": "France-Visas / French Ministry for Europe and Foreign Affairs"
+  },
+  "transportInfo": {
+    "paymentCard": "Navigo Easy card (rechargeable, works on Metro/bus/RER within zones)",
+    "mainSystems": [
+      "Metro",
+      "RER (regional rail)",
+      "Buses",
+      "Velib' bike share"
+    ],
+    "note": "Pickpocketing is a real and persistent issue on the Metro and around major tourist sites (especially Gare du Nord) — keep bags zipped and in front."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Apr 6",
+      "name": "Easter Monday"
+    },
+    {
+      "date": "May 1",
+      "name": "Labour Day"
+    },
+    {
+      "date": "May 8",
+      "name": "Victory in Europe Day"
+    },
+    {
+      "date": "May 14",
+      "name": "Ascension Day"
+    },
+    {
+      "date": "May 25",
+      "name": "Whit Monday"
+    },
+    {
+      "date": "Jul 14",
+      "name": "Bastille Day"
+    },
+    {
+      "date": "Aug 15",
+      "name": "Assumption Day"
+    },
+    {
+      "date": "Nov 1",
+      "name": "All Saints' Day"
+    },
+    {
+      "date": "Nov 11",
+      "name": "Armistice Day"
+    },
+    {
+      "date": "Dec 25",
+      "name": "Christmas Day"
+    }
+  ],
+  "majorEventsNote": "Bastille Day (Jul 14) brings citywide fireworks and a major military parade on the Champs-Élysées — huge crowds, plan transport around road closures.",
+  "rankGlobalArrivals": 6,
+  "sourceVerified": true
+}

@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "city": "Pattaya",
+  "country": "Thailand",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "Police",
+      "number": "191"
+    },
+    {
+      "label": "Tourist Police",
+      "number": "1155"
+    },
+    {
+      "label": "Ambulance",
+      "number": "1669"
+    },
+    {
+      "label": "Fire",
+      "number": "199"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Same national Thailand rules as Bangkok/Phuket.",
+    "officialSource": "Royal Thai Police Immigration Bureau"
+  },
+  "transportInfo": {
+    "paymentCard": "No unified card",
+    "mainSystems": [
+      "Songthaew (baht buses — main local transport, shared routes)",
+      "Grab",
+      "Motorbike taxis"
+    ],
+    "note": "Baht buses run fixed routes along the main roads and are the cheapest way to get around — flag one down and confirm the fare/destination before boarding."
+  },
+  "publicHolidays2026": "Same national Thai holidays as Bangkok.",
+  "majorEventsNote": "Songkran here is especially large-scale and tourist-oriented compared to more local celebrations elsewhere in Thailand.",
+  "rankGlobalArrivals": 18,
+  "sourceVerified": true
+}

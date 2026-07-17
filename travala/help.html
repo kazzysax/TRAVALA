@@ -151,11 +151,17 @@
         data.emergency.map(e => `<div class="sos-row"><span class="lbl">${esc(e.label)}</span><span class="num">${esc(e.number)}</span></div>`).join('') +
         '<div class="sos-row"><span class="lbl">Nearest embassy — set your country in Settings</span><span class="num">—</span></div>';
 
+      const NOT_YET = '<div style="color:var(--ink-soft);font-size:13.5px">Not researched in detail yet for this city.</div>';
+
       document.getElementById('faresCard').innerHTML = '<h2><span class="ico">🚕</span>Fair transport fares</h2>' +
-        data.transportFares.map(f => `<div class="fare"><div class="route">${esc(f.route)}<small>${esc(f.note)}</small></div><div class="price">${esc(f.price)}</div></div>`).join('');
+        (data.transportFares.length
+          ? data.transportFares.map(f => `<div class="fare"><div class="route">${esc(f.route)}<small>${esc(f.note)}</small></div><div class="price">${esc(f.price)}</div></div>`).join('')
+          : (data.transportInfo ? `<div class="fare"><div class="route">${esc(data.transportInfo.paymentCard || '')}</div></div>` + (data.transportInfo.note ? `<div class="fare"><div class="route">${esc(data.transportInfo.note)}</div></div>` : '') : NOT_YET));
 
       document.getElementById('scamsCard').innerHTML = '<h2><span class="ico">⚠️</span>Common scams here</h2>' +
-        data.scams.map(s => `<div class="scam"><span class="warn">▲</span><div><div class="t">${esc(s.title)}</div><div class="d">${esc(s.description)}</div></div></div>`).join('');
+        (data.scams.length
+          ? data.scams.map(s => `<div class="scam"><span class="warn">▲</span><div><div class="t">${esc(s.title)}</div><div class="d">${esc(s.description)}</div></div></div>`).join('')
+          : NOT_YET);
     } catch (err) {
       console.error('Failed to load city data:', err);
     }

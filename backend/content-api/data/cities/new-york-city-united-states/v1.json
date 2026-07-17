@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "city": "New York City",
+  "country": "United States",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "All Purpose",
+      "number": "911"
+    },
+    {
+      "label": "Non Emergency",
+      "number": "311 (city services)"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Visa Waiver Program covers 40+ countries for tourism up to 90 days, but requires an approved ESTA obtained in advance online. Other nationalities need a B1/B2 visa.",
+    "officialSource": "U.S. Customs and Border Protection / ESTA official site"
+  },
+  "transportInfo": {
+    "paymentCard": "OMNY (tap-to-pay with bank card, phone, or OMNY card — MetroCard fully phased out as of end of 2025)",
+    "mainSystems": [
+      "Subway",
+      "MTA buses",
+      "AirTrain JFK",
+      "Staten Island Ferry (free)"
+    ],
+    "note": "OMNY has weekly fare capping built in — 12 rides in 7 days and the rest of that week is free, so no need to buy a separate weekly pass."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Jan 19",
+      "name": "Martin Luther King Jr. Day"
+    },
+    {
+      "date": "Feb 16",
+      "name": "Presidents' Day"
+    },
+    {
+      "date": "May 25",
+      "name": "Memorial Day"
+    },
+    {
+      "date": "Jun 19",
+      "name": "Juneteenth"
+    },
+    {
+      "date": "Jul 4",
+      "name": "Independence Day"
+    },
+    {
+      "date": "Sep 7",
+      "name": "Labor Day"
+    },
+    {
+      "date": "Nov 26",
+      "name": "Thanksgiving"
+    },
+    {
+      "date": "Dec 25",
+      "name": "Christmas Day"
+    }
+  ],
+  "majorEventsNote": "Thanksgiving week (including the Macy's Parade) and New Year's Eve in Times Square are the two biggest tourist-impact events — book well ahead and expect major street closures.",
+  "rankGlobalArrivals": 8,
+  "sourceVerified": true
+}

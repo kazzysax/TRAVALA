@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "city": "Mumbai",
+  "country": "India",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "All Purpose",
+      "number": "112"
+    },
+    {
+      "label": "Ambulance Direct",
+      "number": "102"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Same as Delhi — e-Visa/ETA required in advance for most nationalities.",
+    "officialSource": "Bureau of Immigration, Government of India"
+  },
+  "transportInfo": {
+    "paymentCard": "Mumbai Metro smart card; local trains use separate ticketing",
+    "mainSystems": [
+      "Mumbai Suburban Railway (the iconic 'local trains' — extremely crowded at rush hour)",
+      "Mumbai Metro (growing network)",
+      "BEST buses",
+      "Auto-rickshaws/taxis (metered)"
+    ],
+    "note": "Avoid the suburban rail system during rush hour as a first-time visitor — it is famously overcrowded; app taxis are a more comfortable option for short trips."
+  },
+  "publicHolidays2026": "Same national Indian holidays as Delhi, plus regional Maharashtra-specific days (e.g., Gudi Padwa) — confirm regional calendar separately.",
+  "majorEventsNote": "Ganesh Chaturthi (Aug/Sep, exact date varies) is Mumbai's single biggest cultural event — massive street processions, worth experiencing but expect major crowding and transport disruption.",
+  "rankGlobalArrivals": 14,
+  "sourceVerified": true
+}

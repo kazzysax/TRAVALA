@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "city": "Tokyo",
+  "country": "Japan",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "Police",
+      "number": "110"
+    },
+    {
+      "label": "Fire Ambulance",
+      "number": "119"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Many Western nationalities visa-free for tourism up to 90 days.",
+    "officialSource": "Ministry of Foreign Affairs of Japan"
+  },
+  "transportInfo": {
+    "paymentCard": "Suica or Pasmo (IC cards, interchangeable, tap-to-pay on virtually all trains/buses/many shops)",
+    "mainSystems": [
+      "JR Lines",
+      "Tokyo Metro",
+      "Toei Subway",
+      "Buses"
+    ],
+    "note": "Tokyo's rail map looks intimidating but Suica/Pasmo works seamlessly across all operators — buy at the airport on arrival."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Jan 12",
+      "name": "Coming of Age Day"
+    },
+    {
+      "date": "Feb 11",
+      "name": "National Foundation Day"
+    },
+    {
+      "date": "Feb 23",
+      "name": "Emperor's Birthday"
+    },
+    {
+      "date": "Mar 20",
+      "name": "Vernal Equinox Day"
+    },
+    {
+      "date": "Apr 29-May 5",
+      "name": "Golden Week cluster (multiple holidays)"
+    },
+    {
+      "date": "Jul 20",
+      "name": "Marine Day"
+    },
+    {
+      "date": "Aug 11",
+      "name": "Mountain Day"
+    },
+    {
+      "date": "Sep 21",
+      "name": "Respect for the Aged Day"
+    },
+    {
+      "date": "Sep 23",
+      "name": "Autumnal Equinox"
+    },
+    {
+      "date": "Oct 12",
+      "name": "Sports Day"
+    },
+    {
+      "date": "Nov 3",
+      "name": "Culture Day"
+    },
+    {
+      "date": "Nov 23",
+      "name": "Labour Thanksgiving Day"
+    }
+  ],
+  "majorEventsNote": "Golden Week (late April-early May) is Japan's biggest domestic travel surge — transport and hotels nationwide book out and prices spike heavily.",
+  "rankGlobalArrivals": 17,
+  "sourceVerified": true
+}

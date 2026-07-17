@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "city": "Macau",
+  "country": "Macau SAR",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "All Purpose",
+      "number": "999 (110 and 112 also redirect to the same 999 center)"
+    },
+    {
+      "label": "Serious Crime Cid",
+      "number": "993 (Judiciary Police, for organized crime/serious offenses)"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Visitors from 60+ countries can enter visa-free for 30-180 days depending on nationality. Macau has its own immigration, separate from mainland China and Hong Kong.",
+    "officialSource": "Macao Government Tourism Office"
+  },
+  "transportInfo": {
+    "paymentCard": "Macau Pass (contactless card for buses and some shops)",
+    "mainSystems": [
+      "Buses (extensive network)",
+      "Light Rail Transit (limited lines)",
+      "Licensed taxis (insist on the meter)",
+      "Free casino shuttle buses (widely used, connect hotels/attractions)"
+    ],
+    "note": "Free hotel/casino shuttle buses are a genuinely useful budget transport hack that locals and savvy tourists both use."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Feb 17-19",
+      "name": "Lunar New Year"
+    },
+    {
+      "date": "Apr 4",
+      "name": "Ching Ming Festival"
+    },
+    {
+      "date": "Apr 3, 6",
+      "name": "Good Friday / Easter"
+    },
+    {
+      "date": "May 1",
+      "name": "Labour Day"
+    },
+    {
+      "date": "Jun 20 (approx.)",
+      "name": "Dragon Boat Festival"
+    },
+    {
+      "date": "Oct 1",
+      "name": "China National Day"
+    },
+    {
+      "date": "Oct 6 (approx.)",
+      "name": "Day after Mid-Autumn Festival"
+    },
+    {
+      "date": "Dec 20",
+      "name": "Macau SAR Establishment Day"
+    },
+    {
+      "date": "Dec 25",
+      "name": "Christmas Day"
+    }
+  ],
+  "majorEventsNote": "Lunar New Year is by far the highest-demand period — casino/hotel prices peak.",
+  "rankGlobalArrivals": 4,
+  "sourceVerified": true
+}

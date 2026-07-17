@@ -80,14 +80,16 @@
     <div class="dl-strip">⬇ Download this guide for offline use — works when your signal doesn't.<button onclick="downloadGuide()">Download</button></div>
 
     <div class="tabs">
-      <button class="tab active" onclick="show('etiquette',this)">Etiquette</button>
+      <button class="tab active" onclick="show('essentials',this)">Essentials</button>
+      <button class="tab" onclick="show('etiquette',this)">Etiquette</button>
       <button class="tab" onclick="show('hoods',this)">Neighborhoods</button>
       <button class="tab" onclick="show('rhythm',this)">Daily rhythm</button>
       <button class="tab" onclick="show('getting',this)">Getting around</button>
       <button class="tab" onclick="show('phrases',this)">Phrases</button>
     </div>
 
-    <div class="panel show" id="etiquette"><div class="loading">Loading…</div></div>
+    <div class="panel show" id="essentials"><div class="loading">Loading…</div></div>
+    <div class="panel" id="etiquette"></div>
     <div class="panel" id="hoods"></div>
     <div class="panel" id="rhythm"></div>
     <div class="panel" id="getting"></div>
@@ -117,46 +119,97 @@
 
   function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 
+  const NOT_YET = `<div style="color:var(--ink-soft);font-size:14px">Detailed guide content for this city hasn't been written yet - it's on the roster but not yet researched in depth.</div>`;
+
+  function renderEssentials(data){
+    let html = `<div class="card"><h2><span class="ico">🛂</span>Entry &amp; visa</h2>`;
+    if (data.entryRequirements) {
+      html += `<div class="kv"><div class="k">Visa</div><div class="v">${esc(data.entryRequirements.visaNote)}</div></div>`;
+      if (data.entryRequirements.officialSource) {
+        html += `<div class="kv"><div class="k">Official source</div><div class="v">${esc(data.entryRequirements.officialSource)}</div></div>`;
+      }
+    } else {
+      html += NOT_YET;
+    }
+    html += `</div>`;
+
+    html += `<div class="card"><h2><span class="ico">📅</span>Public holidays (2026)</h2>`;
+    if (Array.isArray(data.publicHolidays2026) && data.publicHolidays2026.length) {
+      html += data.publicHolidays2026.map(h => `<div class="kv"><div class="k">${esc(h.date)}</div><div class="v">${esc(h.name)}</div></div>`).join('');
+    } else if (typeof data.publicHolidays2026 === 'string') {
+      html += `<div class="kv"><div class="v">${esc(data.publicHolidays2026)}</div></div>`;
+    } else {
+      html += NOT_YET;
+    }
+    html += `</div>`;
+
+    if (data.majorEventsNote) {
+      html += `<div class="card"><h2><span class="ico">🎉</span>Worth knowing</h2><div class="kv"><div class="v">${esc(data.majorEventsNote)}</div></div></div>`;
+    }
+    document.getElementById('essentials').innerHTML = html;
+  }
+
   function renderEtiquette(data){
     document.getElementById('etiquette').innerHTML = `<div class="card"><h2><span class="ico">🤝</span>Customs &amp; etiquette</h2>` +
-      data.etiquette.map(e => `<div class="kv"><div class="k">${esc(e.title)}</div><div class="v">${esc(e.text)}</div></div>`).join('') +
+      (data.etiquette.length
+        ? data.etiquette.map(e => `<div class="kv"><div class="k">${esc(e.title)}</div><div class="v">${esc(e.text)}</div></div>`).join('')
+        : NOT_YET) +
       `</div>`;
   }
 
   function renderHoods(data){
     const tagClass = { "Touristy":"tag-tour", "Nightlife":"tag-night", "Local":"tag-res", "Central":"tag-central", "Historic":"tag-central" };
     document.getElementById('hoods').innerHTML = `<div class="card"><h2><span class="ico">🗺️</span>Neighborhoods</h2>` +
-      data.neighborhoods.map(h => `<div class="hood"><span class="tag ${tagClass[h.tag]||'tag-central'}">${esc(h.tag)}</span><div><div class="nm">${esc(h.name)}</div><div class="ds">${esc(h.description)}</div></div></div>`).join('') +
+      (data.neighborhoods.length
+        ? data.neighborhoods.map(h => `<div class="hood"><span class="tag ${tagClass[h.tag]||'tag-central'}">${esc(h.tag)}</span><div><div class="nm">${esc(h.name)}</div><div class="ds">${esc(h.description)}</div></div></div>`).join('')
+        : NOT_YET) +
       `</div>`;
   }
 
   function renderRhythm(data){
     document.getElementById('rhythm').innerHTML = `<div class="card"><h2><span class="ico">🕰️</span>Daily rhythm</h2>` +
-      data.dailyRhythm.map(r => `<div class="kv"><div class="k">${esc(r.label)}</div><div class="v">${esc(r.text)}</div></div>`).join('') +
+      (data.dailyRhythm.length
+        ? data.dailyRhythm.map(r => `<div class="kv"><div class="k">${esc(r.label)}</div><div class="v">${esc(r.text)}</div></div>`).join('')
+        : NOT_YET) +
       `</div>`;
   }
 
   function renderGetting(data){
-    document.getElementById('getting').innerHTML = `<div class="card"><h2><span class="ico">🚇</span>Getting around like a local</h2>` +
-      data.gettingAround.map(g => `<div class="kv"><div class="k">${esc(g.label)}</div><div class="v">${esc(g.text)}</div></div>`).join('') +
-      `</div>`;
+    let html = `<div class="card"><h2><span class="ico">🚇</span>Getting around like a local</h2>`;
+    if (data.gettingAround.length) {
+      html += data.gettingAround.map(g => `<div class="kv"><div class="k">${esc(g.label)}</div><div class="v">${esc(g.text)}</div></div>`).join('');
+    } else if (data.transportInfo) {
+      html += `<div class="kv"><div class="k">Payment</div><div class="v">${esc(data.transportInfo.paymentCard || '')}</div></div>`;
+      if (data.transportInfo.mainSystems && data.transportInfo.mainSystems.length) {
+        html += `<div class="kv"><div class="k">Main systems</div><div class="v">${data.transportInfo.mainSystems.map(esc).join(', ')}</div></div>`;
+      }
+      if (data.transportInfo.note) {
+        html += `<div class="kv"><div class="k">Note</div><div class="v">${esc(data.transportInfo.note)}</div></div>`;
+      }
+    } else {
+      html += NOT_YET;
+    }
+    html += `</div>`;
+    document.getElementById('getting').innerHTML = html;
   }
 
   function renderPhrases(data){
     document.getElementById('phrases').innerHTML = `<div class="card"><h2><span class="ico">💬</span>Phrases that actually help</h2>` +
-      data.phrases.map(p => `<div class="phrase"><span class="en">${esc(p.en)}</span><span class="fo">${esc(p.local)}<small>${esc(p.phonetic)}</small></span></div>`).join('') +
+      (data.phrases.length
+        ? data.phrases.map(p => `<div class="phrase"><span class="en">${esc(p.en)}</span><span class="fo">${esc(p.local)}<small>${esc(p.phonetic)}</small></span></div>`).join('')
+        : NOT_YET) +
       `</div>`;
   }
 
   async function loadGuide(){
     if (!CITY_SLUG) {
-      document.getElementById('etiquette').innerHTML = `<div class="err">No location set yet - <a href="login.html">set your city</a> to load its real guide.</div>`;
+      document.getElementById('essentials').innerHTML = `<div class="err">No location set yet - <a href="login.html">set your city</a> to load its real guide.</div>`;
       return;
     }
     try {
       const res = await fetch(`${CONTENT_API}/cities/${CITY_SLUG}`);
       if (res.status === 404) {
-        document.getElementById('etiquette').innerHTML = `<div class="err">No guide data exists yet for ${localStorage.getItem('travala_city')}, ${localStorage.getItem('travala_country')} - this city hasn't been added to content-api yet.</div>`;
+        document.getElementById('essentials').innerHTML = `<div class="err">No guide data exists yet for ${localStorage.getItem('travala_city')}, ${localStorage.getItem('travala_country')} - this city hasn't been researched yet, but you can still explore it and mint its stamp.</div>`;
         return;
       }
       if (!res.ok) throw new Error(`content-api returned ${res.status}`);
@@ -165,13 +218,14 @@
       document.getElementById('cityTitle').textContent = `${cityData.city} city guide`;
       document.getElementById('cityLoc').textContent = `${cityData.country} · everything to help you fit right in`;
 
+      renderEssentials(cityData);
       renderEtiquette(cityData);
       renderHoods(cityData);
       renderRhythm(cityData);
       renderGetting(cityData);
       renderPhrases(cityData);
     } catch (err) {
-      document.getElementById('etiquette').innerHTML = `<div class="err">Couldn't load the live city guide (${esc(err.message)}). The content service may be waking up from idle - try refreshing in a few seconds.</div>`;
+      document.getElementById('essentials').innerHTML = `<div class="err">Couldn't load the live city guide (${esc(err.message)}). The content service may be waking up from idle - try refreshing in a few seconds.</div>`;
     }
   }
 

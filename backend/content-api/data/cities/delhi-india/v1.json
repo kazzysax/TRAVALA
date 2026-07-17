@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "city": "Delhi",
+  "country": "India",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "All Purpose",
+      "number": "112 (pan-India single emergency number, covers police/fire/ambulance)"
+    },
+    {
+      "label": "Ambulance Direct",
+      "number": "102"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Most nationalities need an e-Visa or Electronic Travel Authorisation (ETA) obtained before arrival — India does not offer broad visa-free entry. Apply via the official government e-Visa portal only.",
+    "officialSource": "Bureau of Immigration, Government of India (indianvisaonline.gov.in)"
+  },
+  "transportInfo": {
+    "paymentCard": "Delhi Metro smart card (token also available for single trips)",
+    "mainSystems": [
+      "Delhi Metro",
+      "Auto-rickshaws (negotiate or insist on meter)",
+      "Uber/Ola app taxis"
+    ],
+    "note": "App taxis (Uber/Ola) are generally the safest, most predictable option for tourists over street-hailed vehicles."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 26",
+      "name": "Republic Day"
+    },
+    {
+      "date": "Mar (varies)",
+      "name": "Holi (lunar-based)"
+    },
+    {
+      "date": "Aug 15",
+      "name": "Independence Day"
+    },
+    {
+      "date": "Oct 2",
+      "name": "Gandhi Jayanti"
+    },
+    {
+      "date": "Oct/Nov (varies)",
+      "name": "Diwali (lunar-based)"
+    }
+  ],
+  "majorEventsNote": "Diwali and Holi are the two biggest travel-impact festivals — hugely colorful for visitors but also the highest-demand, highest-price periods domestically.",
+  "rankGlobalArrivals": 11,
+  "sourceVerified": true
+}

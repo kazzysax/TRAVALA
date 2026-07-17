@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "city": "Hong Kong",
+  "country": "Hong Kong SAR",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "All Purpose",
+      "number": "999"
+    },
+    {
+      "label": "Notes",
+      "number": "999 covers police, fire, and ambulance. 112 also connects to the same 999 center automatically from any mobile network with coverage."
+    },
+    {
+      "label": "Tourist Hotline",
+      "number": "+852 2508 1234 (24/7, multilingual)"
+    },
+    {
+      "label": "Police Hotline",
+      "number": "+852 2527 7177"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Many Western nationalities (UK, US, EU, Australia, Canada, etc.) can enter visa-free for 30-180 days depending on nationality. Check current requirements by nationality before travel.",
+    "officialSource": "Hong Kong Immigration Department"
+  },
+  "transportInfo": {
+    "paymentCard": "Octopus card (tap-to-pay, works on MTR, buses, trams, ferries, and many shops)",
+    "mainSystems": [
+      "MTR (subway)",
+      "Star Ferry",
+      "Trams (Hong Kong Island)",
+      "Buses"
+    ],
+    "note": "Octopus is the single most useful card for a traveler here — buy at the airport or any MTR station."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Feb 17-19",
+      "name": "Lunar New Year (3 days)"
+    },
+    {
+      "date": "Apr 4",
+      "name": "Ching Ming Festival"
+    },
+    {
+      "date": "Apr 3-6",
+      "name": "Good Friday–Easter Monday cluster"
+    },
+    {
+      "date": "May 1",
+      "name": "Labour Day"
+    },
+    {
+      "date": "May 26 (approx.)",
+      "name": "Buddha's Birthday"
+    },
+    {
+      "date": "Jun 20 (approx.)",
+      "name": "Dragon Boat Festival"
+    },
+    {
+      "date": "Jul 1",
+      "name": "HKSAR Establishment Day"
+    },
+    {
+      "date": "Oct 1",
+      "name": "National Day"
+    },
+    {
+      "date": "Oct 6 (approx.)",
+      "name": "Day after Mid-Autumn Festival"
+    },
+    {
+      "date": "Oct 28 (approx.)",
+      "name": "Chung Yeung Festival"
+    },
+    {
+      "date": "Dec 25-26",
+      "name": "Christmas Day & Boxing Day"
+    }
+  ],
+  "majorEventsNote": "17 statutory holidays total in 2026; Lunar New Year and Dragon Boat Festival see the heaviest travel demand and price surges.",
+  "rankGlobalArrivals": 1,
+  "sourceVerified": true
+}

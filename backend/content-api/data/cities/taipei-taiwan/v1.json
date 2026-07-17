@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "city": "Taipei",
+  "country": "Taiwan",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "Police",
+      "number": "110"
+    },
+    {
+      "label": "Fire Ambulance",
+      "number": "119"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Many Western nationalities visa-free for tourism up to 90 days.",
+    "officialSource": "Taiwan Bureau of Consular Affairs, Ministry of Foreign Affairs"
+  },
+  "transportInfo": {
+    "paymentCard": "EasyCard (tap-to-pay on MRT, buses, and many convenience stores/shops)",
+    "mainSystems": [
+      "Taipei MRT (metro)",
+      "Buses",
+      "YouBike (bike share, very popular and EasyCard-compatible)"
+    ],
+    "note": "Taiwan uses two separate emergency numbers (110/119), not a single unified one — worth noting clearly since many travelers expect one number."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Feb (varies)",
+      "name": "Lunar New Year (multi-day)"
+    },
+    {
+      "date": "Feb 28",
+      "name": "Peace Memorial Day"
+    },
+    {
+      "date": "Apr 4",
+      "name": "Children's Day / Tomb Sweeping Day cluster"
+    },
+    {
+      "date": "Oct 10",
+      "name": "National Day (Double Ten Day)"
+    }
+  ],
+  "majorEventsNote": "Lunar New Year is by far Taiwan's biggest holiday — many small businesses close for several days.",
+  "rankGlobalArrivals": 19,
+  "sourceVerified": true
+}

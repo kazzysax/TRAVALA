@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "city": "Singapore",
+  "country": "Singapore",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "Police",
+      "number": "999"
+    },
+    {
+      "label": "Ambulance Fire",
+      "number": "995"
+    },
+    {
+      "label": "Non Emergency Ambulance",
+      "number": "1777"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Most Western nationalities visa-free for 30-90 days. All travelers must submit the SG Arrival Card electronically before arrival.",
+    "officialSource": "Immigration & Checkpoints Authority (ICA) Singapore"
+  },
+  "transportInfo": {
+    "paymentCard": "EZ-Link card or contactless bank card (both work on MRT and buses)",
+    "mainSystems": [
+      "MRT (subway)",
+      "Buses",
+      "Licensed taxis",
+      "Grab (ride-hailing)"
+    ],
+    "note": "Contactless bank card tap-in/tap-out is now fully supported and simplest for short visits — no need to buy a card."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Feb 17-18",
+      "name": "Chinese New Year"
+    },
+    {
+      "date": "Mar (varies)",
+      "name": "Hari Raya Puasa (lunar-based, confirm date)"
+    },
+    {
+      "date": "Apr 3",
+      "name": "Good Friday"
+    },
+    {
+      "date": "May 1",
+      "name": "Labour Day"
+    },
+    {
+      "date": "May (varies)",
+      "name": "Vesak Day"
+    },
+    {
+      "date": "Jun (varies)",
+      "name": "Hari Raya Haji (lunar-based, confirm date)"
+    },
+    {
+      "date": "Aug 9",
+      "name": "National Day"
+    },
+    {
+      "date": "Nov (varies)",
+      "name": "Deepavali"
+    },
+    {
+      "date": "Dec 25",
+      "name": "Christmas Day"
+    }
+  ],
+  "majorEventsNote": "Singapore's multicultural holiday calendar means several Islamic and Hindu calendar-based dates shift yearly — always confirm the exact date close to travel.",
+  "rankGlobalArrivals": 5,
+  "sourceVerified": true
+}

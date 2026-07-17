@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "city": "Mecca",
+  "country": "Saudi Arabia",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "Police",
+      "number": "999"
+    },
+    {
+      "label": "Ambulance",
+      "number": "997"
+    },
+    {
+      "label": "Fire",
+      "number": "998"
+    },
+    {
+      "label": "General Alt",
+      "number": "911 (also works, especially in the Holy Cities)"
+    },
+    {
+      "label": "Pilgrim Unified Hotline",
+      "number": "1966 (Hajj/Umrah pilgrim support, Saudi SIM) or +966 92 000 2814 (international number)"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "IMPORTANT: entry to Mecca itself is restricted to Muslims only — this is a legal entry restriction, not a custom, and is strictly enforced at checkpoints on roads into the city. Non-Muslim travelers cannot visit Mecca at all. Muslim visitors need either a Hajj visa (Hajj season only, via the official Nusuk platform), an Umrah visa, or can perform Umrah on most other Saudi visa types including the eVisa — but must register on the Nusuk app.",
+    "officialSource": "Nusuk (official Saudi Hajj & Umrah platform) and Saudi eVisa portal (visa.visitsaudi.com)"
+  },
+  "transportInfo": {
+    "paymentCard": "Public transport is limited; most pilgrims move via organized group transport, taxis, or the Al Mashaaer Al Mugaddassah Metro (Hajj-season only, serves the holy sites)",
+    "mainSystems": [
+      "Organized pilgrim group buses/transport (most common)",
+      "Taxis",
+      "Mecca Metro (seasonal, Hajj period)"
+    ],
+    "note": "Individual/independent tourist-style transport is far less relevant here than in other cities on this list — most visitor movement is organized through pilgrimage service providers."
+  },
+  "publicHolidays2026": "Saudi holidays are Hijri-calendar based (Eid al-Fitr, Eid al-Adha) plus Saudi National Day (Sep 23, fixed Gregorian date) and Founding Day (Feb 22, fixed).",
+  "majorEventsNote": "This is a fundamentally different kind of entry in this dataset — Mecca is a pilgrimage destination with a hard religious entry restriction, not a general tourism city. The app should flag this distinctly rather than presenting it like a standard destination.",
+  "rankGlobalArrivals": 20,
+  "sourceVerified": true
+}

@@ -1,0 +1,1766 @@
+{
+  "_meta": {
+    "description": "Travala master city roster, organized Continent > Country > City. 120 cities total across all 6 inhabited continents.",
+    "total_cities": 120,
+    "researched_in_detail": 20,
+    "pending_research": 100,
+    "last_updated": "2026-07-17"
+  },
+  "continents": {
+    "Africa": {
+      "Egypt": [
+        {
+          "city": "Cairo",
+          "rank_global_arrivals": 42,
+          "researched": false
+        },
+        {
+          "city": "Hurghada",
+          "rank_global_arrivals": 82,
+          "researched": false
+        }
+      ],
+      "Ghana": [
+        {
+          "city": "Accra",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ],
+      "Morocco": [
+        {
+          "city": "Marrakesh",
+          "rank_global_arrivals": 75,
+          "researched": false
+        },
+        {
+          "city": "Casablanca",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ],
+      "Nigeria": [
+        {
+          "city": "Lagos",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ],
+      "Senegal": [
+        {
+          "city": "Dakar",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ],
+      "South Africa": [
+        {
+          "city": "Johannesburg",
+          "rank_global_arrivals": 54,
+          "researched": false
+        },
+        {
+          "city": "Cape Town",
+          "rank_global_arrivals": null,
+          "researched": false
+        },
+        {
+          "city": "Durban",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ]
+    },
+    "Asia": {
+      "China": [
+        {
+          "city": "Shenzhen",
+          "rank_global_arrivals": 13,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "police": "110",
+              "fire": "119",
+              "ambulance": "120"
+            },
+            "entry": {
+              "visa_note": "Complex and nationality-dependent: some nationalities get 30-day visa-free entry, others qualify for 10-day or 240-hour visa-free transit if continuing to a third country, others need a full visa or Shenzhen-specific 5-day Visa on Arrival. Rules vary significantly — verify carefully by nationality and itinerary before travel.",
+              "official_source": "National Immigration Administration of China (nia.gov.cn)"
+            },
+            "transport": {
+              "payment_card": "Shenzhen Tong card or WeChat Pay/Alipay QR (increasingly the dominant payment method city-wide)",
+              "main_systems": [
+                "Shenzhen Metro (17 lines, one of the world's largest systems)",
+                "Buses"
+              ],
+              "note": "Mobile QR payment (WeChat Pay/Alipay) is close to essential in Shenzhen — cash is increasingly uncommon; set up a China-compatible payment app before arrival if possible."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Feb (varies)",
+                "name": "Chinese New Year (multi-day, biggest holiday)"
+              },
+              {
+                "date": "Apr 4-6",
+                "name": "Qingming Festival"
+              },
+              {
+                "date": "May 1-5",
+                "name": "Labour Day (Golden Week)"
+              },
+              {
+                "date": "Oct 1-7",
+                "name": "National Day (Golden Week)"
+              }
+            ],
+            "major_events_note": "Chinese New Year and National Day 'Golden Week' are massive nationwide travel surges — domestic transport and hotels book out; best avoided or planned around well in advance."
+          },
+          "cityId_source_string": "Shenzhen,China"
+        },
+        {
+          "city": "Guangzhou",
+          "rank_global_arrivals": 21,
+          "researched": false
+        },
+        {
+          "city": "Shanghai",
+          "rank_global_arrivals": 30,
+          "researched": false
+        },
+        {
+          "city": "Beijing",
+          "rank_global_arrivals": 58,
+          "researched": false
+        },
+        {
+          "city": "Zhuhai",
+          "rank_global_arrivals": 68,
+          "researched": false
+        },
+        {
+          "city": "Guilin",
+          "rank_global_arrivals": 80,
+          "researched": false
+        }
+      ],
+      "Hong Kong SAR, China": [
+        {
+          "city": "Hong Kong",
+          "rank_global_arrivals": 1,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "999",
+              "notes": "999 covers police, fire, and ambulance. 112 also connects to the same 999 center automatically from any mobile network with coverage.",
+              "tourist_hotline": "+852 2508 1234 (24/7, multilingual)",
+              "police_hotline": "+852 2527 7177"
+            },
+            "entry": {
+              "visa_note": "Many Western nationalities (UK, US, EU, Australia, Canada, etc.) can enter visa-free for 30-180 days depending on nationality. Check current requirements by nationality before travel.",
+              "official_source": "Hong Kong Immigration Department"
+            },
+            "transport": {
+              "payment_card": "Octopus card (tap-to-pay, works on MTR, buses, trams, ferries, and many shops)",
+              "main_systems": [
+                "MTR (subway)",
+                "Star Ferry",
+                "Trams (Hong Kong Island)",
+                "Buses"
+              ],
+              "note": "Octopus is the single most useful card for a traveler here — buy at the airport or any MTR station."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Feb 17-19",
+                "name": "Lunar New Year (3 days)"
+              },
+              {
+                "date": "Apr 4",
+                "name": "Ching Ming Festival"
+              },
+              {
+                "date": "Apr 3-6",
+                "name": "Good Friday–Easter Monday cluster"
+              },
+              {
+                "date": "May 1",
+                "name": "Labour Day"
+              },
+              {
+                "date": "May 26 (approx.)",
+                "name": "Buddha's Birthday"
+              },
+              {
+                "date": "Jun 20 (approx.)",
+                "name": "Dragon Boat Festival"
+              },
+              {
+                "date": "Jul 1",
+                "name": "HKSAR Establishment Day"
+              },
+              {
+                "date": "Oct 1",
+                "name": "National Day"
+              },
+              {
+                "date": "Oct 6 (approx.)",
+                "name": "Day after Mid-Autumn Festival"
+              },
+              {
+                "date": "Oct 28 (approx.)",
+                "name": "Chung Yeung Festival"
+              },
+              {
+                "date": "Dec 25-26",
+                "name": "Christmas Day & Boxing Day"
+              }
+            ],
+            "major_events_note": "17 statutory holidays total in 2026; Lunar New Year and Dragon Boat Festival see the heaviest travel demand and price surges."
+          },
+          "cityId_source_string": "Hong Kong,Hong Kong SAR"
+        }
+      ],
+      "India": [
+        {
+          "city": "Delhi",
+          "rank_global_arrivals": 11,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "112 (pan-India single emergency number, covers police/fire/ambulance)",
+              "ambulance_direct": "102"
+            },
+            "entry": {
+              "visa_note": "Most nationalities need an e-Visa or Electronic Travel Authorisation (ETA) obtained before arrival — India does not offer broad visa-free entry. Apply via the official government e-Visa portal only.",
+              "official_source": "Bureau of Immigration, Government of India (indianvisaonline.gov.in)"
+            },
+            "transport": {
+              "payment_card": "Delhi Metro smart card (token also available for single trips)",
+              "main_systems": [
+                "Delhi Metro",
+                "Auto-rickshaws (negotiate or insist on meter)",
+                "Uber/Ola app taxis"
+              ],
+              "note": "App taxis (Uber/Ola) are generally the safest, most predictable option for tourists over street-hailed vehicles."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 26",
+                "name": "Republic Day"
+              },
+              {
+                "date": "Mar (varies)",
+                "name": "Holi (lunar-based)"
+              },
+              {
+                "date": "Aug 15",
+                "name": "Independence Day"
+              },
+              {
+                "date": "Oct 2",
+                "name": "Gandhi Jayanti"
+              },
+              {
+                "date": "Oct/Nov (varies)",
+                "name": "Diwali (lunar-based)"
+              }
+            ],
+            "major_events_note": "Diwali and Holi are the two biggest travel-impact festivals — hugely colorful for visitors but also the highest-demand, highest-price periods domestically."
+          },
+          "cityId_source_string": "Delhi,India"
+        },
+        {
+          "city": "Mumbai",
+          "rank_global_arrivals": 14,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "112",
+              "ambulance_direct": "102"
+            },
+            "entry": {
+              "visa_note": "Same as Delhi — e-Visa/ETA required in advance for most nationalities.",
+              "official_source": "Bureau of Immigration, Government of India"
+            },
+            "transport": {
+              "payment_card": "Mumbai Metro smart card; local trains use separate ticketing",
+              "main_systems": [
+                "Mumbai Suburban Railway (the iconic 'local trains' — extremely crowded at rush hour)",
+                "Mumbai Metro (growing network)",
+                "BEST buses",
+                "Auto-rickshaws/taxis (metered)"
+              ],
+              "note": "Avoid the suburban rail system during rush hour as a first-time visitor — it is famously overcrowded; app taxis are a more comfortable option for short trips."
+            },
+            "public_holidays_2026": "Same national Indian holidays as Delhi, plus regional Maharashtra-specific days (e.g., Gudi Padwa) — confirm regional calendar separately.",
+            "major_events_note": "Ganesh Chaturthi (Aug/Sep, exact date varies) is Mumbai's single biggest cultural event — massive street processions, worth experiencing but expect major crowding and transport disruption."
+          },
+          "cityId_source_string": "Mumbai,India"
+        },
+        {
+          "city": "Agra",
+          "rank_global_arrivals": 26,
+          "researched": false
+        },
+        {
+          "city": "Chennai",
+          "rank_global_arrivals": 36,
+          "researched": false
+        },
+        {
+          "city": "Jaipur",
+          "rank_global_arrivals": 39,
+          "researched": false
+        },
+        {
+          "city": "Kolkata",
+          "rank_global_arrivals": 76,
+          "researched": false
+        },
+        {
+          "city": "Bangalore",
+          "rank_global_arrivals": 100,
+          "researched": false
+        }
+      ],
+      "Indonesia": [
+        {
+          "city": "Denpasar (Bali)",
+          "rank_global_arrivals": 32,
+          "researched": false
+        },
+        {
+          "city": "Jakarta",
+          "rank_global_arrivals": 57,
+          "researched": false
+        },
+        {
+          "city": "Batam",
+          "rank_global_arrivals": 91,
+          "researched": false
+        }
+      ],
+      "Israel": [
+        {
+          "city": "Tel Aviv",
+          "rank_global_arrivals": 79,
+          "researched": false
+        }
+      ],
+      "Israel/Palestine": [
+        {
+          "city": "Jerusalem",
+          "rank_global_arrivals": 61,
+          "researched": false
+        }
+      ],
+      "Japan": [
+        {
+          "city": "Tokyo",
+          "rank_global_arrivals": 17,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "police": "110",
+              "fire_ambulance": "119"
+            },
+            "entry": {
+              "visa_note": "Many Western nationalities visa-free for tourism up to 90 days.",
+              "official_source": "Ministry of Foreign Affairs of Japan"
+            },
+            "transport": {
+              "payment_card": "Suica or Pasmo (IC cards, interchangeable, tap-to-pay on virtually all trains/buses/many shops)",
+              "main_systems": [
+                "JR Lines",
+                "Tokyo Metro",
+                "Toei Subway",
+                "Buses"
+              ],
+              "note": "Tokyo's rail map looks intimidating but Suica/Pasmo works seamlessly across all operators — buy at the airport on arrival."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Jan 12",
+                "name": "Coming of Age Day"
+              },
+              {
+                "date": "Feb 11",
+                "name": "National Foundation Day"
+              },
+              {
+                "date": "Feb 23",
+                "name": "Emperor's Birthday"
+              },
+              {
+                "date": "Mar 20",
+                "name": "Vernal Equinox Day"
+              },
+              {
+                "date": "Apr 29-May 5",
+                "name": "Golden Week cluster (multiple holidays)"
+              },
+              {
+                "date": "Jul 20",
+                "name": "Marine Day"
+              },
+              {
+                "date": "Aug 11",
+                "name": "Mountain Day"
+              },
+              {
+                "date": "Sep 21",
+                "name": "Respect for the Aged Day"
+              },
+              {
+                "date": "Sep 23",
+                "name": "Autumnal Equinox"
+              },
+              {
+                "date": "Oct 12",
+                "name": "Sports Day"
+              },
+              {
+                "date": "Nov 3",
+                "name": "Culture Day"
+              },
+              {
+                "date": "Nov 23",
+                "name": "Labour Thanksgiving Day"
+              }
+            ],
+            "major_events_note": "Golden Week (late April-early May) is Japan's biggest domestic travel surge — transport and hotels nationwide book out and prices spike heavily."
+          },
+          "cityId_source_string": "Tokyo,Japan"
+        },
+        {
+          "city": "Osaka",
+          "rank_global_arrivals": 28,
+          "researched": false
+        },
+        {
+          "city": "Kyoto",
+          "rank_global_arrivals": 67,
+          "researched": false
+        },
+        {
+          "city": "Chiba",
+          "rank_global_arrivals": 86,
+          "researched": false
+        },
+        {
+          "city": "Fukuoka",
+          "rank_global_arrivals": 93,
+          "researched": false
+        }
+      ],
+      "Macau SAR, China": [
+        {
+          "city": "Macau",
+          "rank_global_arrivals": 4,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "999 (110 and 112 also redirect to the same 999 center)",
+              "serious_crime_cid": "993 (Judiciary Police, for organized crime/serious offenses)"
+            },
+            "entry": {
+              "visa_note": "Visitors from 60+ countries can enter visa-free for 30-180 days depending on nationality. Macau has its own immigration, separate from mainland China and Hong Kong.",
+              "official_source": "Macao Government Tourism Office"
+            },
+            "transport": {
+              "payment_card": "Macau Pass (contactless card for buses and some shops)",
+              "main_systems": [
+                "Buses (extensive network)",
+                "Light Rail Transit (limited lines)",
+                "Licensed taxis (insist on the meter)",
+                "Free casino shuttle buses (widely used, connect hotels/attractions)"
+              ],
+              "note": "Free hotel/casino shuttle buses are a genuinely useful budget transport hack that locals and savvy tourists both use."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Feb 17-19",
+                "name": "Lunar New Year"
+              },
+              {
+                "date": "Apr 4",
+                "name": "Ching Ming Festival"
+              },
+              {
+                "date": "Apr 3, 6",
+                "name": "Good Friday / Easter"
+              },
+              {
+                "date": "May 1",
+                "name": "Labour Day"
+              },
+              {
+                "date": "Jun 20 (approx.)",
+                "name": "Dragon Boat Festival"
+              },
+              {
+                "date": "Oct 1",
+                "name": "China National Day"
+              },
+              {
+                "date": "Oct 6 (approx.)",
+                "name": "Day after Mid-Autumn Festival"
+              },
+              {
+                "date": "Dec 20",
+                "name": "Macau SAR Establishment Day"
+              },
+              {
+                "date": "Dec 25",
+                "name": "Christmas Day"
+              }
+            ],
+            "major_events_note": "Lunar New Year is by far the highest-demand period — casino/hotel prices peak."
+          },
+          "cityId_source_string": "Macau,Macau SAR"
+        }
+      ],
+      "Malaysia": [
+        {
+          "city": "Kuala Lumpur",
+          "rank_global_arrivals": 9,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "999 (or 112 from a mobile)",
+              "fire_civil_defense": "994",
+              "tourist_police_hotline": "03-2149 6590"
+            },
+            "entry": {
+              "visa_note": "Visa-free access for 160+ nationalities, typically up to 90 days for tourism.",
+              "official_source": "Malaysia Immigration Department (imi.gov.my)"
+            },
+            "transport": {
+              "payment_card": "Touch 'n Go eWallet / physical TnG card (covers LRT, MRT, monorail, tolls, and many shops)",
+              "main_systems": [
+                "LRT",
+                "MRT",
+                "KL Monorail",
+                "Grab (primary ride-hailing app)"
+              ],
+              "note": "Avoid unmetered street taxis — stick to Grab or metered taxis for fair pricing."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Feb 17-18",
+                "name": "Chinese New Year"
+              },
+              {
+                "date": "Mar (varies)",
+                "name": "Hari Raya Puasa (lunar, confirm dates)"
+              },
+              {
+                "date": "May 1",
+                "name": "Labour Day"
+              },
+              {
+                "date": "May (varies)",
+                "name": "Wesak Day"
+              },
+              {
+                "date": "Jun (varies)",
+                "name": "Hari Raya Haji (lunar, confirm dates)"
+              },
+              {
+                "date": "Aug 31",
+                "name": "Merdeka (National) Day"
+              },
+              {
+                "date": "Sep 16",
+                "name": "Malaysia Day"
+              },
+              {
+                "date": "Nov (varies)",
+                "name": "Deepavali"
+              },
+              {
+                "date": "Dec 25",
+                "name": "Christmas Day"
+              }
+            ],
+            "major_events_note": "Multiple Islamic and Hindu calendar-based holidays — confirm exact 2026 dates closer to travel."
+          },
+          "cityId_source_string": "Kuala Lumpur,Malaysia"
+        },
+        {
+          "city": "Johor Bahru",
+          "rank_global_arrivals": 38,
+          "researched": false
+        },
+        {
+          "city": "Penang Island",
+          "rank_global_arrivals": 65,
+          "researched": false
+        }
+      ],
+      "Philippines": [
+        {
+          "city": "Cebu City",
+          "rank_global_arrivals": 77,
+          "researched": false
+        }
+      ],
+      "Saudi Arabia": [
+        {
+          "city": "Mecca",
+          "rank_global_arrivals": 20,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "police": "999",
+              "ambulance": "997",
+              "fire": "998",
+              "general_alt": "911 (also works, especially in the Holy Cities)",
+              "pilgrim_unified_hotline": "1966 (Hajj/Umrah pilgrim support, Saudi SIM) or +966 92 000 2814 (international number)"
+            },
+            "entry": {
+              "visa_note": "IMPORTANT: entry to Mecca itself is restricted to Muslims only — this is a legal entry restriction, not a custom, and is strictly enforced at checkpoints on roads into the city. Non-Muslim travelers cannot visit Mecca at all. Muslim visitors need either a Hajj visa (Hajj season only, via the official Nusuk platform), an Umrah visa, or can perform Umrah on most other Saudi visa types including the eVisa — but must register on the Nusuk app.",
+              "official_source": "Nusuk (official Saudi Hajj & Umrah platform) and Saudi eVisa portal (visa.visitsaudi.com)"
+            },
+            "transport": {
+              "payment_card": "Public transport is limited; most pilgrims move via organized group transport, taxis, or the Al Mashaaer Al Mugaddassah Metro (Hajj-season only, serves the holy sites)",
+              "main_systems": [
+                "Organized pilgrim group buses/transport (most common)",
+                "Taxis",
+                "Mecca Metro (seasonal, Hajj period)"
+              ],
+              "note": "Individual/independent tourist-style transport is far less relevant here than in other cities on this list — most visitor movement is organized through pilgrimage service providers."
+            },
+            "public_holidays_2026": "Saudi holidays are Hijri-calendar based (Eid al-Fitr, Eid al-Adha) plus Saudi National Day (Sep 23, fixed Gregorian date) and Founding Day (Feb 22, fixed).",
+            "major_events_note": "This is a fundamentally different kind of entry in this dataset — Mecca is a pilgrimage destination with a hard religious entry restriction, not a general tourism city. The app should flag this distinctly rather than presenting it like a standard destination."
+          },
+          "cityId_source_string": "Mecca,Saudi Arabia"
+        },
+        {
+          "city": "Medina",
+          "rank_global_arrivals": 23,
+          "researched": false
+        },
+        {
+          "city": "Riyadh",
+          "rank_global_arrivals": 49,
+          "researched": false
+        },
+        {
+          "city": "Dammam",
+          "rank_global_arrivals": 64,
+          "researched": false
+        }
+      ],
+      "Singapore": [
+        {
+          "city": "Singapore",
+          "rank_global_arrivals": 5,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "police": "999",
+              "ambulance_fire": "995",
+              "non_emergency_ambulance": "1777"
+            },
+            "entry": {
+              "visa_note": "Most Western nationalities visa-free for 30-90 days. All travelers must submit the SG Arrival Card electronically before arrival.",
+              "official_source": "Immigration & Checkpoints Authority (ICA) Singapore"
+            },
+            "transport": {
+              "payment_card": "EZ-Link card or contactless bank card (both work on MRT and buses)",
+              "main_systems": [
+                "MRT (subway)",
+                "Buses",
+                "Licensed taxis",
+                "Grab (ride-hailing)"
+              ],
+              "note": "Contactless bank card tap-in/tap-out is now fully supported and simplest for short visits — no need to buy a card."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Feb 17-18",
+                "name": "Chinese New Year"
+              },
+              {
+                "date": "Mar (varies)",
+                "name": "Hari Raya Puasa (lunar-based, confirm date)"
+              },
+              {
+                "date": "Apr 3",
+                "name": "Good Friday"
+              },
+              {
+                "date": "May 1",
+                "name": "Labour Day"
+              },
+              {
+                "date": "May (varies)",
+                "name": "Vesak Day"
+              },
+              {
+                "date": "Jun (varies)",
+                "name": "Hari Raya Haji (lunar-based, confirm date)"
+              },
+              {
+                "date": "Aug 9",
+                "name": "National Day"
+              },
+              {
+                "date": "Nov (varies)",
+                "name": "Deepavali"
+              },
+              {
+                "date": "Dec 25",
+                "name": "Christmas Day"
+              }
+            ],
+            "major_events_note": "Singapore's multicultural holiday calendar means several Islamic and Hindu calendar-based dates shift yearly — always confirm the exact date close to travel."
+          },
+          "cityId_source_string": "Singapore,Singapore"
+        }
+      ],
+      "South Korea": [
+        {
+          "city": "Seoul",
+          "rank_global_arrivals": 24,
+          "researched": false
+        },
+        {
+          "city": "Jeju",
+          "rank_global_arrivals": 95,
+          "researched": false
+        }
+      ],
+      "Taiwan": [
+        {
+          "city": "Taipei",
+          "rank_global_arrivals": 19,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "police": "110",
+              "fire_ambulance": "119"
+            },
+            "entry": {
+              "visa_note": "Many Western nationalities visa-free for tourism up to 90 days.",
+              "official_source": "Taiwan Bureau of Consular Affairs, Ministry of Foreign Affairs"
+            },
+            "transport": {
+              "payment_card": "EasyCard (tap-to-pay on MRT, buses, and many convenience stores/shops)",
+              "main_systems": [
+                "Taipei MRT (metro)",
+                "Buses",
+                "YouBike (bike share, very popular and EasyCard-compatible)"
+              ],
+              "note": "Taiwan uses two separate emergency numbers (110/119), not a single unified one — worth noting clearly since many travelers expect one number."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Feb (varies)",
+                "name": "Lunar New Year (multi-day)"
+              },
+              {
+                "date": "Feb 28",
+                "name": "Peace Memorial Day"
+              },
+              {
+                "date": "Apr 4",
+                "name": "Children's Day / Tomb Sweeping Day cluster"
+              },
+              {
+                "date": "Oct 10",
+                "name": "National Day (Double Ten Day)"
+              }
+            ],
+            "major_events_note": "Lunar New Year is by far Taiwan's biggest holiday — many small businesses close for several days."
+          },
+          "cityId_source_string": "Taipei,Taiwan"
+        }
+      ],
+      "Thailand": [
+        {
+          "city": "Bangkok",
+          "rank_global_arrivals": 2,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "police": "191",
+              "tourist_police": "1155 (English-speaking, first call for most tourist issues)",
+              "ambulance": "1669",
+              "fire": "199",
+              "immigration_hotline": "1178 or 1646"
+            },
+            "entry": {
+              "visa_note": "Many nationalities visa-exempt for tourism (typically 30-60 days depending on nationality). All travelers must complete the Thailand Digital Arrival Card (TDAC) before/on arrival.",
+              "official_source": "Royal Thai Police Immigration Bureau"
+            },
+            "transport": {
+              "payment_card": "Rabbit Card (BTS Skytrain) — MRT uses separate token/card system, unification improving",
+              "main_systems": [
+                "BTS Skytrain",
+                "MRT (underground)",
+                "Airport Rail Link",
+                "Chao Phraya river boats",
+                "Metered taxis",
+                "Tuk-tuks (short trips only, agree price first)"
+              ],
+              "note": "Always insist on the meter in a taxi, or use Grab."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Feb (varies)",
+                "name": "Makha Bucha Day (lunar)"
+              },
+              {
+                "date": "Apr 6",
+                "name": "Chakri Day"
+              },
+              {
+                "date": "Apr 13-15",
+                "name": "Songkran (Thai New Year)"
+              },
+              {
+                "date": "May 1",
+                "name": "Labour Day"
+              },
+              {
+                "date": "May (varies)",
+                "name": "Visakha Bucha Day (lunar)"
+              },
+              {
+                "date": "Jul (varies)",
+                "name": "Asalha Bucha Day (lunar)"
+              },
+              {
+                "date": "Oct 23",
+                "name": "Chulalongkorn Day"
+              },
+              {
+                "date": "Dec 5",
+                "name": "King's Birthday"
+              },
+              {
+                "date": "Dec 10",
+                "name": "Constitution Day"
+              },
+              {
+                "date": "Dec 31",
+                "name": "New Year's Eve"
+              }
+            ],
+            "major_events_note": "Songkran (mid-April) is the single biggest travel disruption/celebration — city-wide water fights, transport and hotel prices spike hard. Confirm exact lunar-calendar holiday dates closer to travel."
+          },
+          "cityId_source_string": "Bangkok,Thailand"
+        },
+        {
+          "city": "Phuket",
+          "rank_global_arrivals": 15,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "police": "191",
+              "tourist_police": "1155",
+              "ambulance": "1669",
+              "fire": "199"
+            },
+            "entry": {
+              "visa_note": "Same national Thailand rules as Bangkok — visa-exempt for many nationalities (30-60 days), TDAC digital arrival card required for all.",
+              "official_source": "Royal Thai Police Immigration Bureau"
+            },
+            "transport": {
+              "payment_card": "No unified transit card — Phuket has no metro/rail system",
+              "main_systems": [
+                "Songthaew (shared pickup trucks, main local transport)",
+                "Grab",
+                "Rented scooters (very common but high accident risk for inexperienced riders)"
+              ],
+              "note": "Phuket has no rail transit; getting around relies on songthaews, Grab, or rental scooters — scooter accidents are a leading cause of tourist injury here, wear a helmet and check your travel insurance covers it."
+            },
+            "public_holidays_2026": "Same national Thai holidays as Bangkok.",
+            "major_events_note": "Songkran and the Vegetarian Festival (Phuket-specific, Sep/Oct, exact date varies) are the two biggest local events."
+          },
+          "cityId_source_string": "Phuket,Thailand"
+        },
+        {
+          "city": "Pattaya",
+          "rank_global_arrivals": 18,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "police": "191",
+              "tourist_police": "1155",
+              "ambulance": "1669",
+              "fire": "199"
+            },
+            "entry": {
+              "visa_note": "Same national Thailand rules as Bangkok/Phuket.",
+              "official_source": "Royal Thai Police Immigration Bureau"
+            },
+            "transport": {
+              "payment_card": "No unified card",
+              "main_systems": [
+                "Songthaew (baht buses — main local transport, shared routes)",
+                "Grab",
+                "Motorbike taxis"
+              ],
+              "note": "Baht buses run fixed routes along the main roads and are the cheapest way to get around — flag one down and confirm the fare/destination before boarding."
+            },
+            "public_holidays_2026": "Same national Thai holidays as Bangkok.",
+            "major_events_note": "Songkran here is especially large-scale and tourist-oriented compared to more local celebrations elsewhere in Thailand."
+          },
+          "cityId_source_string": "Pattaya,Thailand"
+        },
+        {
+          "city": "Chiang Mai",
+          "rank_global_arrivals": 70,
+          "researched": false
+        },
+        {
+          "city": "Krabi",
+          "rank_global_arrivals": 99,
+          "researched": false
+        }
+      ],
+      "Turkey": [
+        {
+          "city": "Antalya",
+          "rank_global_arrivals": 12,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "112 (same unified system as rest of Turkey)"
+            },
+            "entry": {
+              "visa_note": "Same as Istanbul: e-Visa online in advance for many nationalities, some nationalities visa-free. Turkey is not in the Schengen Area — separate system.",
+              "official_source": "evisa.gov.tr"
+            },
+            "transport": {
+              "payment_card": "Antalyakart (local transit card, separate system from Istanbulkart)",
+              "main_systems": [
+                "Antalya Tram (Antray)",
+                "Buses",
+                "Dolmuş (shared minibus)"
+              ],
+              "note": "Antalya is Turkey's resort/beach hub — most visitors stay in coastal resort areas outside the city center itself."
+            },
+            "public_holidays_2026": "Same national Turkish holidays as Istanbul — see batch 1 Istanbul entry.",
+            "major_events_note": "Peak beach season (Jun-Sep) drives massive resort pricing; this is a summer resort city more than a year-round urban destination."
+          },
+          "cityId_source_string": "Antalya,Turkey"
+        },
+        {
+          "city": "Mugla",
+          "rank_global_arrivals": 84,
+          "researched": false
+        }
+      ],
+      "United Arab Emirates": [
+        {
+          "city": "Dubai",
+          "rank_global_arrivals": 7,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "police": "999",
+              "ambulance": "998",
+              "fire": "997",
+              "tourist_police_dubai": "+971 4 609 6239"
+            },
+            "entry": {
+              "visa_note": "Many nationalities (UK, EU, US, Australia, etc.) receive visa-on-arrival or visa-free entry for 30-90 days.",
+              "official_source": "The Official Portal of the UAE Government (u.ae)"
+            },
+            "transport": {
+              "payment_card": "Nol Card (covers Metro, tram, bus, water bus, and RTA taxis)",
+              "main_systems": [
+                "Dubai Metro",
+                "Dubai Tram",
+                "RTA taxis",
+                "Water bus/abra"
+              ],
+              "note": "Nol Card is the single card for essentially all public transport in Dubai — buy at any metro station."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Mar (varies)",
+                "name": "Eid al-Fitr (lunar, confirm dates)"
+              },
+              {
+                "date": "Jun (varies)",
+                "name": "Eid al-Adha (lunar, confirm dates)"
+              },
+              {
+                "date": "Jun (varies)",
+                "name": "Islamic New Year (lunar)"
+              },
+              {
+                "date": "Sep (varies)",
+                "name": "Prophet Muhammad's Birthday (lunar)"
+              },
+              {
+                "date": "Dec 1",
+                "name": "Commemoration Day"
+              },
+              {
+                "date": "Dec 2-3",
+                "name": "UAE National Day"
+              }
+            ],
+            "major_events_note": "Most UAE public holidays are Islamic (Hijri) calendar-based and shift ~11 days earlier each year — exact 2026 dates must be confirmed close to travel, official announcement typically comes only weeks ahead."
+          },
+          "cityId_source_string": "Dubai,United Arab Emirates"
+        },
+        {
+          "city": "Abu Dhabi",
+          "rank_global_arrivals": 94,
+          "researched": false
+        }
+      ],
+      "Vietnam": [
+        {
+          "city": "Ho Chi Minh City",
+          "rank_global_arrivals": 31,
+          "researched": false
+        },
+        {
+          "city": "Ha Long",
+          "rank_global_arrivals": 48,
+          "researched": false
+        },
+        {
+          "city": "Hanoi",
+          "rank_global_arrivals": 52,
+          "researched": false
+        },
+        {
+          "city": "Da Nang",
+          "rank_global_arrivals": 90,
+          "researched": false
+        }
+      ]
+    },
+    "Europe": {
+      "Austria": [
+        {
+          "city": "Vienna",
+          "rank_global_arrivals": 37,
+          "researched": false
+        }
+      ],
+      "Belgium": [
+        {
+          "city": "Brussels",
+          "rank_global_arrivals": 60,
+          "researched": false
+        }
+      ],
+      "Czech Republic": [
+        {
+          "city": "Prague",
+          "rank_global_arrivals": 22,
+          "researched": false
+        }
+      ],
+      "Denmark": [
+        {
+          "city": "Copenhagen",
+          "rank_global_arrivals": 71,
+          "researched": false
+        }
+      ],
+      "France": [
+        {
+          "city": "Paris",
+          "rank_global_arrivals": 6,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "112 (EU-wide, English-speaking operators available)",
+              "medical_samu": "15",
+              "police": "17",
+              "fire": "18"
+            },
+            "entry": {
+              "visa_note": "Schengen area — most Western nationalities visa-free for up to 90 days within a 180-day period for tourism/business.",
+              "official_source": "France-Visas / French Ministry for Europe and Foreign Affairs"
+            },
+            "transport": {
+              "payment_card": "Navigo Easy card (rechargeable, works on Metro/bus/RER within zones)",
+              "main_systems": [
+                "Metro",
+                "RER (regional rail)",
+                "Buses",
+                "Velib' bike share"
+              ],
+              "note": "Pickpocketing is a real and persistent issue on the Metro and around major tourist sites (especially Gare du Nord) — keep bags zipped and in front."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Apr 6",
+                "name": "Easter Monday"
+              },
+              {
+                "date": "May 1",
+                "name": "Labour Day"
+              },
+              {
+                "date": "May 8",
+                "name": "Victory in Europe Day"
+              },
+              {
+                "date": "May 14",
+                "name": "Ascension Day"
+              },
+              {
+                "date": "May 25",
+                "name": "Whit Monday"
+              },
+              {
+                "date": "Jul 14",
+                "name": "Bastille Day"
+              },
+              {
+                "date": "Aug 15",
+                "name": "Assumption Day"
+              },
+              {
+                "date": "Nov 1",
+                "name": "All Saints' Day"
+              },
+              {
+                "date": "Nov 11",
+                "name": "Armistice Day"
+              },
+              {
+                "date": "Dec 25",
+                "name": "Christmas Day"
+              }
+            ],
+            "major_events_note": "Bastille Day (Jul 14) brings citywide fireworks and a major military parade on the Champs-Élysées — huge crowds, plan transport around road closures."
+          },
+          "cityId_source_string": "Paris,France"
+        },
+        {
+          "city": "Nice",
+          "rank_global_arrivals": 92,
+          "researched": false
+        }
+      ],
+      "Germany": [
+        {
+          "city": "Berlin",
+          "rank_global_arrivals": 41,
+          "researched": false
+        },
+        {
+          "city": "Munich",
+          "rank_global_arrivals": 56,
+          "researched": false
+        },
+        {
+          "city": "Frankfurt",
+          "rank_global_arrivals": 87,
+          "researched": false
+        }
+      ],
+      "Greece": [
+        {
+          "city": "Athens",
+          "rank_global_arrivals": 43,
+          "researched": false
+        },
+        {
+          "city": "Heraklion",
+          "rank_global_arrivals": 66,
+          "researched": false
+        },
+        {
+          "city": "Rhodes",
+          "rank_global_arrivals": 97,
+          "researched": false
+        }
+      ],
+      "Hungary": [
+        {
+          "city": "Budapest",
+          "rank_global_arrivals": 62,
+          "researched": false
+        }
+      ],
+      "Ireland": [
+        {
+          "city": "Dublin",
+          "rank_global_arrivals": 50,
+          "researched": false
+        }
+      ],
+      "Italy": [
+        {
+          "city": "Rome",
+          "rank_global_arrivals": 16,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "112",
+              "medical_direct": "118",
+              "police_direct": "113",
+              "fire_direct": "115"
+            },
+            "entry": {
+              "visa_note": "Schengen area — same 90-day visa-free rule (within 180 days) as Paris for most Western nationalities.",
+              "official_source": "Italian Ministry of Foreign Affairs"
+            },
+            "transport": {
+              "payment_card": "Roma Pass (includes transit + museum discounts) or standard BIT paper/contactless tickets",
+              "main_systems": [
+                "Metro (2 main lines, limited compared to other major capitals)",
+                "Buses and trams",
+                "Walking (historic center is largely walkable)"
+              ],
+              "note": "Rome's Metro network is notably smaller than other major European capitals — buses and walking fill the gaps considerably."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Jan 6",
+                "name": "Epiphany"
+              },
+              {
+                "date": "Apr 5",
+                "name": "Easter Sunday"
+              },
+              {
+                "date": "Apr 6",
+                "name": "Easter Monday"
+              },
+              {
+                "date": "Apr 25",
+                "name": "Liberation Day"
+              },
+              {
+                "date": "May 1",
+                "name": "Labour Day"
+              },
+              {
+                "date": "Jun 2",
+                "name": "Republic Day"
+              },
+              {
+                "date": "Aug 15",
+                "name": "Ferragosto"
+              },
+              {
+                "date": "Nov 1",
+                "name": "All Saints' Day"
+              },
+              {
+                "date": "Dec 8",
+                "name": "Immaculate Conception"
+              },
+              {
+                "date": "Dec 25-26",
+                "name": "Christmas & Santo Stefano"
+              }
+            ],
+            "major_events_note": "Ferragosto (Aug 15) is when much of Rome itself closes as locals leave the city for holiday — many small businesses shut for the surrounding week."
+          },
+          "cityId_source_string": "Rome,Italy"
+        },
+        {
+          "city": "Milan",
+          "rank_global_arrivals": 35,
+          "researched": false
+        },
+        {
+          "city": "Venice",
+          "rank_global_arrivals": 46,
+          "researched": false
+        },
+        {
+          "city": "Florence",
+          "rank_global_arrivals": 51,
+          "researched": false
+        }
+      ],
+      "Netherlands": [
+        {
+          "city": "Amsterdam",
+          "rank_global_arrivals": 25,
+          "researched": false
+        }
+      ],
+      "Poland": [
+        {
+          "city": "Krakow",
+          "rank_global_arrivals": 74,
+          "researched": false
+        },
+        {
+          "city": "Warsaw",
+          "rank_global_arrivals": 83,
+          "researched": false
+        }
+      ],
+      "Portugal": [
+        {
+          "city": "Lisbon",
+          "rank_global_arrivals": 63,
+          "researched": false
+        },
+        {
+          "city": "Porto",
+          "rank_global_arrivals": 96,
+          "researched": false
+        }
+      ],
+      "Russia": [
+        {
+          "city": "Moscow",
+          "rank_global_arrivals": 45,
+          "researched": false
+        },
+        {
+          "city": "Saint Petersburg",
+          "rank_global_arrivals": 59,
+          "researched": false
+        }
+      ],
+      "Spain": [
+        {
+          "city": "Barcelona",
+          "rank_global_arrivals": 33,
+          "researched": false
+        },
+        {
+          "city": "Madrid",
+          "rank_global_arrivals": 47,
+          "researched": false
+        }
+      ],
+      "Sweden": [
+        {
+          "city": "Stockholm",
+          "rank_global_arrivals": 88,
+          "researched": false
+        }
+      ],
+      "Turkey": [
+        {
+          "city": "Istanbul",
+          "rank_global_arrivals": 10,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "112 (unified since 2023 — covers ambulance, police, fire, all emergencies)",
+              "police_direct": "155",
+              "fire_direct": "110",
+              "tourist_police": "+90 212 527 45 03"
+            },
+            "entry": {
+              "visa_note": "Many nationalities can obtain Turkey's e-Visa online in advance; some nationalities are visa-free. Check by nationality before travel.",
+              "official_source": "Republic of Türkiye Electronic Visa Application System (evisa.gov.tr)"
+            },
+            "transport": {
+              "payment_card": "Istanbulkart (covers metro, tram, bus, funicular, and ferries — cash not accepted on most transport)",
+              "main_systems": [
+                "Istanbul Metro",
+                "Trams",
+                "Marmaray (cross-Bosphorus rail)",
+                "Ferries",
+                "Funiculars"
+              ],
+              "note": "Istanbulkart is essential — cash payment is not possible on almost any public transport, buy one at the airport immediately."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Mar (varies)",
+                "name": "Eid al-Fitr / Ramazan Bayrami (lunar, confirm dates)"
+              },
+              {
+                "date": "Apr 23",
+                "name": "National Sovereignty and Children's Day"
+              },
+              {
+                "date": "May 1",
+                "name": "Labour Day"
+              },
+              {
+                "date": "May 19",
+                "name": "Commemoration of Atatürk, Youth and Sports Day"
+              },
+              {
+                "date": "Jun (varies)",
+                "name": "Eid al-Adha / Kurban Bayrami (lunar, confirm dates)"
+              },
+              {
+                "date": "Jul 15",
+                "name": "Democracy and National Unity Day"
+              },
+              {
+                "date": "Aug 30",
+                "name": "Victory Day"
+              },
+              {
+                "date": "Oct 29",
+                "name": "Republic Day"
+              }
+            ],
+            "major_events_note": "Eid holidays (Ramazan and Kurban Bayrami) are the two biggest domestic travel surges — Istanbul empties of some locals but hotel/flight prices still spike due to international demand. Confirm exact 2026 lunar dates closer to travel."
+          },
+          "cityId_source_string": "Istanbul,Turkey"
+        }
+      ],
+      "United Kingdom": [
+        {
+          "city": "London",
+          "rank_global_arrivals": 3,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "999 or 112 (both work identically, free from any phone)",
+              "non_emergency_police": "101"
+            },
+            "entry": {
+              "visa_note": "Most Western nationalities visa-free for tourism up to 6 months, but the UK's ETA (Electronic Travel Authorisation) is required in advance for many non-visa nationals as of 2025 rules — check current ETA requirement by nationality before travel.",
+              "official_source": "UK gov.uk / Home Office"
+            },
+            "transport": {
+              "payment_card": "Contactless bank card or Visitor Oyster card — contactless is now generally preferred/simpler for short stays",
+              "main_systems": [
+                "London Underground (Tube)",
+                "Buses (contactless/Oyster only, no cash)",
+                "Overground",
+                "DLR",
+                "Black cabs",
+                "River services"
+              ],
+              "note": "Daily fare capping applies automatically with contactless/Oyster — you're never charged more than a day pass equivalent."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Apr 3",
+                "name": "Good Friday"
+              },
+              {
+                "date": "Apr 6",
+                "name": "Easter Monday"
+              },
+              {
+                "date": "May 4",
+                "name": "Early May Bank Holiday"
+              },
+              {
+                "date": "May 25",
+                "name": "Spring Bank Holiday"
+              },
+              {
+                "date": "Aug 31",
+                "name": "Summer Bank Holiday"
+              },
+              {
+                "date": "Dec 25",
+                "name": "Christmas Day"
+              },
+              {
+                "date": "Dec 26",
+                "name": "Boxing Day"
+              }
+            ],
+            "major_events_note": "Notting Hill Carnival (August bank holiday weekend) and Wimbledon (late June/early July) are major tourist-relevant events with big crowd/price impact."
+          },
+          "cityId_source_string": "London,United Kingdom"
+        }
+      ]
+    },
+    "North America": {
+      "Canada": [
+        {
+          "city": "Toronto",
+          "rank_global_arrivals": 53,
+          "researched": false
+        },
+        {
+          "city": "Vancouver",
+          "rank_global_arrivals": 69,
+          "researched": false
+        }
+      ],
+      "Mexico": [
+        {
+          "city": "Cancun",
+          "rank_global_arrivals": 40,
+          "researched": false
+        }
+      ],
+      "United States": [
+        {
+          "city": "New York City",
+          "rank_global_arrivals": 8,
+          "researched": true,
+          "data": {
+            "emergency": {
+              "all_purpose": "911",
+              "non_emergency": "311 (city services)"
+            },
+            "entry": {
+              "visa_note": "Visa Waiver Program covers 40+ countries for tourism up to 90 days, but requires an approved ESTA obtained in advance online. Other nationalities need a B1/B2 visa.",
+              "official_source": "U.S. Customs and Border Protection / ESTA official site"
+            },
+            "transport": {
+              "payment_card": "OMNY (tap-to-pay with bank card, phone, or OMNY card — MetroCard fully phased out as of end of 2025)",
+              "main_systems": [
+                "Subway",
+                "MTA buses",
+                "AirTrain JFK",
+                "Staten Island Ferry (free)"
+              ],
+              "note": "OMNY has weekly fare capping built in — 12 rides in 7 days and the rest of that week is free, so no need to buy a separate weekly pass."
+            },
+            "public_holidays_2026": [
+              {
+                "date": "Jan 1",
+                "name": "New Year's Day"
+              },
+              {
+                "date": "Jan 19",
+                "name": "Martin Luther King Jr. Day"
+              },
+              {
+                "date": "Feb 16",
+                "name": "Presidents' Day"
+              },
+              {
+                "date": "May 25",
+                "name": "Memorial Day"
+              },
+              {
+                "date": "Jun 19",
+                "name": "Juneteenth"
+              },
+              {
+                "date": "Jul 4",
+                "name": "Independence Day"
+              },
+              {
+                "date": "Sep 7",
+                "name": "Labor Day"
+              },
+              {
+                "date": "Nov 26",
+                "name": "Thanksgiving"
+              },
+              {
+                "date": "Dec 25",
+                "name": "Christmas Day"
+              }
+            ],
+            "major_events_note": "Thanksgiving week (including the Macy's Parade) and New Year's Eve in Times Square are the two biggest tourist-impact events — book well ahead and expect major street closures."
+          },
+          "cityId_source_string": "New York City,United States"
+        },
+        {
+          "city": "Miami",
+          "rank_global_arrivals": 27,
+          "researched": false
+        },
+        {
+          "city": "Los Angeles",
+          "rank_global_arrivals": 29,
+          "researched": false
+        },
+        {
+          "city": "Las Vegas",
+          "rank_global_arrivals": 34,
+          "researched": false
+        },
+        {
+          "city": "Orlando",
+          "rank_global_arrivals": 44,
+          "researched": false
+        },
+        {
+          "city": "San Francisco",
+          "rank_global_arrivals": 72,
+          "researched": false
+        },
+        {
+          "city": "Honolulu",
+          "rank_global_arrivals": 81,
+          "researched": false
+        }
+      ]
+    },
+    "Oceania": {
+      "Australia": [
+        {
+          "city": "Sydney",
+          "rank_global_arrivals": 55,
+          "researched": false
+        },
+        {
+          "city": "Melbourne",
+          "rank_global_arrivals": 73,
+          "researched": false
+        },
+        {
+          "city": "Brisbane",
+          "rank_global_arrivals": null,
+          "researched": false
+        },
+        {
+          "city": "Gold Coast",
+          "rank_global_arrivals": null,
+          "researched": false
+        },
+        {
+          "city": "Perth",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ],
+      "Fiji": [
+        {
+          "city": "Nadi",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ],
+      "New Zealand": [
+        {
+          "city": "Auckland",
+          "rank_global_arrivals": 78,
+          "researched": false
+        },
+        {
+          "city": "Christchurch",
+          "rank_global_arrivals": null,
+          "researched": false
+        },
+        {
+          "city": "Queenstown",
+          "rank_global_arrivals": null,
+          "researched": false
+        },
+        {
+          "city": "Wellington",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ]
+    },
+    "South America": {
+      "Argentina": [
+        {
+          "city": "Buenos Aires",
+          "rank_global_arrivals": 85,
+          "researched": false
+        }
+      ],
+      "Brazil": [
+        {
+          "city": "Rio de Janeiro",
+          "rank_global_arrivals": 98,
+          "researched": false
+        },
+        {
+          "city": "Sao Paulo",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ],
+      "Chile": [
+        {
+          "city": "Santiago",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ],
+      "Colombia": [
+        {
+          "city": "Bogota",
+          "rank_global_arrivals": null,
+          "researched": false
+        },
+        {
+          "city": "Cartagena",
+          "rank_global_arrivals": null,
+          "researched": false
+        },
+        {
+          "city": "Medellin",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ],
+      "Ecuador": [
+        {
+          "city": "Quito",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ],
+      "Peru": [
+        {
+          "city": "Lima",
+          "rank_global_arrivals": 89,
+          "researched": false
+        }
+      ],
+      "Uruguay": [
+        {
+          "city": "Montevideo",
+          "rank_global_arrivals": null,
+          "researched": false
+        }
+      ]
+    }
+  }
+}

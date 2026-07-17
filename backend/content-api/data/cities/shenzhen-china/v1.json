@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "city": "Shenzhen",
+  "country": "China",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "Police",
+      "number": "110"
+    },
+    {
+      "label": "Fire",
+      "number": "119"
+    },
+    {
+      "label": "Ambulance",
+      "number": "120"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Complex and nationality-dependent: some nationalities get 30-day visa-free entry, others qualify for 10-day or 240-hour visa-free transit if continuing to a third country, others need a full visa or Shenzhen-specific 5-day Visa on Arrival. Rules vary significantly — verify carefully by nationality and itinerary before travel.",
+    "officialSource": "National Immigration Administration of China (nia.gov.cn)"
+  },
+  "transportInfo": {
+    "paymentCard": "Shenzhen Tong card or WeChat Pay/Alipay QR (increasingly the dominant payment method city-wide)",
+    "mainSystems": [
+      "Shenzhen Metro (17 lines, one of the world's largest systems)",
+      "Buses"
+    ],
+    "note": "Mobile QR payment (WeChat Pay/Alipay) is close to essential in Shenzhen — cash is increasingly uncommon; set up a China-compatible payment app before arrival if possible."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Feb (varies)",
+      "name": "Chinese New Year (multi-day, biggest holiday)"
+    },
+    {
+      "date": "Apr 4-6",
+      "name": "Qingming Festival"
+    },
+    {
+      "date": "May 1-5",
+      "name": "Labour Day (Golden Week)"
+    },
+    {
+      "date": "Oct 1-7",
+      "name": "National Day (Golden Week)"
+    }
+  ],
+  "majorEventsNote": "Chinese New Year and National Day 'Golden Week' are massive nationwide travel surges — domestic transport and hotels book out; best avoided or planned around well in advance.",
+  "rankGlobalArrivals": 13,
+  "sourceVerified": true
+}

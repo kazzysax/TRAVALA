@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "city": "Istanbul",
+  "country": "Turkey",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "All Purpose",
+      "number": "112 (unified since 2023 — covers ambulance, police, fire, all emergencies)"
+    },
+    {
+      "label": "Police Direct",
+      "number": "155"
+    },
+    {
+      "label": "Fire Direct",
+      "number": "110"
+    },
+    {
+      "label": "Tourist Police",
+      "number": "+90 212 527 45 03"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Many nationalities can obtain Turkey's e-Visa online in advance; some nationalities are visa-free. Check by nationality before travel.",
+    "officialSource": "Republic of Türkiye Electronic Visa Application System (evisa.gov.tr)"
+  },
+  "transportInfo": {
+    "paymentCard": "Istanbulkart (covers metro, tram, bus, funicular, and ferries — cash not accepted on most transport)",
+    "mainSystems": [
+      "Istanbul Metro",
+      "Trams",
+      "Marmaray (cross-Bosphorus rail)",
+      "Ferries",
+      "Funiculars"
+    ],
+    "note": "Istanbulkart is essential — cash payment is not possible on almost any public transport, buy one at the airport immediately."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Mar (varies)",
+      "name": "Eid al-Fitr / Ramazan Bayrami (lunar, confirm dates)"
+    },
+    {
+      "date": "Apr 23",
+      "name": "National Sovereignty and Children's Day"
+    },
+    {
+      "date": "May 1",
+      "name": "Labour Day"
+    },
+    {
+      "date": "May 19",
+      "name": "Commemoration of Atatürk, Youth and Sports Day"
+    },
+    {
+      "date": "Jun (varies)",
+      "name": "Eid al-Adha / Kurban Bayrami (lunar, confirm dates)"
+    },
+    {
+      "date": "Jul 15",
+      "name": "Democracy and National Unity Day"
+    },
+    {
+      "date": "Aug 30",
+      "name": "Victory Day"
+    },
+    {
+      "date": "Oct 29",
+      "name": "Republic Day"
+    }
+  ],
+  "majorEventsNote": "Eid holidays (Ramazan and Kurban Bayrami) are the two biggest domestic travel surges — Istanbul empties of some locals but hotel/flight prices still spike due to international demand. Confirm exact 2026 lunar dates closer to travel.",
+  "rankGlobalArrivals": 10,
+  "sourceVerified": true
+}

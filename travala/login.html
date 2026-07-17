@@ -139,26 +139,13 @@
   <!-- STEP 2: set location -->
   <div class="panel hidden" id="step2">
     <h1>Where are you right now?</h1>
-    <p class="sub">This loads your city guide and mints your first stamp. You can change cities anytime.</p>
+    <p class="sub">From Travala's verified 120-city roster. This loads your city guide and mints your first stamp. You can change cities anytime.</p>
     <div class="city-search">
       <span class="pin">📍</span>
-      <input type="text" placeholder="Search a city…" id="citySearch" oninput="filterCities()">
+      <input type="text" placeholder="Search a city or country…" id="citySearch" oninput="filterCities()">
     </div>
     <button class="loc-btn" onclick="useLocation()">◎ Use my current location</button>
-    <div class="city-list" id="cityList">
-      <button class="city-opt" data-city="Lisbon" data-country="Portugal" data-flag="🇵🇹" onclick="selCity(this)">
-        <span class="flag">🇵🇹</span><div><div class="nm">Lisbon</div><div class="cn">Portugal</div></div><span class="chk">✓</span>
-      </button>
-      <button class="city-opt" data-city="Tokyo" data-country="Japan" data-flag="🇯🇵" onclick="selCity(this)">
-        <span class="flag">🇯🇵</span><div><div class="nm">Tokyo</div><div class="cn">Japan</div></div><span class="chk">✓</span>
-      </button>
-      <button class="city-opt" data-city="Lagos" data-country="Nigeria" data-flag="🇳🇬" onclick="selCity(this)">
-        <span class="flag">🇳🇬</span><div><div class="nm">Lagos</div><div class="cn">Nigeria</div></div><span class="chk">✓</span>
-      </button>
-      <button class="city-opt" data-city="Mexico City" data-country="Mexico" data-flag="🇲🇽" onclick="selCity(this)">
-        <span class="flag">🇲🇽</span><div><div class="nm">Mexico City</div><div class="cn">Mexico</div></div><span class="chk">✓</span>
-      </button>
-    </div>
+    <div class="city-list" id="cityList" style="max-height:340px;overflow-y:auto;padding-right:2px"><div class="loading" style="padding:20px 0;text-align:center;color:var(--ink-soft);font-size:13.5px">Loading verified city roster…</div></div>
     <button class="btn btn-primary" id="mintBtn" style="margin-top:16px;opacity:.5;pointer-events:none" onclick="goStep3()">Set city &amp; mint stamp →</button>
   </div>
 
@@ -181,7 +168,39 @@
   const AUTH_API = "https://auth-jtty.onrender.com";
   const RELAYER_API = "https://relayer-rb93.onrender.com";
   const INDEXER_API = "https://indexer-y2zq.onrender.com";
+  const CONTENT_API = "https://content-api-zr40.onrender.com";
   const provider = new ethers.JsonRpcProvider(`${INDEXER_API}/rpc`);
+
+  let roster = [];
+  async function loadRoster(){
+    try {
+      const res = await fetch(`${CONTENT_API}/roster`);
+      roster = await res.json();
+      renderCityList(roster);
+    } catch (err) {
+      document.getElementById('cityList').innerHTML = `<div style="padding:20px 0;text-align:center;color:var(--ink-soft);font-size:13.5px">Couldn't load the city roster (${err.message}) - try refreshing.</div>`;
+    }
+  }
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+  function renderCityList(list){
+    const byContinent = {};
+    for (const c of list) {
+      (byContinent[c.continent] = byContinent[c.continent] || []).push(c);
+    }
+    let html = '';
+    for (const [continent, cities] of Object.entries(byContinent)) {
+      html += `<div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);margin:10px 0 4px;padding:0 2px">${esc(continent)}</div>`;
+      html += cities.map(c => `
+        <button class="city-opt" data-city="${esc(c.city)}" data-country="${esc(c.country)}" onclick="selCity(this)">
+          <span class="flag">📍</span>
+          <div><div class="nm">${esc(c.city)}${!c.researched ? ' <span style="font-size:10px;font-weight:500;color:var(--ink-soft)">· guide coming soon</span>' : ''}</div><div class="cn">${esc(c.country)}</div></div>
+          <span class="chk">✓</span>
+        </button>`).join('');
+    }
+    document.getElementById('cityList').innerHTML = html || '<div style="padding:20px 0;text-align:center;color:var(--ink-soft);font-size:13.5px">No cities match.</div>';
+  }
 
   // Same wallet/localStorage key used everywhere else in the app (money,
   // recommendations, etc.) - one real wallet across the whole product, not a
@@ -232,22 +251,21 @@
     document.getElementById('step2').classList.remove('hidden');
     document.getElementById('p2').classList.replace('on','done');
     document.getElementById('p3').classList.add('on');
+    loadRoster();
   };
 
   let picked = null;
   window.selCity = function(el){
     document.querySelectorAll('.city-opt').forEach(o=>o.classList.remove('sel'));
     el.classList.add('sel');
-    picked = { city: el.dataset.city, country: el.dataset.country, flag: el.dataset.flag };
+    picked = { city: el.dataset.city, country: el.dataset.country };
     const b = document.getElementById('mintBtn');
     b.style.opacity = '1'; b.style.pointerEvents = 'auto';
   };
   window.filterCities = function(){
     const q = document.getElementById('citySearch').value.toLowerCase();
-    document.querySelectorAll('.city-opt').forEach(o=>{
-      const m = o.dataset.city.toLowerCase().includes(q) || o.dataset.country.toLowerCase().includes(q);
-      o.style.display = m ? 'flex' : 'none';
-    });
+    const filtered = q ? roster.filter(c => c.city.toLowerCase().includes(q) || c.country.toLowerCase().includes(q)) : roster;
+    renderCityList(filtered);
   };
   window.useLocation = function(){
     // Real geolocation isn't mapped to a city list match here (that needs a

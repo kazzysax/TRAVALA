@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "city": "Bangkok",
+  "country": "Thailand",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "Police",
+      "number": "191"
+    },
+    {
+      "label": "Tourist Police",
+      "number": "1155 (English-speaking, first call for most tourist issues)"
+    },
+    {
+      "label": "Ambulance",
+      "number": "1669"
+    },
+    {
+      "label": "Fire",
+      "number": "199"
+    },
+    {
+      "label": "Immigration Hotline",
+      "number": "1178 or 1646"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Many nationalities visa-exempt for tourism (typically 30-60 days depending on nationality). All travelers must complete the Thailand Digital Arrival Card (TDAC) before/on arrival.",
+    "officialSource": "Royal Thai Police Immigration Bureau"
+  },
+  "transportInfo": {
+    "paymentCard": "Rabbit Card (BTS Skytrain) — MRT uses separate token/card system, unification improving",
+    "mainSystems": [
+      "BTS Skytrain",
+      "MRT (underground)",
+      "Airport Rail Link",
+      "Chao Phraya river boats",
+      "Metered taxis",
+      "Tuk-tuks (short trips only, agree price first)"
+    ],
+    "note": "Always insist on the meter in a taxi, or use Grab."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Feb (varies)",
+      "name": "Makha Bucha Day (lunar)"
+    },
+    {
+      "date": "Apr 6",
+      "name": "Chakri Day"
+    },
+    {
+      "date": "Apr 13-15",
+      "name": "Songkran (Thai New Year)"
+    },
+    {
+      "date": "May 1",
+      "name": "Labour Day"
+    },
+    {
+      "date": "May (varies)",
+      "name": "Visakha Bucha Day (lunar)"
+    },
+    {
+      "date": "Jul (varies)",
+      "name": "Asalha Bucha Day (lunar)"
+    },
+    {
+      "date": "Oct 23",
+      "name": "Chulalongkorn Day"
+    },
+    {
+      "date": "Dec 5",
+      "name": "King's Birthday"
+    },
+    {
+      "date": "Dec 10",
+      "name": "Constitution Day"
+    },
+    {
+      "date": "Dec 31",
+      "name": "New Year's Eve"
+    }
+  ],
+  "majorEventsNote": "Songkran (mid-April) is the single biggest travel disruption/celebration — city-wide water fights, transport and hotel prices spike hard. Confirm exact lunar-calendar holiday dates closer to travel.",
+  "rankGlobalArrivals": 2,
+  "sourceVerified": true
+}

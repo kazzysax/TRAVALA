@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "city": "Phuket",
+  "country": "Thailand",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "Police",
+      "number": "191"
+    },
+    {
+      "label": "Tourist Police",
+      "number": "1155"
+    },
+    {
+      "label": "Ambulance",
+      "number": "1669"
+    },
+    {
+      "label": "Fire",
+      "number": "199"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Same national Thailand rules as Bangkok — visa-exempt for many nationalities (30-60 days), TDAC digital arrival card required for all.",
+    "officialSource": "Royal Thai Police Immigration Bureau"
+  },
+  "transportInfo": {
+    "paymentCard": "No unified transit card — Phuket has no metro/rail system",
+    "mainSystems": [
+      "Songthaew (shared pickup trucks, main local transport)",
+      "Grab",
+      "Rented scooters (very common but high accident risk for inexperienced riders)"
+    ],
+    "note": "Phuket has no rail transit; getting around relies on songthaews, Grab, or rental scooters — scooter accidents are a leading cause of tourist injury here, wear a helmet and check your travel insurance covers it."
+  },
+  "publicHolidays2026": "Same national Thai holidays as Bangkok.",
+  "majorEventsNote": "Songkran and the Vegetarian Festival (Phuket-specific, Sep/Oct, exact date varies) are the two biggest local events.",
+  "rankGlobalArrivals": 15,
+  "sourceVerified": true
+}

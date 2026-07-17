@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "city": "Dubai",
+  "country": "United Arab Emirates",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "Police",
+      "number": "999"
+    },
+    {
+      "label": "Ambulance",
+      "number": "998"
+    },
+    {
+      "label": "Fire",
+      "number": "997"
+    },
+    {
+      "label": "Tourist Police Dubai",
+      "number": "+971 4 609 6239"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Many nationalities (UK, EU, US, Australia, etc.) receive visa-on-arrival or visa-free entry for 30-90 days.",
+    "officialSource": "The Official Portal of the UAE Government (u.ae)"
+  },
+  "transportInfo": {
+    "paymentCard": "Nol Card (covers Metro, tram, bus, water bus, and RTA taxis)",
+    "mainSystems": [
+      "Dubai Metro",
+      "Dubai Tram",
+      "RTA taxis",
+      "Water bus/abra"
+    ],
+    "note": "Nol Card is the single card for essentially all public transport in Dubai — buy at any metro station."
+  },
+  "publicHolidays2026": [
+    {
+      "date": "Jan 1",
+      "name": "New Year's Day"
+    },
+    {
+      "date": "Mar (varies)",
+      "name": "Eid al-Fitr (lunar, confirm dates)"
+    },
+    {
+      "date": "Jun (varies)",
+      "name": "Eid al-Adha (lunar, confirm dates)"
+    },
+    {
+      "date": "Jun (varies)",
+      "name": "Islamic New Year (lunar)"
+    },
+    {
+      "date": "Sep (varies)",
+      "name": "Prophet Muhammad's Birthday (lunar)"
+    },
+    {
+      "date": "Dec 1",
+      "name": "Commemoration Day"
+    },
+    {
+      "date": "Dec 2-3",
+      "name": "UAE National Day"
+    }
+  ],
+  "majorEventsNote": "Most UAE public holidays are Islamic (Hijri) calendar-based and shift ~11 days earlier each year — exact 2026 dates must be confirmed close to travel, official announcement typically comes only weeks ahead.",
+  "rankGlobalArrivals": 7,
+  "sourceVerified": true
+}

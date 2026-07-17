@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cityRoutes = require("./routes/cities");
 const nearbyRoutes = require("./routes/nearby");
+const { router: rosterRoutes } = require("./routes/roster");
 
 const app = express();
 app.use((req, res, next) => {
@@ -13,6 +14,7 @@ app.use((req, res, next) => {
 });
 app.use(cityRoutes);
 app.use(nearbyRoutes);
+app.use(rosterRoutes);
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 const port = process.env.PORT || 4003;

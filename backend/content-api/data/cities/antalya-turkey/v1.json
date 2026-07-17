@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "city": "Antalya",
+  "country": "Turkey",
+  "etiquette": [],
+  "neighborhoods": [],
+  "dailyRhythm": [],
+  "gettingAround": [],
+  "phrases": [],
+  "transportFares": [],
+  "scams": [],
+  "translateTargetLanguage": "en",
+  "emergency": [
+    {
+      "label": "All Purpose",
+      "number": "112 (same unified system as rest of Turkey)"
+    }
+  ],
+  "entryRequirements": {
+    "visaNote": "Same as Istanbul: e-Visa online in advance for many nationalities, some nationalities visa-free. Turkey is not in the Schengen Area — separate system.",
+    "officialSource": "evisa.gov.tr"
+  },
+  "transportInfo": {
+    "paymentCard": "Antalyakart (local transit card, separate system from Istanbulkart)",
+    "mainSystems": [
+      "Antalya Tram (Antray)",
+      "Buses",
+      "Dolmuş (shared minibus)"
+    ],
+    "note": "Antalya is Turkey's resort/beach hub — most visitors stay in coastal resort areas outside the city center itself."
+  },
+  "publicHolidays2026": "Same national Turkish holidays as Istanbul — see batch 1 Istanbul entry.",
+  "majorEventsNote": "Peak beach season (Jun-Sep) drives massive resort pricing; this is a summer resort city more than a year-round urban destination.",
+  "rankGlobalArrivals": 12,
+  "sourceVerified": true
+}
