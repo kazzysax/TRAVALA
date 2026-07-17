@@ -96,7 +96,16 @@
 </div>
 <script>
   const CONTENT_API = "https://content-api-zr40.onrender.com";
-  const CITY_SLUG = "lisbon-portugal";
+
+  // Reads the city actually picked at login (persisted there) - falls back
+  // to prompting rather than silently showing an unrelated city's data.
+  function citySlug(){
+    const city = localStorage.getItem('travala_city');
+    const country = localStorage.getItem('travala_country');
+    if (!city || !country) return null;
+    return `${city}-${country}`.toLowerCase().trim().replace(/\s+/g, '-');
+  }
+  const CITY_SLUG = citySlug();
   let cityData = null;
 
   function show(id, btn){
@@ -140,8 +149,16 @@
   }
 
   async function loadGuide(){
+    if (!CITY_SLUG) {
+      document.getElementById('etiquette').innerHTML = `<div class="err">No location set yet - <a href="login.html">set your city</a> to load its real guide.</div>`;
+      return;
+    }
     try {
       const res = await fetch(`${CONTENT_API}/cities/${CITY_SLUG}`);
+      if (res.status === 404) {
+        document.getElementById('etiquette').innerHTML = `<div class="err">No guide data exists yet for ${localStorage.getItem('travala_city')}, ${localStorage.getItem('travala_country')} - this city hasn't been added to content-api yet.</div>`;
+        return;
+      }
       if (!res.ok) throw new Error(`content-api returned ${res.status}`);
       cityData = await res.json();
 

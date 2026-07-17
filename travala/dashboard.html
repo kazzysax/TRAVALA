@@ -133,8 +133,8 @@
     <a href="settings.html" class="nav-item"><span class="ic">⚙️</span>Settings</a>
     <a href="settings.html" style="margin-top:8px">
       <div class="wallet-mini">
-        <div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div>
-        <div class="row"><span class="bal">1.9 MON</span></div>
+        <div class="row"><span class="addr" id="walletAddr">loading…</span><span class="mon">Monad</span></div>
+        <div class="row"><span class="bal" id="walletBal">–</span></div>
       </div>
     </a>
   </aside>
@@ -143,8 +143,8 @@
   <main class="main">
     <div class="page-head">
       <div class="greet">
-        <h1>Good afternoon, traveler</h1>
-        <div class="loc"><span class="flag">🇵🇹</span> You're in Lisbon, Portugal · sunny, 24°C</div>
+        <h1>Good to see you, traveler</h1>
+        <div class="loc" id="locLine"><span class="flag">📍</span> Loading your location…</div>
       </div>
       <div class="head-actions">
         <button class="btn btn-ghost" onclick="openScan()">📷 Quick scan</button>
@@ -154,18 +154,9 @@
 
     <div class="grid">
       <!-- budget -->
-      <div class="card col-8">
+      <div class="card col-8" id="budgetCard">
         <h2>Today's spending <a href="money.html">View money →</a></h2>
-        <div class="budget-top">
-          <span class="spent">€38<span class="of" style="font-size:16px"> / €60</span></span>
-          <span class="of">63% of daily budget</span>
-        </div>
-        <div class="bar"><div class="fill" style="width:63%"></div></div>
-        <div class="budget-meta"><span>€22 left today</span><span>Trip: €412 / €800</span></div>
-        <div class="budget-split">
-          <div class="bmini"><span class="v">€18</span>Food &amp; drink</div>
-          <div class="bmini"><span class="v">€12</span>Transport</div>
-        </div>
+        <div id="budgetBody"><div style="color:var(--ink-soft);font-size:13.5px">Loading real budget data…</div></div>
       </div>
 
       <!-- quick scan -->
@@ -176,39 +167,20 @@
         <button class="btn scan-btn" onclick="openScan()">Open scanner</button>
       </div>
 
-      <!-- tip of day -->
-      <div class="col-12">
-        <div class="totd">
-          <div class="k">Local tip of the day</div>
-          <div class="txt">In Lisbon, a coffee means an <b>espresso (um café)</b> — order "um galão" if you want something closer to a latte. Locals drink it standing at the counter, which is cheaper than sitting.</div>
-        </div>
-      </div>
-
       <!-- stamps -->
       <div class="card col-12">
-        <h2>Your city stamps <a href="settings.html">3 cities visited</a></h2>
-        <div class="stamp-strip">
-          <a href="stamp.html" class="mini-stamp"><div class="c">Lisbon</div><div class="n">NO. 014</div></a>
-          <a href="stamp.html" class="mini-stamp"><div class="c">Tokyo</div><div class="n">NO. 027</div></a>
-          <a href="stamp.html" class="mini-stamp"><div class="c">Lagos</div><div class="n">NO. 041</div></a>
+        <h2>Your city stamps <a href="settings.html">view all</a></h2>
+        <div class="stamp-strip" id="stampStrip">
           <a href="login.html" class="mini-stamp add"><span class="plus">+</span><span class="lbl">New city</span></a>
         </div>
       </div>
 
-      <!-- events -->
-      <div class="card col-6">
-        <h2>Happening soon <a href="guide.html">All events →</a></h2>
-        <div class="ev"><div class="date"><div class="d">17</div><div class="m">Jul</div></div><div class="info"><div class="t">Feira da Ladra flea market</div><div class="sub">Campo de Santa Clara · from 9:00</div></div></div>
-        <div class="ev"><div class="date"><div class="d">18</div><div class="m">Jul</div></div><div class="info"><div class="t">Fado night at Tasca do Chico</div><div class="sub">Bairro Alto · 21:30 · no cover</div></div></div>
-        <div class="ev"><div class="date"><div class="d">20</div><div class="m">Jul</div></div><div class="info"><div class="t">Sunset at Miradouro da Graça</div><div class="sub">Free · arrive by 20:00</div></div></div>
-      </div>
-
-      <!-- community tips -->
-      <div class="card col-6">
-        <h2>Community tips <a href="guide.html">More →</a></h2>
-        <div class="tip"><div class="av">🚋</div><div class="body"><div>Skip the tourist Tram 28 queue — catch it at Prazeres (the end) for a seat.<div class="who">— wanderjules <span class="verified">◆ verified local</span></div></div></div></div>
-        <div class="tip"><div class="av">🏧</div><div class="body"><div>Use Multibanco ATMs, not the blue Euronet ones — no junk fees.<div class="who">— tomtravels <span class="verified">◆ verified traveler</span></div></div></div></div>
-        <div class="tip"><div class="av">🍮</div><div class="body"><div>Manteigaria beats the famous Belém queue for pastéis de nata, honestly.<div class="who">— mariaeats</div></div></div></div>
+      <!-- local tips: only ever shown for the city actually set, never a fixed Lisbon default -->
+      <div class="col-12" id="tipOfDayWrap" style="display:none">
+        <div class="totd">
+          <div class="k">Local etiquette tip</div>
+          <div class="txt" id="tipOfDayText"></div>
+        </div>
       </div>
     </div>
   </main>
@@ -224,11 +196,10 @@
       <div class="field"><label>Amount</label><input type="number" placeholder="0.00" id="expAmt" oninput="checkFair()"></div>
       <div class="field"><label>Currency</label><select id="expCur"><option>EUR €</option><option>USD $</option><option>GBP £</option></select></div>
     </div>
-    <div class="field"><label>Category</label><select id="expCat" onchange="checkFair()"><option>Food &amp; drink</option><option>Transport</option><option>Lodging</option><option>Activities</option></select></div>
-    <div class="flag-note" id="fairFlag">⚠️ That's high for a taxi in Lisbon — a fair fare from the center is usually €6–10. Double-check you're not being overcharged.</div>
+    <div class="field"><label>Category</label><select id="expCat"><option>Food &amp; drink</option><option>Transport</option><option>Lodging</option><option>Activities</option></select></div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('expenseModal')">Cancel</button>
-      <button class="btn btn-primary" onclick="closeModal('expenseModal')">Save expense</button>
+      <button class="btn btn-primary" onclick="saveExpense()">Save expense</button>
     </div>
   </div>
 </div>
@@ -237,45 +208,160 @@
 <div class="modal-bg" id="scanModal">
   <div class="modal">
     <h3>Quick scan</h3>
-    <p class="sub" id="scanSub">Point at a menu, sign, or poster.</p>
+    <p class="sub" id="scanSub">Upload a photo of a menu, sign, or poster.</p>
+    <input type="file" accept="image/*" id="scanFile" style="margin-bottom:14px" onchange="runScan()">
     <div class="scan-sim">
-      <div class="scan-frame" id="scanFrame"><div class="scan-line"></div>Reading menu…</div>
-      <div class="scan-result" id="scanResult">
-        <div class="line"><span class="orig">Bacalhau à Brás</span><span class="tr">Shredded cod, egg &amp; potato</span></div>
-        <div class="line"><span class="orig">Bifana</span><span class="tr">Pork sandwich</span></div>
-        <div class="line"><span class="orig">Imperial</span><span class="tr">Small draft beer</span></div>
-        <div class="line"><span class="orig">Conta, por favor</span><span class="tr">The bill, please</span></div>
-      </div>
+      <div class="scan-frame hidden" id="scanFrame"><div class="scan-line"></div>Reading…</div>
+      <div class="scan-result" id="scanResult"></div>
     </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('scanModal')">Close</button>
-      <button class="btn btn-primary" onclick="closeModal('scanModal')" id="scanSave" style="display:none">Save translation</button>
     </div>
   </div>
 </div>
 
-<script>
-  function openExpense(){document.getElementById('expenseModal').classList.add('show')}
-  function closeModal(id){document.getElementById(id).classList.remove('show')}
-  function checkFair(){
-    const amt=parseFloat(document.getElementById('expAmt').value||0);
-    const cat=document.getElementById('expCat').value;
-    document.getElementById('fairFlag').classList.toggle('show', cat==='Transport'&&amt>15);
+<script type="module">
+  import { ethers } from "https://esm.sh/ethers@6.14.0";
+
+  const CONTENT_API = "https://content-api-zr40.onrender.com";
+  const EXPENSE_API = "https://expense-17td.onrender.com";
+  const OCR_API = "https://ocr-w9bs.onrender.com";
+  const INDEXER_API = "https://indexer-y2zq.onrender.com";
+  const provider = new ethers.JsonRpcProvider(`${INDEXER_API}/rpc`);
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+  function getOrCreateWallet(){
+    let key = localStorage.getItem('travala_wallet_key');
+    if (!key) { key = ethers.Wallet.createRandom().privateKey; localStorage.setItem('travala_wallet_key', key); }
+    return new ethers.Wallet(key, provider);
   }
-  function openScan(){
-    const m=document.getElementById('scanModal');m.classList.add('show');
-    document.getElementById('scanFrame').style.display='flex';
+  const wallet = getOrCreateWallet();
+
+  function getUserId(){
+    let id = localStorage.getItem('travala_demo_user_id');
+    if (!id) { id = 'demo-' + crypto.randomUUID(); localStorage.setItem('travala_demo_user_id', id); }
+    return id;
+  }
+  const USER_ID = getUserId();
+
+  async function loadWallet(){
+    document.getElementById('walletAddr').textContent = wallet.address.slice(0,6)+'…'+wallet.address.slice(-4);
+    try {
+      const bal = await provider.getBalance(wallet.address);
+      document.getElementById('walletBal').textContent = Number(ethers.formatEther(bal)).toFixed(3) + ' MON';
+    } catch { document.getElementById('walletBal').textContent = '—'; }
+  }
+
+  async function loadLocation(){
+    const city = localStorage.getItem('travala_city');
+    const country = localStorage.getItem('travala_country');
+    if (!city || !country) {
+      document.getElementById('locLine').innerHTML = `<span class="flag">📍</span> No location set - <a href="login.html" style="color:inherit;text-decoration:underline">set your city</a>`;
+      return;
+    }
+    document.getElementById('locLine').innerHTML = `<span class="flag">📍</span> You're in ${esc(city)}, ${esc(country)}`;
+
+    const slug = `${city}-${country}`.toLowerCase().trim().replace(/\s+/g, '-');
+    try {
+      const res = await fetch(`${CONTENT_API}/cities/${slug}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.etiquette && data.etiquette[0]) {
+          document.getElementById('tipOfDayText').innerHTML = `<b>${esc(data.etiquette[0].title)}:</b> ${esc(data.etiquette[0].text)}`;
+          document.getElementById('tipOfDayWrap').style.display = '';
+        }
+      }
+    } catch { /* no tip shown if this fails - no fallback to unrelated-city content */ }
+  }
+
+  async function loadBudget(){
+    try {
+      const status = await fetch(`${EXPENSE_API}/users/${USER_ID}/budget-status`).then(r=>r.json());
+      if (!status.homeCurrency) {
+        document.getElementById('budgetBody').innerHTML = `<div style="color:var(--ink-soft);font-size:13.5px">No budget set yet - <a href="money.html" style="color:var(--coral)">set one up in Money</a> to track real spending here.</div>`;
+        return;
+      }
+      const sym = status.homeCurrency === 'GBP' ? '£' : status.homeCurrency === 'USD' ? '$' : '€';
+      const pct = status.dailyBudget ? Math.min(100, Math.round((status.spentToday/status.dailyBudget)*100)) : 0;
+      document.getElementById('budgetBody').innerHTML = `
+        <div class="budget-top">
+          <span class="spent">${sym}${status.spentToday.toFixed(2)}<span class="of" style="font-size:16px"> / ${sym}${status.dailyBudget}</span></span>
+          <span class="of">${pct}% of daily budget</span>
+        </div>
+        <div class="bar"><div class="fill" style="width:${pct}%"></div></div>
+        <div class="budget-meta"><span>${sym}${status.remainingToday.toFixed(2)} left today</span>${status.tripBudget ? `<span>Trip: ${sym}${status.spentTotal.toFixed(2)} / ${sym}${status.tripBudget}</span>` : ''}</div>
+      `;
+    } catch (err) {
+      document.getElementById('budgetBody').innerHTML = `<div style="color:var(--ink-soft);font-size:13.5px">Couldn't load budget (${esc(err.message)})</div>`;
+    }
+  }
+
+  window.openExpense = function(){ document.getElementById('expenseModal').classList.add('show'); };
+  window.closeModal = function(id){ document.getElementById(id).classList.remove('show'); };
+
+  window.saveExpense = async function(){
+    const description = document.getElementById('expDesc').value.trim();
+    const amount = parseFloat(document.getElementById('expAmt').value);
+    const currency = document.getElementById('expCur').value.split(' ')[0];
+    const category = document.getElementById('expCat').value;
+    if (!description || !amount || amount <= 0) { alert('Enter a description and amount'); return; }
+
+    const res = await fetch(`${EXPENSE_API}/users/${USER_ID}/expenses`, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ amount, currency, category, note: description }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      alert(err.error === undefined ? 'Could not save expense' : `Could not save: ${err.error} (set a budget/home currency in Money first if you haven't)`);
+      return;
+    }
+    document.getElementById('expDesc').value = '';
+    document.getElementById('expAmt').value = '';
+    closeModal('expenseModal');
+    loadBudget();
+  };
+
+  window.runScan = async function(){
+    const file = document.getElementById('scanFile').files[0];
+    if (!file) return;
+    document.getElementById('scanFrame').classList.remove('hidden');
     document.getElementById('scanResult').classList.remove('show');
-    document.getElementById('scanSave').style.display='none';
-    document.getElementById('scanSub').textContent='Reading…';
-    setTimeout(()=>{
-      document.getElementById('scanFrame').style.display='none';
-      document.getElementById('scanResult').classList.add('show');
-      document.getElementById('scanSub').textContent='Menu translated to English';
-      document.getElementById('scanSave').style.display='inline-flex';
-    },2000);
-  }
+    document.getElementById('scanSub').textContent = 'Reading…';
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const base64 = reader.result.split(',')[1];
+      try {
+        const targetLanguage = 'en';
+        const res = await fetch(`${OCR_API}/scan`, {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ imageBase64: base64, targetLanguage }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'scan failed');
+
+        document.getElementById('scanFrame').classList.add('hidden');
+        document.getElementById('scanResult').innerHTML = data.lines.length
+          ? data.lines.map(l => `<div class="line"><span class="orig">${esc(l.original)}</span><span class="tr">${esc(l.translated)}</span></div>`).join('')
+          : '<div class="line">No readable text found in that image.</div>';
+        document.getElementById('scanResult').classList.add('show');
+        document.getElementById('scanSub').textContent = 'Real OCR + translation result';
+      } catch (err) {
+        document.getElementById('scanFrame').classList.add('hidden');
+        document.getElementById('scanResult').innerHTML = `<div class="line">Scan failed: ${esc(err.message)}</div>`;
+        document.getElementById('scanResult').classList.add('show');
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+  window.openScan = function(){ document.getElementById('scanModal').classList.add('show'); };
+
   document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+
+  loadWallet();
+  loadLocation();
+  loadBudget();
 </script>
 </body>
 </html>

@@ -116,9 +116,9 @@
   <div class="panel hidden" id="step1b">
     <div class="wallet-ready">✓</div>
     <h1>You're all set</h1>
-    <p class="sub">Your wallet is ready and we've covered your gas to get started.</p>
-    <div class="addr">0x7a3f…e21b <span class="chip">your wallet</span></div>
-    <div class="fund-note">◆ 2 MON added for you · you're traveler #14 this month</div>
+    <p class="sub" id="step1bSub">Your wallet is ready and we've covered your gas to get started.</p>
+    <div class="addr"><span id="walletAddrDisplay">…</span> <span class="chip">your wallet</span></div>
+    <div class="fund-note" id="fundNote">◆ Setting up your gas…</div>
 
     <div class="advisory">
       <div class="head">
@@ -175,59 +175,119 @@
   </div>
 </div>
 
-<script>
-  // Step 1 -> 1b after "creating wallet"
-  setTimeout(()=>{
+<script type="module">
+  import { ethers } from "https://esm.sh/ethers@6.14.0";
+
+  const AUTH_API = "https://auth-jtty.onrender.com";
+  const RELAYER_API = "https://relayer-rb93.onrender.com";
+  const INDEXER_API = "https://indexer-y2zq.onrender.com";
+  const provider = new ethers.JsonRpcProvider(`${INDEXER_API}/rpc`);
+
+  // Same wallet/localStorage key used everywhere else in the app (money,
+  // recommendations, etc.) - one real wallet across the whole product, not a
+  // new one per page.
+  function getOrCreateWallet(){
+    let key = localStorage.getItem('travala_wallet_key');
+    if (!key) {
+      key = ethers.Wallet.createRandom().privateKey;
+      localStorage.setItem('travala_wallet_key', key);
+    }
+    return new ethers.Wallet(key, provider);
+  }
+  const wallet = getOrCreateWallet();
+
+  async function setupWallet(){
+    document.getElementById('walletAddrDisplay').textContent =
+      wallet.address.slice(0,6) + '…' + wallet.address.slice(-4);
+
     document.getElementById('step1').classList.add('hidden');
     document.getElementById('step1b').classList.remove('hidden');
     document.getElementById('p1').classList.replace('on','done');
     document.getElementById('p2').classList.add('on');
-  }, 2400);
 
-  function goStep2(){
+    try {
+      const balance = await provider.getBalance(wallet.address);
+      if (balance === 0n) {
+        const res = await fetch(`${RELAYER_API}/fund`, {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ walletAddress: wallet.address }),
+        });
+        const data = await res.json();
+        if (data.funded) {
+          document.getElementById('fundNote').innerHTML = `◆ ${data.amountMon} MON added for you`;
+        } else if (data.reason === 'quota_exceeded') {
+          document.getElementById('fundNote').innerHTML = `◆ Monthly sponsorship is full - fund your wallet manually to continue`;
+        } else {
+          document.getElementById('fundNote').innerHTML = `◆ Wallet ready - fund it manually if you plan to rate places`;
+        }
+      } else {
+        document.getElementById('fundNote').innerHTML = `◆ Wallet already has ${Number(ethers.formatEther(balance)).toFixed(2)} MON`;
+      }
+    } catch (err) {
+      document.getElementById('fundNote').innerHTML = `◆ Wallet created - funding check failed (${err.message})`;
+    }
+  }
+  window.goStep2 = function(){
     document.getElementById('step1b').classList.add('hidden');
     document.getElementById('step2').classList.remove('hidden');
     document.getElementById('p2').classList.replace('on','done');
     document.getElementById('p3').classList.add('on');
-  }
+  };
 
-  let picked=null;
-  function selCity(el){
+  let picked = null;
+  window.selCity = function(el){
     document.querySelectorAll('.city-opt').forEach(o=>o.classList.remove('sel'));
     el.classList.add('sel');
-    picked={city:el.dataset.city,country:el.dataset.country,flag:el.dataset.flag};
-    const b=document.getElementById('mintBtn');
-    b.style.opacity='1';b.style.pointerEvents='auto';
-  }
-  function filterCities(){
-    const q=document.getElementById('citySearch').value.toLowerCase();
+    picked = { city: el.dataset.city, country: el.dataset.country, flag: el.dataset.flag };
+    const b = document.getElementById('mintBtn');
+    b.style.opacity = '1'; b.style.pointerEvents = 'auto';
+  };
+  window.filterCities = function(){
+    const q = document.getElementById('citySearch').value.toLowerCase();
     document.querySelectorAll('.city-opt').forEach(o=>{
-      const m=o.dataset.city.toLowerCase().includes(q)||o.dataset.country.toLowerCase().includes(q);
-      o.style.display=m?'flex':'none';
+      const m = o.dataset.city.toLowerCase().includes(q) || o.dataset.country.toLowerCase().includes(q);
+      o.style.display = m ? 'flex' : 'none';
     });
-  }
-  function useLocation(){
-    // simulate geolocation resolving to Lisbon
-    const el=document.querySelector('.city-opt[data-city="Lisbon"]');
-    selCity(el);
-    document.getElementById('citySearch').value='Lisbon';
-  }
+  };
+  window.useLocation = function(){
+    // Real geolocation isn't mapped to a city list match here (that needs a
+    // reverse-geocode step) - defaults to prompting the search instead of
+    // silently picking a city that may be wrong.
+    document.getElementById('citySearch').focus();
+  };
 
-  function goStep3(){
-    if(!picked)return;
+  window.goStep3 = async function(){
+    if (!picked) return;
     document.getElementById('step2').classList.add('hidden');
     document.getElementById('step3').classList.remove('hidden');
-    document.getElementById('mCity').textContent=picked.city;
-    document.getElementById('mCountry').textContent=picked.country;
-    // mint sim
-    setTimeout(()=>{
-      const s=document.getElementById('mintStatus');
-      s.classList.add('ok');
-      s.innerHTML='◆ stamp minted · tied to 0x7a3f…e21b';
+    document.getElementById('mCity').textContent = picked.city;
+    document.getElementById('mCountry').textContent = picked.country;
+
+    // Persisted for every other page to read - this is the actual fix for
+    // "why does it only ever show Lisbon": nothing was saving this before.
+    localStorage.setItem('travala_city', picked.city);
+    localStorage.setItem('travala_country', picked.country);
+
+    const statusEl = document.getElementById('mintStatus');
+    try {
+      const res = await fetch(`${AUTH_API}/mint`, {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ walletAddress: wallet.address, country: picked.country, city: picked.city }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'mint failed');
+
+      statusEl.classList.add('ok');
+      statusEl.innerHTML = `◆ stamp minted · tx ${data.txHash.slice(0,10)}…`;
       document.getElementById('enterBtn').classList.remove('hidden');
-    }, 2600);
-  }
-  function enterApp(){ window.location.href='dashboard.html'; }
+    } catch (err) {
+      statusEl.innerHTML = `Couldn't mint right now (${err.message}) - you can still explore, and mint later from Settings.`;
+      document.getElementById('enterBtn').classList.remove('hidden');
+    }
+  };
+  window.enterApp = function(){ window.location.href = 'dashboard.html'; };
+
+  setupWallet();
 </script>
 </body>
 </html>

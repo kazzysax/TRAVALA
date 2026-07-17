@@ -1,6 +1,5 @@
 const express = require("express");
 const { ethers } = require("ethers");
-const { getUserByWallet } = require("../lib/db");
 
 const router = express.Router();
 
@@ -31,9 +30,6 @@ router.post("/mint", async (req, res) => {
       return res.status(400).json({ error: "valid walletAddress required" });
     }
     if (!country || !city) return res.status(400).json({ error: "country and city required" });
-
-    const user = getUserByWallet(walletAddress);
-    if (!user) return res.status(404).json({ error: "wallet not registered - call /signup first" });
 
     if (!process.env.TRAVELER_CREDENTIAL_ADDRESS) {
       throw new Error("TRAVELER_CREDENTIAL_ADDRESS not set");

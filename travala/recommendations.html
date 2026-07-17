@@ -166,7 +166,14 @@
   const RPC_PROXY = `${INDEXER_API}/rpc`;
   const SERVICE_RATING_ADDRESS = "0x654971896ad56d86A4826c08b6175477c53caFa6";
   const RATING_ABI = ["function submitRating(bytes32 cityId, bytes32 serviceId, uint8 value, string tag) external payable"];
-  const LISBON = { lat: 38.7223, lon: -9.1393 };
+  // Real, known coordinates for the cities offered at login - used only as
+  // a fallback when live geolocation isn't available/granted.
+  const CITY_COORDS = {
+    "Lisbon": { lat: 38.7223, lon: -9.1393 },
+    "Tokyo": { lat: 35.6762, lon: 139.6503 },
+    "Lagos": { lat: 6.5244, lon: 3.3792 },
+    "Mexico City": { lat: 19.4326, lon: -99.1332 },
+  };
   const ICONS = { restaurant: "🍽️", taxi: "🚕", cafe: "☕" };
 
   // Real client-side wallet, generated once and kept locally - no seed
@@ -201,11 +208,18 @@
   }
 
   async function loadServices(){
+    const city = localStorage.getItem('travala_city');
+    const country = localStorage.getItem('travala_country');
+    if (!city || !country) {
+      document.getElementById('serviceList').innerHTML = `<div class="loading">No location set yet - <a href="login.html">set your city</a> first so real nearby places and ratings load for the right place.</div>`;
+      return;
+    }
+
     try {
-      const cityRes = await fetch(`${CONTENT_API}/cities/lisbon-portugal/city-id`);
+      const cityRes = await fetch(`${INDEXER_API}/city-id?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}`);
       cityId = (await cityRes.json()).cityId;
 
-      let coords = LISBON;
+      let coords = CITY_COORDS[city] || null;
       try {
         coords = await new Promise((resolve, reject) => {
           if (!navigator.geolocation) return reject();
@@ -215,7 +229,12 @@
             { timeout: 3000 }
           );
         });
-      } catch { /* fall back to Lisbon center */ }
+      } catch { /* fall back to the set city's known center, if we have one */ }
+
+      if (!coords) {
+        document.getElementById('serviceList').innerHTML = `<div class="loading">Enable location access to find real nearby places in ${esc(city)} - we don't have default coordinates for this city yet.</div>`;
+        return;
+      }
 
       const nearbyRes = await fetch(`${CONTENT_API}/nearby?lat=${coords.lat}&lon=${coords.lon}&radius=1200`);
       const places = await nearbyRes.json();

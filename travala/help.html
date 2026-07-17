@@ -118,19 +118,34 @@
 </div>
 <script>
   const CONTENT_API = "https://content-api-zr40.onrender.com";
-  const CITY_SLUG = "lisbon-portugal";
-  let targetLang = "pt";
+
+  function citySlug(){
+    const city = localStorage.getItem('travala_city');
+    const country = localStorage.getItem('travala_country');
+    if (!city || !country) return null;
+    return `${city}-${country}`.toLowerCase().trim().replace(/\s+/g, '-');
+  }
+  const CITY_SLUG = citySlug();
+  let targetLang = "en";
 
   function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 
   async function loadCityData(){
+    if (!CITY_SLUG) {
+      document.getElementById('emergencyCard').innerHTML = '<h2><span class="ico">🚨</span>Emergency</h2><div class="sos-row"><span class="lbl">No location set yet - <a href="login.html" style="color:inherit;text-decoration:underline">set your city</a> to load real local emergency numbers.</span></div>';
+      return;
+    }
     try {
       const res = await fetch(`${CONTENT_API}/cities/${CITY_SLUG}`);
+      if (res.status === 404) {
+        document.getElementById('emergencyCard').innerHTML = `<h2><span class="ico">🚨</span>Emergency</h2><div class="sos-row"><span class="lbl">No data yet for ${esc(localStorage.getItem('travala_city'))}, ${esc(localStorage.getItem('travala_country'))} - this city hasn't been added to content-api yet.</span></div>`;
+        return;
+      }
       const data = await res.json();
-      targetLang = data.translateTargetLanguage || "pt";
+      targetLang = data.translateTargetLanguage || "en";
 
       document.getElementById('pageTitle').textContent = "Local help";
-      document.getElementById('pageLoc').textContent = `🇵🇹 ${data.city}, ${data.country} — help when you need it fast`;
+      document.getElementById('pageLoc').textContent = `${data.city}, ${data.country} — help when you need it fast`;
 
       document.getElementById('emergencyCard').innerHTML = '<h2><span class="ico">🚨</span>Emergency</h2>' +
         data.emergency.map(e => `<div class="sos-row"><span class="lbl">${esc(e.label)}</span><span class="num">${esc(e.number)}</span></div>`).join('') +

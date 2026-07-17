@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "city": "Lagos",
+  "country": "Nigeria",
+  "etiquette": [
+    { "title": "Language", "text": "English is Nigeria's official language and works everywhere for business and services - Nigerian Pidgin dominates casual street conversation, but you won't need it to get by." },
+    { "title": "Greetings", "text": "A handshake is standard. Greeting elders or officials first, and with visible respect, matters a lot here - it's noticed when skipped." },
+    { "title": "Dress", "text": "Smart-casual in Victoria Island/Ikoyi business settings; dress modestly when visiting markets or religious sites." },
+    { "title": "Time", "text": "\"Nigerian time\" is real - social plans commonly start later than stated. Business meetings are usually punctual though." },
+    { "title": "Tipping", "text": "Not mandatory, but rounding up for good service (drivers, waitstaff) is appreciated and increasingly expected in upscale spots." }
+  ],
+  "neighborhoods": [
+    { "name": "Victoria Island", "tag": "Central", "description": "The business and diplomatic core - embassies, international offices, better lighting and security presence. Most visitor-friendly area." },
+    { "name": "Ikoyi", "tag": "Local", "description": "Upscale, residential, leafy. Good restaurants, quieter than VI at night." },
+    { "name": "Lekki Phase 1", "tag": "Nightlife", "description": "Where a lot of Lagos nightlife and newer restaurants have moved. Busy, younger crowd, more built up every year." },
+    { "name": "Yaba", "tag": "Local", "description": "Mainland tech and university hub (\"Yabacon Valley\") - startups, real local food, far cheaper than the islands." }
+  ],
+  "dailyRhythm": [
+    { "label": "Traffic", "text": "\"Go-slow\" (traffic jams) is a defining feature of Lagos life, especially crossing between the mainland and the islands 07:00-09:30 and 16:30-19:30. Plan around it." },
+    { "label": "Business hours", "text": "Most offices run roughly 09:00-17:00 weekdays. Markets often open earlier and run later." },
+    { "label": "Weekends", "text": "Sundays are quieter in business districts - many people are at church for a large part of the morning." }
+  ],
+  "gettingAround": [
+    { "label": "Best app", "text": "Bolt and Uber are both widely used and are the safest, most predictable way to get around - fares for a short trip commonly start around NGN 1,000." },
+    { "label": "Avoid", "text": "Avoid unmarked/unauthorized taxis, especially getting into a car that already has other unknown passengers (\"one-chance\" vehicles are linked to robberies)." },
+    { "label": "Danfo/BRT", "text": "Yellow danfo minibuses and the BRT bus system are what most Lagosians actually use day to day - cheap, but crowded and not the easiest first experience for a visitor." },
+    { "label": "Where to stay for ease", "text": "Victoria Island, Ikoyi, or Lekki Phase 1 keep you closer to restaurants, offices, and better transport options." }
+  ],
+  "phrases": [
+    { "en": "How are you?", "local": "How you dey?", "phonetic": "how yoo day" },
+    { "en": "I'm fine", "local": "I dey fine", "phonetic": "eye day fine" },
+    { "en": "Please", "local": "Abeg", "phonetic": "ah-beg" },
+    { "en": "How much is this?", "local": "How much be this?", "phonetic": "how much bee this" },
+    { "en": "Thank you", "local": "Thank you / I appreciate", "phonetic": "(same, said warmly)" }
+  ],
+  "transportFares": [
+    { "route": "Short Bolt/Uber trip", "note": "within Victoria Island/Ikoyi/Lekki", "price": "NGN 1,000-2,500" },
+    { "route": "Airport to Victoria Island", "note": "Bolt/Uber, depends on traffic", "price": "NGN 6,000-12,000" },
+    { "route": "Danfo minibus (local)", "note": "short mainland hop", "price": "NGN 200-500" },
+    { "route": "BRT bus", "note": "dedicated bus lane routes", "price": "NGN 200-800" }
+  ],
+  "emergency": [
+    { "label": "National emergency line (police, fire, medical, disaster)", "number": "112" },
+    { "label": "Lagos State emergency line", "number": "767" },
+    { "label": "Lagos Fire Service", "number": "0803 200 3557" }
+  ],
+  "scams": [
+    { "title": "\"One-chance\" taxis", "description": "Unmarked vehicles with people posing as fellow passengers who rob (and sometimes assault) whoever gets in. Only use Bolt/Uber or clearly marked, pre-arranged transport." },
+    { "title": "Overly friendly unsolicited helpers", "description": "Someone who insists on \"helping\" you find something, carry bags, or navigate will often expect a tip afterward, sometimes an aggressive one - politely decline unsolicited help upfront if you don't want the obligation." },
+    { "title": "Foreigner pricing", "description": "Prices in informal markets can inflate noticeably for visitors - agree a price before taking a good or service where none is posted." }
+  ],
+  "translateTargetLanguage": "en"
+}

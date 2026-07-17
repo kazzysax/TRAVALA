@@ -177,17 +177,28 @@
     const amt = parseFloat(document.getElementById('expAmt').value || 0);
     const cat = document.getElementById('expCat').value;
     const flag = document.getElementById('fairFlag');
+    const cityName = localStorage.getItem('travala_city') || 'this city';
     if (cat === 'Transport' && fairFareMax && amt > fairFareMax * 1.5) {
-      flag.textContent = `⚠️ That's high for a taxi in Lisbon — a fair fare from the center is usually up to about ${fairFareMax}. Double-check you're not being overcharged.`;
+      flag.textContent = `⚠️ That's high for a taxi in ${cityName} — a fair fare from the center is usually up to about ${fairFareMax}. Double-check you're not being overcharged.`;
       flag.classList.add('show');
     } else {
       flag.classList.remove('show');
     }
   }
 
+  function citySlug(){
+    const city = localStorage.getItem('travala_city');
+    const country = localStorage.getItem('travala_country');
+    if (!city || !country) return null;
+    return `${city}-${country}`.toLowerCase().trim().replace(/\s+/g, '-');
+  }
+
   async function loadFairFareData(){
+    const slug = citySlug();
+    if (!slug) return;
     try {
-      const res = await fetch(`${CONTENT_API}/cities/lisbon-portugal`);
+      const res = await fetch(`${CONTENT_API}/cities/${slug}`);
+      if (!res.ok) return;
       const data = await res.json();
       const fare = data.transportFares.find(f => f.route === 'Across the center');
       if (fare) {
@@ -236,7 +247,10 @@
   }
 
   function renderBudget(status){
-    document.getElementById('pageLoc').textContent = `🇵🇹 Lisbon · home currency ${status.homeCurrency}`;
+    const cityName = localStorage.getItem('travala_city');
+    document.getElementById('pageLoc').textContent = cityName
+      ? `📍 ${cityName} · home currency ${status.homeCurrency}`
+      : `home currency ${status.homeCurrency}`;
     document.getElementById('spentToday').textContent = money(status.spentToday, status.homeCurrency);
     document.getElementById('ofBudget').textContent = `of ${money(status.dailyBudget, status.homeCurrency)} daily budget`;
     const pct = status.dailyBudget ? Math.min(100, Math.round((status.spentToday / status.dailyBudget) * 100)) : 0;
