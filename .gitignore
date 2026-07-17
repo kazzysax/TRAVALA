@@ -2,6 +2,7 @@ node_modules/
 .env
 .env.local
 .env.render.local
+backend/minter-key.local.txt
 *.log
 cache/
 artifacts/
