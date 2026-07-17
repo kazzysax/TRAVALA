@@ -17,59 +17,37 @@
   .nav-item .ic{font-size:18px;width:22px;text-align:center}
   .nav-item:hover{background:var(--cream)}.nav-item.active{background:var(--ink);color:var(--cream);font-weight:500}
   .side .spacer{flex:1}
-  .wallet-mini{background:var(--cream);border-radius:13px;padding:14px;font-size:13px}
-  .wallet-mini .row{display:flex;justify-content:space-between;align-items:center}
-  .wallet-mini .bal{font-weight:600;font-size:16px}.wallet-mini .addr{font-family:'SF Mono',monospace;font-size:12px;color:var(--ink-soft)}
-  .wallet-mini .mon{font-size:11px;color:var(--teal);background:rgba(47,158,143,0.1);padding:2px 7px;border-radius:100px}
   .main{flex:1;padding:32px 40px 64px;max-width:920px;margin:0 auto;width:100%}
   @media(max-width:900px){.side{display:none}.main{padding:24px 20px 60px}.hero{grid-template-columns:1fr!important}}
-  .back{font-size:13.5px;color:var(--ink-soft);display:inline-flex;gap:6px;align-items:center;margin-bottom:20px}
-  .back:hover{color:var(--ink)}
-
-  /* stamp hero */
+  .search{display:flex;gap:10px;margin-bottom:24px}
+  .search input{flex:1;font-family:'SF Mono',monospace;font-size:14px;padding:12px 14px;border:1px solid var(--line);border-radius:11px;background:var(--white)}
+  .search button{font-family:inherit;font-size:14px;font-weight:500;padding:12px 20px;border-radius:11px;background:var(--coral);color:#fff;border:none;cursor:pointer}
   .hero{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;margin-bottom:14px}
   .big-stamp{width:180px;height:180px;border-radius:20px;background:var(--ink);border:2px dashed rgba(232,98,46,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);position:relative;flex-shrink:0}
   .big-stamp .ring{position:absolute;inset:14px;border:1.5px solid rgba(247,245,239,0.15);border-radius:14px}
   .big-stamp .city{font-size:28px;font-weight:600;letter-spacing:-0.02em}
   .big-stamp .country{font-size:12px;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-top:6px}
-  .big-stamp .no{font-size:12px;color:var(--coral);margin-top:18px;font-family:'SF Mono',monospace}
   .hero-info h1{font-size:28px;letter-spacing:-0.02em;font-weight:600}
   .hero-info .meta{font-size:14px;color:var(--ink-soft);margin-top:6px}
   .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
   .badge{font-size:12px;font-weight:500;padding:5px 12px;border-radius:100px;display:inline-flex;gap:6px;align-items:center}
   .badge.soul{background:rgba(47,158,143,0.1);color:var(--teal-dark)}
-  .badge.chain{background:var(--cream-deep);color:var(--ink-soft);font-family:'SF Mono',monospace;font-size:11px}
-
-  /* owner strip */
-  .owner{display:flex;align-items:center;gap:12px;background:var(--white);border:1px solid var(--line-soft);border-radius:14px;padding:14px 18px;margin:20px 0 8px;font-size:13.5px}
-  .owner .av{width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--cream);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px}
-  .owner .addr{font-family:'SF Mono',monospace;font-weight:500}
-  .owner .sep{color:var(--line)}
-
-  /* summary stats */
   .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
   .stat{background:var(--white);border:1px solid var(--line-soft);border-radius:14px;padding:18px}
   .stat .v{font-size:24px;font-weight:600;letter-spacing:-0.02em}
   .stat .l{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
-
   .section-title{font-size:15px;font-weight:600;margin:26px 0 6px;display:flex;align-items:center;justify-content:space-between}
   .section-note{font-size:12.5px;color:var(--ink-soft);margin-bottom:14px}
-
-  /* rated services list */
   .svc{display:flex;align-items:center;gap:16px;background:var(--white);border:1px solid var(--line-soft);border-radius:14px;padding:16px 18px;margin-bottom:10px}
   .svc .ic{width:46px;height:46px;border-radius:12px;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-  .svc .info{flex:1}
-  .svc .nm{font-size:15px;font-weight:600}
+  .svc .info{flex:1;min-width:0}
+  .svc .nm{font-size:14px;font-weight:600;font-family:'SF Mono',monospace;overflow:hidden;text-overflow:ellipsis}
   .svc .type{font-size:12.5px;color:var(--ink-soft)}
   .svc .tag{display:inline-block;font-size:11.5px;background:var(--cream-deep);color:var(--ink-soft);padding:2px 9px;border-radius:100px;margin-top:5px}
   .svc .rate-col{text-align:right;flex-shrink:0}
   .svc .stars{color:var(--coral);font-size:15px;letter-spacing:1px}
-  .svc .stars .off{color:var(--line)}
-  .svc .tx{font-size:10.5px;color:var(--teal-dark);font-family:'SF Mono',monospace;margin-top:5px}
   .svc .date{font-size:11.5px;color:var(--ink-soft);margin-top:2px}
-
-  .verify{font-size:12px;color:var(--ink-soft);text-align:center;margin-top:20px;display:flex;gap:7px;justify-content:center;align-items:center}
-  .verify a{color:var(--teal-dark);text-decoration:underline}
+  .loading{padding:40px;text-align:center;color:var(--ink-soft);font-size:14px}
 </style>
 </head>
 <body>
@@ -83,117 +61,86 @@
     <a href="recommendations.html" class="nav-item"><span class="ic">⭐</span>Rate &amp; recommend</a>
     <div class="spacer"></div>
     <a href="settings.html" class="nav-item"><span class="ic">⚙️</span>Settings</a>
-    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div><div class="row"><span class="bal">1.9 MON</span></div></div></a>
   </aside>
 
   <main class="main">
-    <a href="settings.html" class="back">← Back to stamps</a>
-
-    <div class="hero">
-      <div class="big-stamp">
-        <div class="ring"></div>
-        <div class="city">Lisbon</div>
-        <div class="country">Portugal</div>
-        <div class="no">NO. 014</div>
-      </div>
-      <div class="hero-info">
-        <h1>Lisbon, Portugal</h1>
-        <div class="meta">Soulbound traveler credential · minted Jul 12, 2026</div>
-        <div class="badges">
-          <span class="badge soul">◆ Soulbound · non-transferable</span>
-          <span class="badge chain">token #014</span>
-        </div>
-      </div>
+    <div class="search">
+      <input type="text" id="walletInput" placeholder="Paste a wallet address to check its Lisbon stamp…">
+      <button onclick="lookup()">Check stamp</button>
     </div>
-
-    <div class="owner">
-      <div class="av">t</div>
-      <div>Held by <span class="addr">0x7a3f…e21b</span></div>
-      <span class="sep">·</span>
-      <div>everything below is what this traveler used &amp; rated <b>in Lisbon</b></div>
-    </div>
-
-    <div class="stats">
-      <div class="stat"><div class="v">5</div><div class="l">services rated here</div></div>
-      <div class="stat"><div class="v">4.4</div><div class="l">avg rating given</div></div>
-      <div class="stat"><div class="v">0.5 MON</div><div class="l">in network fees paid</div></div>
-    </div>
-
-    <div class="section-title">Services used in Lisbon <span style="font-size:12px;color:var(--coral);font-weight:500">on Monad</span></div>
-    <div class="section-note">Pulled from onchain ratings tied to this stamp's wallet + city. Tamper-proof — the next traveler here sees the same record.</div>
-
-    <div class="svc">
-      <div class="ic">🚕</div>
-      <div class="info">
-        <div class="nm">Miguel's Airport Transfer</div>
-        <div class="type">Cab · airport transfer</div>
-        <span class="tag">on time</span>
-      </div>
-      <div class="rate-col">
-        <div class="stars">★★★★★</div>
-        <div class="date">Jul 12</div>
-        <div class="tx">tx 0x9a1c…4b2e</div>
-      </div>
-    </div>
-
-    <div class="svc">
-      <div class="ic">🍽️</div>
-      <div class="info">
-        <div class="nm">Taberna da Rua das Flores</div>
-        <div class="type">Restaurant · Portuguese</div>
-        <span class="tag">would return</span>
-      </div>
-      <div class="rate-col">
-        <div class="stars">★★★★★</div>
-        <div class="date">Jul 13</div>
-        <div class="tx">tx 0x3f77…a10c</div>
-      </div>
-    </div>
-
-    <div class="svc">
-      <div class="ic">🍮</div>
-      <div class="info">
-        <div class="nm">Manteigaria</div>
-        <div class="type">Bakery · pastéis de nata</div>
-        <span class="tag">great value</span>
-      </div>
-      <div class="rate-col">
-        <div class="stars">★★★★★</div>
-        <div class="date">Jul 13</div>
-        <div class="tx">tx 0xb2e8…9d41</div>
-      </div>
-    </div>
-
-    <div class="svc">
-      <div class="ic">🚕</div>
-      <div class="info">
-        <div class="nm">Street taxi — Alfama</div>
-        <div class="type">Cab · hailed</div>
-        <span class="tag">overcharged</span>
-      </div>
-      <div class="rate-col">
-        <div class="stars">★★<span class="off">★★★</span></div>
-        <div class="date">Jul 14</div>
-        <div class="tx">tx 0x71cd…e0a7</div>
-      </div>
-    </div>
-
-    <div class="svc">
-      <div class="ic">🏠</div>
-      <div class="info">
-        <div class="nm">Casa do Bairro — Graça</div>
-        <div class="type">Stay · guesthouse</div>
-        <span class="tag">friendly</span>
-      </div>
-      <div class="rate-col">
-        <div class="stars">★★★★<span class="off">★</span></div>
-        <div class="date">Jul 12</div>
-        <div class="tx">tx 0x5ac0…22f9</div>
-      </div>
-    </div>
-
-    <div class="verify">🔗 Every rating here is verifiable onchain · <a href="#">view wallet on Monad explorer</a></div>
+    <div id="content"><div class="loading">Enter a wallet address above - this reads real onchain ratings, scoped to that wallet + city, from the deployed ServiceRating contract.</div></div>
   </main>
 </div>
+<script>
+  const CONTENT_API = "https://content-api-zr40.onrender.com";
+  const INDEXER_API = "https://indexer-y2zq.onrender.com";
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+  function stars(v){ return '★'.repeat(v) + '<span style="color:var(--line)">' + '★'.repeat(5-v) + '</span>'; }
+
+  async function lookup(){
+    const wallet = document.getElementById('walletInput').value.trim();
+    const content = document.getElementById('content');
+    if (!wallet || !/^0x[0-9a-fA-F]{40}$/.test(wallet)) {
+      content.innerHTML = '<div class="loading">Enter a valid wallet address (0x...)</div>';
+      return;
+    }
+    content.innerHTML = '<div class="loading">Reading real onchain ratings…</div>';
+
+    try {
+      const cityRes = await fetch(`${CONTENT_API}/cities/lisbon-portugal/city-id`);
+      const { cityId } = await cityRes.json();
+
+      const ratingsRes = await fetch(`${INDEXER_API}/wallets/${wallet}/cities/${cityId}/ratings?limit=50`);
+      const ratings = await ratingsRes.json();
+
+      if (ratings.length === 0) {
+        content.innerHTML = `<div class="loading">No onchain ratings found for this wallet in Lisbon. Either it hasn't rated anything here yet, or check the address.</div>`;
+        return;
+      }
+
+      const avg = ratings.reduce((s,r)=>s+r.value,0) / ratings.length;
+      const feesTotal = (ratings.length * 0.1).toFixed(1);
+
+      content.innerHTML = `
+        <div class="hero">
+          <div class="big-stamp"><div class="ring"></div><div class="city">Lisbon</div><div class="country">Portugal</div></div>
+          <div class="hero-info">
+            <h1>Lisbon, Portugal</h1>
+            <div class="meta">Real onchain ratings for <span style="font-family:'SF Mono',monospace">${esc(wallet.slice(0,6))}…${esc(wallet.slice(-4))}</span></div>
+            <div class="badges"><span class="badge soul">◆ Read live from ServiceRating on Monad</span></div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="v">${ratings.length}</div><div class="l">services rated here</div></div>
+          <div class="stat"><div class="v">${avg.toFixed(1)}</div><div class="l">avg rating given</div></div>
+          <div class="stat"><div class="v">${feesTotal} MON</div><div class="l">in network fees paid</div></div>
+        </div>
+        <div class="section-title">Ratings in Lisbon <span style="font-size:12px;color:var(--coral);font-weight:500">on Monad</span></div>
+        <div class="section-note">Read directly from onchain events indexed by the ServiceRating contract - tamper-proof, the next traveler here sees the same record.</div>
+        ${ratings.map(r => `
+          <div class="svc">
+            <div class="ic">⭐</div>
+            <div class="info">
+              <div class="nm">service ${esc(r.serviceId.slice(0,10))}…${esc(r.serviceId.slice(-6))}</div>
+              ${r.tag ? `<span class="tag">${esc(r.tag)}</span>` : ''}
+            </div>
+            <div class="rate-col">
+              <div class="stars">${stars(r.value)}</div>
+              <div class="date">${new Date(r.timestamp*1000).toLocaleDateString()}</div>
+            </div>
+          </div>`).join('')}
+      `;
+    } catch (err) {
+      content.innerHTML = `<div class="loading">Couldn't load ratings (${esc(err.message)}). The service may be waking up - try again in a few seconds.</div>`;
+    }
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('wallet')) {
+    document.getElementById('walletInput').value = params.get('wallet');
+    lookup();
+  }
+</script>
 </body>
 </html>
