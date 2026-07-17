@@ -1,9 +1,10 @@
 # backend/auth
 
 Auth & wallet custody service: signup (embedded wallet creation via Privy),
-and the two ratings paths - manual (frontend signs directly, this service
-just acknowledges) and auto-sign (this service holds a granted session key
-and calls `SessionPermission.submitRatingViaSession`).
+real TravelerCredential NFT minting, and the two ratings paths - manual
+(frontend signs directly, this service just acknowledges) and auto-sign
+(this service holds a granted session key and calls
+`SessionPermission.submitRatingViaSession`).
 
 ## Requires before this actually runs
 
@@ -35,3 +36,5 @@ npm start
 - `POST /wallet/:walletAddress/session-key` `{ expirySeconds }` -> generates a session key, returns its address and the exact `grantSession` call the user's own wallet must sign
 - `POST /rate/auto` `{ sessionKeyAddress, cityId, serviceId, value, tag, feeWei }` -> submits a rating via the granted session key, no per-rating user signature
 - `POST /rate/manual/ack` `{ txHash }` -> records that a manually-signed rating happened (the actual submission is the frontend calling `ServiceRating.submitRating` directly)
+- `POST /mint` `{ walletAddress, country, city }` -> mints a real TravelerCredential stamp using the backend's dedicated `MINTER_PRIVATE_KEY`, returns `{ txHash }`
+- `GET /config` -> `{ privyAppId }` - the public (non-secret) Privy App ID for the frontend's client-side SDK

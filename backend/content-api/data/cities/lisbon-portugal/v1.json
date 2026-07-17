@@ -3,19 +3,34 @@
   "city": "Lisbon",
   "country": "Portugal",
   "etiquette": [
-    { "title": "Greetings", "text": "A handshake is standard; close friends do two cheek kisses." },
-    { "title": "Dining pace", "text": "Meals run long and unhurried - don't expect the bill until you ask for it." },
-    { "title": "Tipping", "text": "Not obligatory; rounding up or 5-10% for good service is generous." }
+    { "title": "Tipping", "text": "Not expected but appreciated - round up or leave 5-10% for good service. No tipping at cafes." },
+    { "title": "Greetings", "text": "Two cheek kisses (right first) between friends. A handshake is fine when meeting someone new." },
+    { "title": "Dining", "text": "The couvert (bread, olives) on your table isn't free - send it back if you don't want it. Lunch is 13:00, dinner rarely before 20:00." },
+    { "title": "Dress", "text": "Smart-casual. Beachwear stays at the beach; churches expect covered shoulders." },
+    { "title": "Don't", "text": "Don't rush the meal or ask for the bill too early - it reads as rude. Flag the waiter when you're ready." }
   ],
   "neighborhoods": [
-    { "name": "Graça & Mouraria", "tag": "Local", "description": "Where Lisboetas actually live. Cheaper food, real neighborhood feel, some of the best viewpoints." },
-    { "name": "Baixa & Chiado", "tag": "Central", "description": "The postcard center - grand squares, shopping, easy walking, busiest with visitors." },
-    { "name": "Alfama", "tag": "Historic", "description": "The oldest district, steep and narrow, fado music spilling out of small bars at night." }
+    { "name": "Alfama & Baixa", "tag": "Touristy", "description": "Postcard Lisbon - tram 28, castle views, tiled streets. Beautiful but pricey and packed midday." },
+    { "name": "Bairro Alto & Cais do Sodre", "tag": "Nightlife", "description": "Quiet by day, roaring by night. Bars spill into the streets; Pink Street is the late-night hub." },
+    { "name": "Graca & Mouraria", "tag": "Local", "description": "Where Lisboetas actually live. Cheaper food, real neighborhood feel, some of the best viewpoints." },
+    { "name": "Campo de Ourique", "tag": "Local", "description": "Residential, relaxed, great market food hall. Almost no tourists." }
+  ],
+  "dailyRhythm": [
+    { "label": "Shops", "text": "Small shops open ~10:00, many close 13:00-15:00 for lunch, then until 19:00. Malls stay open late." },
+    { "label": "Meals", "text": "Lunch 13:00-15:00, dinner 20:00-22:30. Kitchens often close between." },
+    { "label": "Quiet days", "text": "Many family-run spots close Sundays and Monday. Museums often shut Mondays." },
+    { "label": "Rush hour", "text": "08:00-09:30 and 18:00-19:30 - trams and metro get very full." }
+  ],
+  "gettingAround": [
+    { "label": "Best app", "text": "Get the \"Carris Metropolitana\" and metro app; locals top up a rechargeable Navegante card, not paper tickets." },
+    { "label": "Paying", "text": "Contactless works on metro gates. For trams/buses, tap your Navegante card - buying onboard costs more." },
+    { "label": "Taxis", "text": "Bolt is cheaper and more reliable than street taxis. A ride across the center runs EUR 5-8." },
+    { "label": "Unwritten rule", "text": "Stand on the right on escalators. Let people off the tram before boarding - pushing marks you as a tourist." }
   ],
   "phrases": [
-    { "en": "Hello / good day", "local": "Olá / Bom dia", "phonetic": "oh-LAH / bong DEE-ah" },
+    { "en": "Hello / good day", "local": "Ola / Bom dia", "phonetic": "oh-LAH / bong DEE-ah" },
     { "en": "Thank you (said by a man / woman)", "local": "Obrigado / Obrigada", "phonetic": "oh-bree-GAH-doo / dah" },
-    { "en": "A coffee, please", "local": "Um café, se faz favor", "phonetic": "oong kah-FEH" },
+    { "en": "A coffee, please", "local": "Um cafe, se faz favor", "phonetic": "oong kah-FEH" },
     { "en": "The bill, please", "local": "A conta, por favor", "phonetic": "ah KON-tah" },
     { "en": "Where is...?", "local": "Onde fica...?", "phonetic": "ON-deh FEE-kah" }
   ],

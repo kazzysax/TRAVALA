@@ -4,6 +4,7 @@ const express = require("express");
 const signupRoutes = require("./routes/signup");
 const sessionKeyRoutes = require("./routes/sessionKey");
 const rateRoutes = require("./routes/rate");
+const mintRoutes = require("./routes/mint");
 
 const app = express();
 app.use((req, res, next) => {
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(signupRoutes);
 app.use(sessionKeyRoutes);
 app.use(rateRoutes);
+app.use(mintRoutes);
 
 /// The Privy App ID is meant to be public - it's embedded in every Privy
 /// client-side SDK bundle by design. Served here so the frontend never needs
