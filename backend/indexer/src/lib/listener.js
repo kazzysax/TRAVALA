@@ -36,9 +36,19 @@ async function startListening() {
   const latestBlock = await provider.getBlockNumber();
   console.log(`Backfilling RatingSubmitted from block ${startBlock} to ${latestBlock}...`);
 
-  const pastEvents = await contract.queryFilter(contract.filters.RatingSubmitted(), startBlock, latestBlock);
-  for (const event of pastEvents) ingest(eventToRating(event));
-  console.log(`Backfilled ${pastEvents.length} ratings.`);
+  // Monad's public RPC caps eth_getLogs at a 100-block range per call - a
+  // single wide queryFilter always fails here. Chunking is required, not
+  // an optimization; a single failed call previously aborted startListening
+  // entirely, silently skipping live listener registration too.
+  const CHUNK = 100;
+  let totalBackfilled = 0;
+  for (let from = startBlock; from <= latestBlock; from += CHUNK) {
+    const to = Math.min(from + CHUNK - 1, latestBlock);
+    const events = await contract.queryFilter(contract.filters.RatingSubmitted(), from, to);
+    for (const event of events) ingest(eventToRating(event));
+    totalBackfilled += events.length;
+  }
+  console.log(`Backfilled ${totalBackfilled} ratings.`);
 
   contract.on("RatingSubmitted", (...args) => {
     const event = args[args.length - 1];
