@@ -76,16 +76,14 @@
 
   <main class="main">
     <div class="page-head">
-      <h1>Local help</h1>
-      <div class="loc">🇵🇹 Lisbon, Portugal — help when you need it fast</div>
+      <h1 id="pageTitle">Local help</h1>
+      <div class="loc" id="pageLoc">🇵🇹 Lisbon, Portugal — help when you need it fast</div>
       <div class="offline-badge">◆ Saved offline — available with no signal</div>
     </div>
 
     <!-- emergency first, always -->
-    <div class="card sos-card" style="margin-bottom:16px">
+    <div class="card sos-card" style="margin-bottom:16px" id="emergencyCard">
       <h2><span class="ico">🚨</span>Emergency</h2>
-      <div class="sos-row"><span class="lbl">All emergencies (police, fire, medical)</span><span class="num">112</span></div>
-      <div class="sos-row"><span class="lbl">Tourist police (Lisbon)</span><span class="num">+351 213 421 623</span></div>
       <div class="sos-row"><span class="lbl">Nearest embassy — set your country in Settings</span><span class="num">—</span></div>
     </div>
 
@@ -107,43 +105,72 @@
       </div>
 
       <!-- fares -->
-      <div class="card">
+      <div class="card" id="faresCard">
         <h2><span class="ico">🚕</span>Fair transport fares</h2>
-        <div class="fare"><div class="route">Airport → city center<small>Bolt / Uber</small></div><div class="price">€10–14</div></div>
-        <div class="fare"><div class="route">Across the center<small>short taxi ride</small></div><div class="price">€5–8</div></div>
-        <div class="fare"><div class="route">Single metro/tram<small>on Navegante card</small></div><div class="price">€1.65</div></div>
-        <div class="fare"><div class="route">Day transit pass<small>unlimited</small></div><div class="price">€6.80</div></div>
       </div>
     </div>
 
     <!-- scams -->
-    <div class="card">
+    <div class="card" id="scamsCard">
       <h2><span class="ico">⚠️</span>Common scams here</h2>
-      <div class="scam"><span class="warn">▲</span><div><div class="t">Fake taxi "broken meter"</div><div class="d">If a driver says the meter's broken, agree a price first or use Bolt. Airport taxis should always run the meter.</div></div></div>
-      <div class="scam"><span class="warn">▲</span><div><div class="t">Tram 28 pickpockets</div><div class="d">The crowded 28 is a hotspot. Keep bags in front, phones away from open windows at stops.</div></div></div>
-      <div class="scam"><span class="warn">▲</span><div><div class="t">"Free" restaurant couvert</div><div class="d">Bread and olives brought unasked are charged. Wave them away if you don't want them.</div></div></div>
-      <div class="scam"><span class="warn">▲</span><div><div class="t">Euronet ATMs</div><div class="d">The blue Euronet machines add heavy fees. Use bank (Multibanco) ATMs instead.</div></div></div>
     </div>
   </main>
 </div>
 <script>
-  const dict={
-    'where is the bathroom?':['Onde é a casa de banho?','ON-deh eh ah KAH-zah deh BAHN-yoo'],
-    'help, please':['Ajuda, por favor','ah-ZHOO-dah'],
-    'how much is this?':['Quanto custa?','KWAN-too KOOSH-tah'],
-    'how much?':['Quanto custa?','KWAN-too KOOSH-tah'],
-    'i need a doctor':['Preciso de um médico','preh-SEE-zoo deh oong MEH-dee-koo'],
-    'call the police':['Chame a polícia','SHA-meh ah poo-LEE-see-ah']
-  };
-  function render(txt){
-    const key=txt.trim().toLowerCase();
-    const out=document.getElementById('trOut');
-    if(dict[key]){out.innerHTML=dict[key][0]+'<small>'+dict[key][1]+'</small>';out.classList.add('show');}
-    else if(key.length>0){out.innerHTML='Olá — '+txt+'<small>(demo translation)</small>';out.classList.add('show');}
-    else out.classList.remove('show');
+  const CONTENT_API = "https://content-api-zr40.onrender.com";
+  const CITY_SLUG = "lisbon-portugal";
+  let targetLang = "pt";
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+  async function loadCityData(){
+    try {
+      const res = await fetch(`${CONTENT_API}/cities/${CITY_SLUG}`);
+      const data = await res.json();
+      targetLang = data.translateTargetLanguage || "pt";
+
+      document.getElementById('pageTitle').textContent = "Local help";
+      document.getElementById('pageLoc').textContent = `🇵🇹 ${data.city}, ${data.country} — help when you need it fast`;
+
+      document.getElementById('emergencyCard').innerHTML = '<h2><span class="ico">🚨</span>Emergency</h2>' +
+        data.emergency.map(e => `<div class="sos-row"><span class="lbl">${esc(e.label)}</span><span class="num">${esc(e.number)}</span></div>`).join('') +
+        '<div class="sos-row"><span class="lbl">Nearest embassy — set your country in Settings</span><span class="num">—</span></div>';
+
+      document.getElementById('faresCard').innerHTML = '<h2><span class="ico">🚕</span>Fair transport fares</h2>' +
+        data.transportFares.map(f => `<div class="fare"><div class="route">${esc(f.route)}<small>${esc(f.note)}</small></div><div class="price">${esc(f.price)}</div></div>`).join('');
+
+      document.getElementById('scamsCard').innerHTML = '<h2><span class="ico">⚠️</span>Common scams here</h2>' +
+        data.scams.map(s => `<div class="scam"><span class="warn">▲</span><div><div class="t">${esc(s.title)}</div><div class="d">${esc(s.description)}</div></div></div>`).join('');
+    } catch (err) {
+      console.error('Failed to load city data:', err);
+    }
   }
-  function translate(){render(document.getElementById('trIn').value)}
-  function quick(t){document.getElementById('trIn').value=t;render(t)}
+
+  // Real translation via MyMemory (free, no key) - same provider backend/ocr
+  // uses for Quick Scan, called directly since no secret is involved.
+  let trTimer;
+  function translate(){
+    clearTimeout(trTimer);
+    trTimer = setTimeout(doTranslate, 350);
+  }
+  async function doTranslate(){
+    const txt = document.getElementById('trIn').value.trim();
+    const out = document.getElementById('trOut');
+    if (!txt) { out.classList.remove('show'); return; }
+    out.innerHTML = 'Translating…';
+    out.classList.add('show');
+    try {
+      const params = new URLSearchParams({ q: txt, langpair: `en|${targetLang}` });
+      const res = await fetch(`https://api.mymemory.translated.net/get?${params}`);
+      const data = await res.json();
+      out.innerHTML = `${esc(data.responseData.translatedText)}<small>real-time translation</small>`;
+    } catch (err) {
+      out.innerHTML = `Translation unavailable right now<small>${esc(err.message)}</small>`;
+    }
+  }
+  function quick(t){ document.getElementById('trIn').value = t; translate(); }
+
+  loadCityData();
 </script>
 </body>
 </html>

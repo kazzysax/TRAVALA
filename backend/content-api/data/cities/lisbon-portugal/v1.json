@@ -41,11 +41,14 @@
     { "route": "Day transit pass", "note": "unlimited", "price": "EUR 6.80" }
   ],
   "emergency": [
-    { "label": "General emergency", "number": "112" },
-    { "label": "Tourist police line", "number": "21 342 1623" }
+    { "label": "All emergencies (police, fire, medical)", "number": "112" },
+    { "label": "Tourist police (Lisbon)", "number": "+351 213 421 623" }
   ],
   "scams": [
-    { "title": "Fake taxi meters", "description": "Some drivers claim a broken meter and quote a flat inflated fare - insist on the meter or a pre-agreed ride-app price." },
-    { "title": "Bracelet/rose 'gift'", "description": "A stranger ties on a bracelet or hands you a rose, then demands payment - decline any unsolicited item outright." }
-  ]
+    { "title": "Fake taxi \"broken meter\"", "description": "If a driver says the meter's broken, agree a price first or use Bolt. Airport taxis should always run the meter." },
+    { "title": "Tram 28 pickpockets", "description": "The crowded 28 is a hotspot. Keep bags in front, phones away from open windows at stops." },
+    { "title": "\"Free\" restaurant couvert", "description": "Bread and olives brought unasked are charged. Wave them away if you don't want them." },
+    { "title": "Euronet ATMs", "description": "The blue Euronet machines add heavy fees. Use bank (Multibanco) ATMs instead." }
+  ],
+  "translateTargetLanguage": "pt"
 }
