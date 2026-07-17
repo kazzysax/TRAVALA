@@ -27,11 +27,7 @@
   .page-head h1{font-size:26px;letter-spacing:-0.02em;font-weight:600}
   .sign-mode{font-size:12.5px;display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:100px;background:var(--white);border:1px solid var(--line)}
   .sign-mode .d{width:7px;height:7px;border-radius:50%;background:var(--ink-soft)}
-  .sign-mode.auto .d{background:var(--teal)}
   .page-sub{font-size:14px;color:var(--ink-soft);margin-bottom:24px}
-  .tabs{display:flex;gap:6px;margin-bottom:20px}
-  .tab{font-family:inherit;font-size:13.5px;padding:9px 15px;border-radius:100px;border:1px solid var(--line);background:var(--white);cursor:pointer}
-  .tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink);font-weight:500}
   .svc-card{background:var(--white);border:1px solid var(--line-soft);border-radius:16px;padding:18px 20px;margin-bottom:12px;display:flex;align-items:center;gap:16px}
   .svc-card .ic{width:50px;height:50px;border-radius:13px;background:var(--cream-deep);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
   .svc-card .info{flex:1}
@@ -41,9 +37,6 @@
   .svc-card .chain{font-size:11px;color:var(--teal-dark);background:rgba(47,158,143,0.1);padding:2px 8px;border-radius:100px}
   .rate-btn{font-family:inherit;font-size:13.5px;font-weight:500;padding:10px 16px;border-radius:10px;background:var(--coral);color:#fff;border:none;cursor:pointer;flex-shrink:0}
   .rate-btn:hover{background:var(--coral-dark)}
-  .rate-btn.rated{background:var(--cream-deep);color:var(--ink-soft);pointer-events:none}
-
-  /* modal */
   .modal-bg{position:fixed;inset:0;background:rgba(34,32,24,0.5);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
   .modal-bg.show{display:flex}
   .modal{background:var(--cream);border-radius:20px;padding:26px;width:100%;max-width:400px}
@@ -58,26 +51,25 @@
   .rtag{font-family:inherit;font-size:12.5px;padding:7px 13px;border-radius:100px;border:1px solid var(--line);background:var(--white);cursor:pointer}
   .rtag.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
   .step-label{font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--coral);text-align:center;margin-bottom:14px}
-  /* approve panel */
   .approve-box{background:var(--white);border:1px solid var(--line-soft);border-radius:14px;padding:18px;margin-bottom:16px}
   .approve-box .arow{display:flex;justify-content:space-between;font-size:14px;padding:7px 0}
   .approve-box .arow .k{color:var(--ink-soft)}
   .approve-box .arow .v{font-weight:500}
   .approve-box .fee-row{border-top:1px solid var(--line-soft);margin-top:8px;padding-top:12px}
   .approve-box .fee-row .v{color:var(--teal-dark)}
-  /* chain status */
   .chain-panel{text-align:center;padding:14px 0}
   .chain-spin{width:44px;height:44px;border:3px solid var(--line);border-top-color:var(--coral);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
   @keyframes spin{to{transform:rotate(360deg)}}
   .chain-panel .msg{font-size:15px;font-weight:500;margin-bottom:6px}
-  .chain-panel .tx{font-family:'SF Mono',monospace;font-size:12.5px;color:var(--ink-soft)}
+  .chain-panel .tx{font-family:'SF Mono',monospace;font-size:12.5px;color:var(--ink-soft);word-break:break-all}
   .chain-done{width:56px;height:56px;border-radius:50%;background:rgba(47,158,143,0.12);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px}
+  .chain-err{width:56px;height:56px;border-radius:50%;background:rgba(232,98,46,0.12);color:var(--coral);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px}
   .btn{font-family:inherit;font-size:14.5px;font-weight:500;border-radius:12px;padding:13px 20px;cursor:pointer;border:none;transition:all .18s;width:100%;justify-content:center;display:inline-flex;align-items:center;gap:8px}
   .btn-primary{background:var(--coral);color:#fff}.btn-primary:hover{background:var(--coral-dark)}
   .btn-dark{background:var(--ink);color:var(--cream)}
   .btn-ghost{background:transparent;color:var(--ink-soft);border:none;font-size:13.5px;margin-top:6px}
-  .sign-hint{font-size:12px;color:var(--ink-soft);text-align:center;margin-top:12px;display:flex;gap:6px;justify-content:center}
   .hidden{display:none}
+  .loading{padding:40px;text-align:center;color:var(--ink-soft);font-size:14px}
 </style>
 </head>
 <body>
@@ -91,7 +83,7 @@
     <a href="recommendations.html" class="nav-item active"><span class="ic">⭐</span>Rate &amp; recommend</a>
     <div class="spacer"></div>
     <a href="settings.html" class="nav-item"><span class="ic">⚙️</span>Settings</a>
-    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div><div class="row"><span class="bal">1.9 MON</span></div></div></a>
+    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr" id="walletAddr">loading…</span><span class="mon">Monad</span></div><div class="row"><span class="bal" id="walletBal">–</span></div></div></a>
   </aside>
 
   <main class="main">
@@ -101,47 +93,14 @@
     </div>
     <p class="page-sub">Real ratings from real travelers, stored onchain so no one can fake them. Rate what you actually used.</p>
 
-    <div class="tabs">
-      <button class="tab active">All</button>
-      <button class="tab">Cabs</button>
-      <button class="tab">Restaurants</button>
-      <button class="tab">Stays</button>
-    </div>
-
-    <div class="svc-card">
-      <div class="ic">🚕</div>
-      <div class="info"><div class="nm">Miguel's Airport Transfer</div><div class="meta"><span class="stars-sm">★★★★☆</span> 4.3 · <span class="chain">128 onchain ratings</span></div></div>
-      <button class="rate-btn" onclick="openRate('Miguel\'s Airport Transfer','🚕')">Rate</button>
-    </div>
-    <div class="svc-card">
-      <div class="ic">🍽️</div>
-      <div class="info"><div class="nm">Taberna da Rua das Flores</div><div class="meta"><span class="stars-sm">★★★★★</span> 4.8 · <span class="chain">203 onchain ratings</span></div></div>
-      <button class="rate-btn" onclick="openRate('Taberna da Rua das Flores','🍽️')">Rate</button>
-    </div>
-    <div class="svc-card">
-      <div class="ic">🍮</div>
-      <div class="info"><div class="nm">Manteigaria (pastéis de nata)</div><div class="meta"><span class="stars-sm">★★★★★</span> 4.9 · <span class="chain">417 onchain ratings</span></div></div>
-      <button class="rate-btn" onclick="openRate('Manteigaria','🍮')">Rate</button>
-    </div>
-    <div class="svc-card">
-      <div class="ic">🚕</div>
-      <div class="info"><div class="nm">City Center Bolt drivers (avg)</div><div class="meta"><span class="stars-sm">★★★★☆</span> 4.1 · <span class="chain">96 onchain ratings</span></div></div>
-      <button class="rate-btn" onclick="openRate('City Center Bolt drivers','🚕')">Rate</button>
-    </div>
-    <div class="svc-card">
-      <div class="ic">🏠</div>
-      <div class="info"><div class="nm">Casa do Bairro — Graça</div><div class="meta"><span class="stars-sm">★★★★☆</span> 4.4 · <span class="chain">54 onchain ratings</span></div></div>
-      <button class="rate-btn" onclick="openRate('Casa do Bairro','🏠')">Rate</button>
-    </div>
+    <div id="serviceList"><div class="loading">Finding real nearby places…</div></div>
   </main>
 </div>
 
-<!-- RATING MODAL: multi-step -->
 <div class="modal-bg" id="rateModal">
   <div class="modal">
-    <!-- step 1: rate -->
     <div id="rStep1">
-      <div class="svc-head"><div class="ic" id="rIc">🚕</div><div><div class="nm" id="rNm">Service</div><div class="mt">Lisbon · your rating goes onchain</div></div></div>
+      <div class="svc-head"><div class="ic" id="rIc">🚕</div><div><div class="nm" id="rNm">Service</div><div class="mt">your rating goes onchain</div></div></div>
       <div class="rate-stars" id="rStars"><span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span></div>
       <div class="tag-row">
         <button class="rtag" onclick="tog(this)">Great value</button>
@@ -154,7 +113,6 @@
       <button class="btn btn-ghost" onclick="closeRate()">Cancel</button>
     </div>
 
-    <!-- step 2: approve -->
     <div id="rStep2" class="hidden">
       <div class="step-label">Step 1 of 2 · Approve rating</div>
       <div class="approve-box">
@@ -167,7 +125,6 @@
       <button class="btn btn-ghost" onclick="backToRate()">← Back</button>
     </div>
 
-    <!-- step 3: sign (manual) -->
     <div id="rStep3" class="hidden">
       <div class="step-label">Step 2 of 2 · Sign</div>
       <div class="approve-box" style="text-align:center">
@@ -176,82 +133,212 @@
         <div style="font-size:13px;color:var(--ink-soft)">This authorizes writing your rating to Monad. Fee: 0.1 MON.</div>
       </div>
       <button class="btn btn-dark" onclick="doSign()">Sign transaction</button>
-      <div class="sign-hint">💡 Turn on auto-sign in Settings to skip this step next time.</div>
     </div>
 
-    <!-- step 4: chain -->
     <div id="rStep4" class="hidden">
       <div class="chain-panel" id="chainPending">
         <div class="chain-spin"></div>
-        <div class="msg">Pushing rating to chain…</div>
-        <div class="tx">submitting to Monad</div>
+        <div class="msg" id="chainMsg">Pushing rating to chain…</div>
+        <div class="tx" id="chainSub">submitting to Monad</div>
       </div>
       <div class="chain-panel hidden" id="chainDone">
         <div class="chain-done">✓</div>
         <div class="msg">Rating confirmed onchain</div>
-        <div class="tx">tx 0x7a3f…e21b · 0.1 MON</div>
+        <div class="tx" id="chainTx"></div>
         <button class="btn btn-primary" style="margin-top:20px" onclick="finishRate()">Done</button>
+      </div>
+      <div class="chain-panel hidden" id="chainError">
+        <div class="chain-err">!</div>
+        <div class="msg">Couldn't complete the rating</div>
+        <div class="tx" id="chainErrMsg"></div>
+        <button class="btn btn-primary" style="margin-top:20px" onclick="finishRate()">Close</button>
       </div>
     </div>
   </div>
 </div>
 
-<script>
-  // auto-sign state read from a shared key (simulated). Toggle in settings sets this.
-  let autoSign = localStorage_getSafe();
-  function localStorage_getSafe(){ try{return window.__travalaAutoSign||false;}catch(e){return false;} }
-  updateSignBadge();
-  function updateSignBadge(){
-    const b=document.getElementById('signMode');
-    if(autoSign){b.classList.add('auto');b.innerHTML='<span class="d"></span>Auto-sign on';}
-    else{b.classList.remove('auto');b.innerHTML='<span class="d"></span>Manual signing';}
+<script type="module">
+  import { ethers } from "https://esm.sh/ethers@6.14.0";
+
+  const CONTENT_API = "https://content-api-zr40.onrender.com";
+  const INDEXER_API = "https://indexer-y2zq.onrender.com";
+  const RELAYER_API = "https://relayer-rb93.onrender.com";
+  const RPC_PROXY = `${INDEXER_API}/rpc`;
+  const SERVICE_RATING_ADDRESS = "0x654971896ad56d86A4826c08b6175477c53caFa6";
+  const RATING_ABI = ["function submitRating(bytes32 cityId, bytes32 serviceId, uint8 value, string tag) external payable"];
+  const LISBON = { lat: 38.7223, lon: -9.1393 };
+  const ICONS = { restaurant: "🍽️", taxi: "🚕", cafe: "☕" };
+
+  // Real client-side wallet, generated once and kept locally - no seed
+  // phrase shown to the user, matching the product's promise, but real
+  // signing via ethers, not a simulation.
+  function getOrCreateWallet(){
+    let key = localStorage.getItem('travala_wallet_key');
+    if (!key) {
+      const w = ethers.Wallet.createRandom();
+      key = w.privateKey;
+      localStorage.setItem('travala_wallet_key', key);
+    }
+    return key;
+  }
+  const privateKey = getOrCreateWallet();
+  const provider = new ethers.JsonRpcProvider(RPC_PROXY);
+  const wallet = new ethers.Wallet(privateKey, provider);
+
+  let cityId = null;
+  let services = [];
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+  async function refreshWalletDisplay(){
+    document.getElementById('walletAddr').textContent = wallet.address.slice(0,6) + '…' + wallet.address.slice(-4);
+    try {
+      const bal = await provider.getBalance(wallet.address);
+      document.getElementById('walletBal').textContent = Number(ethers.formatEther(bal)).toFixed(3) + ' MON';
+    } catch (err) {
+      document.getElementById('walletBal').textContent = '—';
+    }
   }
 
-  let cur={nm:'',ic:'',stars:0,tags:[]};
-  function openRate(nm,ic){
-    cur={nm,ic,stars:0,tags:[]};
-    document.getElementById('rNm').textContent=nm;
-    document.getElementById('rIc').textContent=ic;
-    document.querySelectorAll('#rStars span').forEach(s=>s.classList.remove('on'));
+  async function loadServices(){
+    try {
+      const cityRes = await fetch(`${CONTENT_API}/cities/lisbon-portugal/city-id`);
+      cityId = (await cityRes.json()).cityId;
+
+      let coords = LISBON;
+      try {
+        coords = await new Promise((resolve, reject) => {
+          if (!navigator.geolocation) return reject();
+          navigator.geolocation.getCurrentPosition(
+            (pos) => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+            () => reject(),
+            { timeout: 3000 }
+          );
+        });
+      } catch { /* fall back to Lisbon center */ }
+
+      const nearbyRes = await fetch(`${CONTENT_API}/nearby?lat=${coords.lat}&lon=${coords.lon}&radius=1200`);
+      const places = await nearbyRes.json();
+      services = places.slice(0, 12);
+
+      const list = document.getElementById('serviceList');
+      list.innerHTML = services.map((s, i) => `
+        <div class="svc-card">
+          <div class="ic">${ICONS[s.category] || '📍'}</div>
+          <div class="info"><div class="nm">${esc(s.name)}</div><div class="meta" id="meta-${i}">Loading rating…</div></div>
+          <button class="rate-btn" onclick="window.openRate(${i})">Rate</button>
+        </div>`).join('') || '<div class="loading">No real nearby places found - try enabling location, or widen the search.</div>';
+
+      services.forEach((s, i) => loadAverage(s, i));
+    } catch (err) {
+      document.getElementById('serviceList').innerHTML = `<div class="loading">Couldn't load real nearby places (${esc(err.message)}). The service may be waking up - try refreshing.</div>`;
+    }
+  }
+
+  async function loadAverage(service, i){
+    try {
+      const res = await fetch(`${INDEXER_API}/cities/${cityId}/services/${service.serviceId}/average`);
+      const { avg, count } = await res.json();
+      const el = document.getElementById(`meta-${i}`);
+      if (!el) return;
+      if (count === 0) {
+        el.innerHTML = `<span class="chain">No onchain ratings yet - be the first</span>`;
+      } else {
+        const stars = (avg / 100).toFixed(1);
+        el.innerHTML = `<span class="stars-sm">${'★'.repeat(Math.round(avg/100))}${'☆'.repeat(5-Math.round(avg/100))}</span> ${stars} · <span class="chain">${count} onchain rating${count===1?'':'s'}</span>`;
+      }
+    } catch { /* leave "Loading rating..." if this one call fails */ }
+  }
+
+  let cur = { idx: -1, stars: 0, tags: [] };
+  window.openRate = function(idx){
+    cur = { idx, stars: 0, tags: [] };
+    const s = services[idx];
+    document.getElementById('rNm').textContent = s.name;
+    document.getElementById('rIc').textContent = ICONS[s.category] || '📍';
+    document.querySelectorAll('#rStars span').forEach(el=>el.classList.remove('on'));
     document.querySelectorAll('.rtag').forEach(t=>t.classList.remove('on'));
     showStep('rStep1');
     document.getElementById('rateModal').classList.add('show');
-  }
-  function closeRate(){document.getElementById('rateModal').classList.remove('show')}
+  };
+  window.closeRate = function(){ document.getElementById('rateModal').classList.remove('show'); };
   document.querySelectorAll('#rStars span').forEach(s=>{
     s.addEventListener('click',()=>{
-      cur.stars=+s.dataset.v;
-      document.querySelectorAll('#rStars span').forEach(x=>x.classList.toggle('on',+x.dataset.v<=cur.stars));
+      cur.stars = +s.dataset.v;
+      document.querySelectorAll('#rStars span').forEach(x=>x.classList.toggle('on', +x.dataset.v <= cur.stars));
     });
   });
-  function tog(el){el.classList.toggle('on');
-    cur.tags=[...document.querySelectorAll('.rtag.on')].map(t=>t.textContent);
-  }
-  function showStep(id){['rStep1','rStep2','rStep3','rStep4'].forEach(s=>document.getElementById(s).classList.add('hidden'));document.getElementById(id).classList.remove('hidden')}
-  function toApprove(){
-    if(cur.stars===0){alert('Pick a star rating first');return;}
-    document.getElementById('aNm').textContent=cur.nm;
-    document.getElementById('aStars').textContent='★★★★★☆☆☆☆☆'.slice(5-cur.stars,10-cur.stars);
-    document.getElementById('aTags').textContent=cur.tags.length?cur.tags.join(', '):'—';
+  window.tog = function(el){
+    el.classList.toggle('on');
+    cur.tags = [...document.querySelectorAll('.rtag.on')].map(t=>t.textContent);
+  };
+  function showStep(id){ ['rStep1','rStep2','rStep3','rStep4'].forEach(s=>document.getElementById(s).classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
+  window.toApprove = function(){
+    if (cur.stars === 0) { alert('Pick a star rating first'); return; }
+    document.getElementById('aNm').textContent = services[cur.idx].name;
+    document.getElementById('aStars').textContent = '★'.repeat(cur.stars) + '☆'.repeat(5-cur.stars);
+    document.getElementById('aTags').textContent = cur.tags.length ? cur.tags.join(', ') : '—';
     showStep('rStep2');
-  }
-  function backToRate(){showStep('rStep1')}
-  function toSign(){
-    if(autoSign){ toChain(); }         // auto-sign skips manual sign step
-    else showStep('rStep3');
-  }
-  function doSign(){ toChain(); }
-  function toChain(){
+  };
+  window.backToRate = function(){ showStep('rStep1'); };
+  window.toSign = function(){ showStep('rStep3'); };
+  window.finishRate = function(){ closeRate(); refreshWalletDisplay(); };
+
+  window.doSign = async function(){
     showStep('rStep4');
     document.getElementById('chainPending').classList.remove('hidden');
     document.getElementById('chainDone').classList.add('hidden');
-    setTimeout(()=>{
+    document.getElementById('chainError').classList.add('hidden');
+
+    try {
+      const needed = ethers.parseEther("0.1");
+      let balance = await provider.getBalance(wallet.address);
+
+      if (balance < needed) {
+        document.getElementById('chainMsg').textContent = 'Funding your wallet for gas…';
+        document.getElementById('chainSub').textContent = wallet.address;
+        const fundRes = await fetch(`${RELAYER_API}/fund`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ walletAddress: wallet.address }),
+        });
+        const fundData = await fundRes.json();
+        if (fundData.funded) {
+          for (let i = 0; i < 10; i++) {
+            await new Promise(r => setTimeout(r, 2000));
+            balance = await provider.getBalance(wallet.address);
+            if (balance >= needed) break;
+          }
+        }
+      }
+
+      if (balance < needed) {
+        throw new Error(`Wallet needs 0.1 MON for this rating. Send MON to ${wallet.address} and try again.`);
+      }
+
+      document.getElementById('chainMsg').textContent = 'Pushing rating to chain…';
+      document.getElementById('chainSub').textContent = 'submitting to Monad';
+
+      const service = services[cur.idx];
+      const contract = new ethers.Contract(SERVICE_RATING_ADDRESS, RATING_ABI, wallet);
+      const tx = await contract.submitRating(cityId, service.serviceId, cur.stars, cur.tags.join(', '), { value: needed });
+      const receipt = await tx.wait();
+
       document.getElementById('chainPending').classList.add('hidden');
       document.getElementById('chainDone').classList.remove('hidden');
-    },2200);
-  }
-  function finishRate(){closeRate()}
+      document.getElementById('chainTx').textContent = `tx ${receipt.hash}`;
+
+      setTimeout(() => loadAverage(service, cur.idx), 3000);
+    } catch (err) {
+      document.getElementById('chainPending').classList.add('hidden');
+      document.getElementById('chainError').classList.remove('hidden');
+      document.getElementById('chainErrMsg').textContent = err.shortMessage || err.message;
+    }
+  };
+
   document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+
+  refreshWalletDisplay();
+  loadServices();
 </script>
 </body>
 </html>
