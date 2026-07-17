@@ -1,6 +1,6 @@
 const express = require("express");
 const { convert } = require("../lib/currency");
-const { addExpense, listExpenses, getBudget, spentToday } = require("../lib/db");
+const { addExpense, listExpenses, getBudget, spentToday, spentTotal } = require("../lib/db");
 
 const router = express.Router();
 
@@ -40,12 +40,15 @@ router.get("/users/:userId/expenses", (req, res) => {
 });
 
 router.get("/users/:userId/budget-status", (req, res) => {
-  const { dailyBudget, homeCurrency } = getBudget(req.params.userId);
+  const { dailyBudget, tripBudget, homeCurrency } = getBudget(req.params.userId);
   const spent = spentToday(req.params.userId);
+  const total = spentTotal(req.params.userId);
   res.json({
     dailyBudget,
+    tripBudget,
     homeCurrency,
     spentToday: spent,
+    spentTotal: total,
     remainingToday: dailyBudget !== null ? Math.max(0, dailyBudget - spent) : null,
   });
 });

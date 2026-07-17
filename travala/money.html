@@ -86,38 +86,47 @@
 
   <main class="main">
     <div class="page-head">
-      <div><h1>Money</h1><div class="loc">🇵🇹 Lisbon · home currency GBP £</div></div>
+      <div><h1>Money</h1><div class="loc" id="pageLoc">Loading…</div></div>
       <button class="btn btn-primary" onclick="openExpense()">＋ Add expense</button>
     </div>
 
     <div class="grid2">
       <div class="card">
         <h2>Today</h2>
-        <div class="budget-top"><span class="spent">€38</span><span class="of">of €60 daily budget</span></div>
-        <div class="bar"><div class="fill" style="width:63%"></div></div>
-        <div class="budget-meta"><span>€22 left today</span><span>63%</span></div>
-        <div class="trip-line">
-          <div class="lbl"><span>Whole trip</span><span>€412 of €800</span></div>
-          <div class="bar sm"><div class="fill" style="width:51%"></div></div>
+        <div class="budget-top"><span class="spent" id="spentToday">–</span><span class="of" id="ofBudget"></span></div>
+        <div class="bar"><div class="fill" id="barToday" style="width:0%"></div></div>
+        <div class="budget-meta"><span id="leftToday"></span><span id="pctToday"></span></div>
+        <div class="trip-line" id="tripLine" style="display:none">
+          <div class="lbl"><span>Whole trip</span><span id="tripAmt"></span></div>
+          <div class="bar sm"><div class="fill" id="barTrip" style="width:0%"></div></div>
         </div>
       </div>
       <div class="card">
         <h2>Where it's going</h2>
-        <div class="cat"><span class="dot" style="background:var(--teal)"></span><span class="nm">Food &amp; drink</span><span class="amt">€164</span><span class="pct">40%</span></div>
-        <div class="cat"><span class="dot" style="background:var(--coral)"></span><span class="nm">Lodging</span><span class="amt">€130</span><span class="pct">32%</span></div>
-        <div class="cat"><span class="dot" style="background:#5b3ac4"></span><span class="nm">Transport</span><span class="amt">€72</span><span class="pct">17%</span></div>
-        <div class="cat"><span class="dot" style="background:var(--amber)"></span><span class="nm">Activities</span><span class="amt">€46</span><span class="pct">11%</span></div>
+        <div id="categoryBreakdown"></div>
       </div>
     </div>
 
     <div class="card">
       <h2>Recent expenses</h2>
-      <div class="exp"><div class="ic">🍽️</div><div class="info"><div class="d">Lunch — Time Out Market</div><div class="m">Today · 13:24 · Food &amp; drink</div></div><div class="amt"><div class="home">£15.40</div><div class="orig">€18.00</div></div></div>
-      <div class="exp"><div class="ic">🚕</div><div class="info"><div class="d">Taxi from Alfama<div class="flag">⚠ high for this ride</div></div><div class="m">Today · 11:05 · Transport</div></div><div class="amt"><div class="home">£15.40</div><div class="orig">€18.00</div></div></div>
-      <div class="exp"><div class="ic">☕</div><div class="info"><div class="d">Coffee &amp; pastel de nata</div><div class="m">Today · 09:12 · Food &amp; drink</div></div><div class="amt"><div class="home">£2.90</div><div class="orig">€3.40</div></div></div>
-      <div class="exp"><div class="ic">🎫</div><div class="info"><div class="d">Castelo de São Jorge entry</div><div class="m">Yesterday · Activities</div></div><div class="amt"><div class="home">£13.60</div><div class="orig">€15.00</div></div></div>
+      <div id="expenseList"><div style="color:var(--ink-soft);font-size:14px">No expenses yet — add your first one.</div></div>
     </div>
   </main>
+</div>
+
+<div class="modal-bg" id="setupModal">
+  <div class="modal">
+    <h3>Set up your budget</h3>
+    <p class="sub">One-time setup so expenses convert to your home currency automatically.</p>
+    <div class="field"><label>Home currency</label><select id="setupCurrency"><option value="GBP">GBP £</option><option value="EUR">EUR €</option><option value="USD">USD $</option></select></div>
+    <div class="field-row">
+      <div class="field"><label>Daily budget</label><input type="number" placeholder="60" id="setupDaily"></div>
+      <div class="field"><label>Trip budget (optional)</label><input type="number" placeholder="800" id="setupTrip"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" style="flex:1" onclick="saveBudgetSetup()">Save and continue</button>
+    </div>
+  </div>
 </div>
 
 <div class="modal-bg" id="expenseModal">
@@ -127,26 +136,153 @@
     <div class="field"><label>What was it?</label><input type="text" placeholder="Taxi from airport" id="expDesc"></div>
     <div class="field-row">
       <div class="field"><label>Amount</label><input type="number" placeholder="0.00" id="expAmt" oninput="checkFair()"></div>
-      <div class="field"><label>Currency</label><select id="expCur"><option>EUR €</option><option>USD $</option><option>GBP £</option></select></div>
+      <div class="field"><label>Currency</label><select id="expCur" onchange="checkFair()"><option>EUR</option><option>USD</option><option>GBP</option></select></div>
     </div>
     <div class="field"><label>Category</label><select id="expCat" onchange="checkFair()"><option>Food &amp; drink</option><option>Transport</option><option>Lodging</option><option>Activities</option></select></div>
-    <div class="flag-note" id="fairFlag">⚠️ That's high for a taxi in Lisbon — a fair fare from the center is usually €6–10. Double-check you're not being overcharged.</div>
+    <div class="flag-note" id="fairFlag"></div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('expenseModal')">Cancel</button>
-      <button class="btn btn-primary" onclick="closeModal('expenseModal')">Save expense</button>
+      <button class="btn btn-primary" onclick="saveExpense()">Save expense</button>
     </div>
   </div>
 </div>
 
 <script>
-  function openExpense(){document.getElementById('expenseModal').classList.add('show')}
-  function closeModal(id){document.getElementById(id).classList.remove('show')}
-  function checkFair(){
-    const amt=parseFloat(document.getElementById('expAmt').value||0);
-    const cat=document.getElementById('expCat').value;
-    document.getElementById('fairFlag').classList.toggle('show', cat==='Transport'&&amt>15);
+  const EXPENSE_API = "https://expense-17td.onrender.com";
+  const CONTENT_API = "https://content-api-zr40.onrender.com";
+  const CATEGORY_COLORS = { "Food & drink": "var(--teal)", "Lodging": "var(--coral)", "Transport": "#5b3ac4", "Activities": "var(--amber)" };
+  const CATEGORY_ICONS = { "Food & drink": "🍽️", "Lodging": "🛏️", "Transport": "🚕", "Activities": "🎫" };
+
+  // No real login wired up yet - persist a stable anonymous id locally so
+  // this page has a consistent user to track expenses against. Replaced by
+  // the real Privy wallet address once auth is wired into the frontend.
+  function getUserId(){
+    let id = localStorage.getItem('travala_demo_user_id');
+    if (!id) { id = 'demo-' + crypto.randomUUID(); localStorage.setItem('travala_demo_user_id', id); }
+    return id;
   }
+  const USER_ID = getUserId();
+
+  let fairFareMax = null;
+  let homeCurrency = null;
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+  function money(n, cur){ return `${cur === 'GBP' ? '£' : cur === 'USD' ? '$' : '€'}${Number(n).toFixed(2)}`; }
+
+  function openExpense(){ document.getElementById('expenseModal').classList.add('show'); checkFair(); }
+  function closeModal(id){ document.getElementById(id).classList.remove('show'); }
   document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+
+  function checkFair(){
+    const amt = parseFloat(document.getElementById('expAmt').value || 0);
+    const cat = document.getElementById('expCat').value;
+    const flag = document.getElementById('fairFlag');
+    if (cat === 'Transport' && fairFareMax && amt > fairFareMax * 1.5) {
+      flag.textContent = `⚠️ That's high for a taxi in Lisbon — a fair fare from the center is usually up to about ${fairFareMax}. Double-check you're not being overcharged.`;
+      flag.classList.add('show');
+    } else {
+      flag.classList.remove('show');
+    }
+  }
+
+  async function loadFairFareData(){
+    try {
+      const res = await fetch(`${CONTENT_API}/cities/lisbon-portugal`);
+      const data = await res.json();
+      const fare = data.transportFares.find(f => f.route === 'Across the center');
+      if (fare) {
+        const match = fare.price.match(/(\d+(?:\.\d+)?)\s*$/);
+        if (match) fairFareMax = parseFloat(match[1]);
+      }
+    } catch (err) { console.error('Could not load fair-fare data:', err); }
+  }
+
+  async function loadBudget(){
+    const res = await fetch(`${EXPENSE_API}/users/${USER_ID}/budget`);
+    return res.json();
+  }
+
+  async function saveBudgetSetup(){
+    homeCurrency = document.getElementById('setupCurrency').value;
+    const dailyBudget = parseFloat(document.getElementById('setupDaily').value);
+    const tripBudget = parseFloat(document.getElementById('setupTrip').value) || null;
+    if (!dailyBudget || dailyBudget <= 0) { alert('Enter a daily budget'); return; }
+
+    await fetch(`${EXPENSE_API}/users/${USER_ID}/budget`, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dailyBudget, tripBudget, homeCurrency }),
+    });
+    closeModal('setupModal');
+    await refresh();
+  }
+
+  async function saveExpense(){
+    const description = document.getElementById('expDesc').value.trim();
+    const amount = parseFloat(document.getElementById('expAmt').value);
+    const currency = document.getElementById('expCur').value;
+    const category = document.getElementById('expCat').value;
+    if (!description || !amount || amount <= 0) { alert('Enter a description and amount'); return; }
+
+    const res = await fetch(`${EXPENSE_API}/users/${USER_ID}/expenses`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount, currency, category, note: description }),
+    });
+    if (!res.ok) { const err = await res.json(); alert('Could not save: ' + err.error); return; }
+
+    document.getElementById('expDesc').value = '';
+    document.getElementById('expAmt').value = '';
+    closeModal('expenseModal');
+    await refresh();
+  }
+
+  function renderBudget(status){
+    document.getElementById('pageLoc').textContent = `🇵🇹 Lisbon · home currency ${status.homeCurrency}`;
+    document.getElementById('spentToday').textContent = money(status.spentToday, status.homeCurrency);
+    document.getElementById('ofBudget').textContent = `of ${money(status.dailyBudget, status.homeCurrency)} daily budget`;
+    const pct = status.dailyBudget ? Math.min(100, Math.round((status.spentToday / status.dailyBudget) * 100)) : 0;
+    document.getElementById('barToday').style.width = pct + '%';
+    document.getElementById('leftToday').textContent = `${money(status.remainingToday, status.homeCurrency)} left today`;
+    document.getElementById('pctToday').textContent = pct + '%';
+
+    if (status.tripBudget) {
+      document.getElementById('tripLine').style.display = '';
+      document.getElementById('tripAmt').textContent = `${money(status.spentTotal, status.homeCurrency)} of ${money(status.tripBudget, status.homeCurrency)}`;
+      document.getElementById('barTrip').style.width = Math.min(100, Math.round((status.spentTotal / status.tripBudget) * 100)) + '%';
+    }
+  }
+
+  function renderExpenses(expenses){
+    if (expenses.length === 0) return;
+    const sorted = [...expenses].reverse();
+    document.getElementById('expenseList').innerHTML = sorted.map(e => {
+      const when = new Date(e.createdAt);
+      const isToday = when.toDateString() === new Date().toDateString();
+      const whenStr = (isToday ? 'Today' : when.toLocaleDateString()) + ' · ' + when.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+      const flag = e.category === 'Transport' && fairFareMax && e.amountOriginal > fairFareMax * 1.5
+        ? '<div class="flag">⚠ high for this ride</div>' : '';
+      return `<div class="exp"><div class="ic">${CATEGORY_ICONS[e.category] || '💳'}</div><div class="info"><div class="d">${esc(e.note)}${flag}</div><div class="m">${whenStr} · ${esc(e.category)}</div></div><div class="amt"><div class="home">${money(e.amountHomeCurrency, e.homeCurrency)}</div><div class="orig">${e.currencyOriginal} ${e.amountOriginal.toFixed(2)}</div></div></div>`;
+    }).join('');
+
+    const totals = {};
+    let grandTotal = 0;
+    for (const e of expenses) { totals[e.category] = (totals[e.category]||0) + e.amountHomeCurrency; grandTotal += e.amountHomeCurrency; }
+    document.getElementById('categoryBreakdown').innerHTML = Object.entries(totals).map(([cat, amt]) =>
+      `<div class="cat"><span class="dot" style="background:${CATEGORY_COLORS[cat]||'var(--ink-soft)'}"></span><span class="nm">${esc(cat)}</span><span class="amt">${money(amt, expenses[0].homeCurrency)}</span><span class="pct">${Math.round(amt/grandTotal*100)}%</span></div>`
+    ).join('') || '<div style="color:var(--ink-soft);font-size:14px">No expenses yet.</div>';
+  }
+
+  async function refresh(){
+    const [status, expenses] = await Promise.all([
+      fetch(`${EXPENSE_API}/users/${USER_ID}/budget-status`).then(r=>r.json()),
+      fetch(`${EXPENSE_API}/users/${USER_ID}/expenses`).then(r=>r.json()),
+    ]);
+    if (!status.homeCurrency) { document.getElementById('setupModal').classList.add('show'); return; }
+    renderBudget(status);
+    renderExpenses(expenses);
+  }
+
+  loadFairFareData();
+  refresh();
 </script>
 </body>
 </html>

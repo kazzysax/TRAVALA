@@ -26,7 +26,7 @@ function setBudget(userId, budget) {
 }
 
 function getBudget(userId) {
-  return budgets.get(userId) || { dailyBudget: null, homeCurrency: null };
+  return budgets.get(userId) || { dailyBudget: null, tripBudget: null, homeCurrency: null };
 }
 
 function spentToday(userId) {
@@ -36,5 +36,9 @@ function spentToday(userId) {
     .reduce((sum, e) => sum + e.amountHomeCurrency, 0);
 }
 
-module.exports = { addExpense, listExpenses, setBudget, getBudget, spentToday };
+function spentTotal(userId) {
+  return listExpenses(userId).reduce((sum, e) => sum + e.amountHomeCurrency, 0);
+}
+
+module.exports = { addExpense, listExpenses, setBudget, getBudget, spentToday, spentTotal };
 
