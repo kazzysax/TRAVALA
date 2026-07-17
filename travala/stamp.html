@@ -65,94 +65,91 @@
 
   <main class="main">
     <div class="search">
-      <input type="text" id="walletInput" placeholder="Paste a wallet address to check its stamp…">
-      <input type="text" id="cityInput" placeholder="City" style="max-width:140px">
-      <input type="text" id="countryInput" placeholder="Country" style="max-width:140px">
-      <button onclick="lookup()">Check stamp</button>
+      <input type="text" id="walletInput" placeholder="Paste a wallet address to check its real stamps…">
+      <button onclick="lookup()">Check stamps</button>
     </div>
-    <div id="content"><div class="loading">Enter a wallet address and city above - this reads real onchain ratings, scoped to that wallet + city, from the deployed ServiceRating contract.</div></div>
+    <div id="content"><div class="loading">Enter a wallet address above - this reads that wallet's real, actually-minted TravelerCredential stamps, and each stamp's real ratings in its own city. Not a city you type in - the city comes from the NFT itself.</div></div>
   </main>
 </div>
 <script>
-  const CONTENT_API = "https://content-api-zr40.onrender.com";
   const INDEXER_API = "https://indexer-y2zq.onrender.com";
 
   function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
   function stars(v){ return '★'.repeat(v) + '<span style="color:var(--line)">' + '★'.repeat(5-v) + '</span>'; }
 
-  // Default the city/country fields to whatever this session actually has
-  // set, rather than a fixed city - still editable to check any city.
-  document.getElementById('cityInput').value = localStorage.getItem('travala_city') || '';
-  document.getElementById('countryInput').value = localStorage.getItem('travala_country') || '';
+  function renderStamp(stamp){
+    const ratings = stamp.ratings || [];
+    const avg = ratings.length ? ratings.reduce((s,r)=>s+r.value,0) / ratings.length : 0;
+    const feesTotal = (ratings.length * 0.1).toFixed(1);
+
+    return `
+      <div class="hero">
+        <div class="big-stamp"><div class="ring"></div><div class="city">${esc(stamp.city)}</div><div class="country">${esc(stamp.country)}</div><div style="font-size:11px;color:var(--coral);margin-top:14px;font-family:'SF Mono',monospace">NO. ${stamp.serial}</div></div>
+        <div class="hero-info">
+          <h1>${esc(stamp.city)}, ${esc(stamp.country)}</h1>
+          <div class="meta">Real TravelerCredential stamp - token #${stamp.tokenId}, soulbound, minted onchain</div>
+          <div class="badges"><span class="badge soul">◆ Read live from TravelerCredential + ServiceRating on Monad</span></div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="v">${ratings.length}</div><div class="l">services rated here</div></div>
+        <div class="stat"><div class="v">${ratings.length ? avg.toFixed(1) : '–'}</div><div class="l">avg rating given</div></div>
+        <div class="stat"><div class="v">${feesTotal} MON</div><div class="l">in network fees paid</div></div>
+      </div>
+      <div class="section-title">Ratings tied to this stamp <span style="font-size:12px;color:var(--coral);font-weight:500">on Monad</span></div>
+      <div class="section-note">These are exactly this NFT's ratings - same owner wallet, same city the stamp was minted for - read directly from indexed onchain events.</div>
+      ${ratings.length ? ratings.map(r => `
+        <div class="svc">
+          <div class="ic">⭐</div>
+          <div class="info">
+            <div class="nm">service ${esc(r.serviceId.slice(0,10))}…${esc(r.serviceId.slice(-6))}</div>
+            ${r.tag ? `<span class="tag">${esc(r.tag)}</span>` : ''}
+          </div>
+          <div class="rate-col">
+            <div class="stars">${stars(r.value)}</div>
+            <div class="date">${new Date(r.timestamp*1000).toLocaleDateString()}</div>
+          </div>
+        </div>`).join('') : '<div class="loading" style="padding:20px 0">No ratings from this stamp\'s owner in this city yet.</div>'}
+    `;
+  }
 
   async function lookup(){
     const wallet = document.getElementById('walletInput').value.trim();
-    const city = document.getElementById('cityInput').value.trim();
-    const country = document.getElementById('countryInput').value.trim();
     const content = document.getElementById('content');
     if (!wallet || !/^0x[0-9a-fA-F]{40}$/.test(wallet)) {
       content.innerHTML = '<div class="loading">Enter a valid wallet address (0x...)</div>';
       return;
     }
-    if (!city || !country) {
-      content.innerHTML = '<div class="loading">Enter a city and country to check</div>';
-      return;
-    }
-    content.innerHTML = '<div class="loading">Reading real onchain ratings…</div>';
+    content.innerHTML = '<div class="loading">Reading real owned stamps…</div>';
 
     try {
-      const cityRes = await fetch(`${INDEXER_API}/city-id?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}`);
-      const { cityId } = await cityRes.json();
+      const res = await fetch(`${INDEXER_API}/wallets/${wallet}/stamps`);
+      const stamps = await res.json();
 
-      const ratingsRes = await fetch(`${INDEXER_API}/wallets/${wallet}/cities/${cityId}/ratings?limit=50`);
-      const ratings = await ratingsRes.json();
-
-      if (ratings.length === 0) {
-        content.innerHTML = `<div class="loading">No onchain ratings found for this wallet in ${esc(city)}. Either it hasn't rated anything here yet, or check the address.</div>`;
+      if (stamps.length === 0) {
+        content.innerHTML = `<div class="loading">This wallet doesn't own any real TravelerCredential stamps yet - it hasn't minted one, or check the address.</div>`;
         return;
       }
 
-      const avg = ratings.reduce((s,r)=>s+r.value,0) / ratings.length;
-      const feesTotal = (ratings.length * 0.1).toFixed(1);
-
-      content.innerHTML = `
-        <div class="hero">
-          <div class="big-stamp"><div class="ring"></div><div class="city">${esc(city)}</div><div class="country">${esc(country)}</div></div>
-          <div class="hero-info">
-            <h1>${esc(city)}, ${esc(country)}</h1>
-            <div class="meta">Real onchain ratings for <span style="font-family:'SF Mono',monospace">${esc(wallet.slice(0,6))}…${esc(wallet.slice(-4))}</span></div>
-            <div class="badges"><span class="badge soul">◆ Read live from ServiceRating on Monad</span></div>
-          </div>
-        </div>
-        <div class="stats">
-          <div class="stat"><div class="v">${ratings.length}</div><div class="l">services rated here</div></div>
-          <div class="stat"><div class="v">${avg.toFixed(1)}</div><div class="l">avg rating given</div></div>
-          <div class="stat"><div class="v">${feesTotal} MON</div><div class="l">in network fees paid</div></div>
-        </div>
-        <div class="section-title">Ratings in ${esc(city)} <span style="font-size:12px;color:var(--coral);font-weight:500">on Monad</span></div>
-        <div class="section-note">Read directly from onchain events indexed by the ServiceRating contract - tamper-proof, the next traveler here sees the same record.</div>
-        ${ratings.map(r => `
-          <div class="svc">
-            <div class="ic">⭐</div>
-            <div class="info">
-              <div class="nm">service ${esc(r.serviceId.slice(0,10))}…${esc(r.serviceId.slice(-6))}</div>
-              ${r.tag ? `<span class="tag">${esc(r.tag)}</span>` : ''}
-            </div>
-            <div class="rate-col">
-              <div class="stars">${stars(r.value)}</div>
-              <div class="date">${new Date(r.timestamp*1000).toLocaleDateString()}</div>
-            </div>
-          </div>`).join('')}
-      `;
+      content.innerHTML = stamps.map(renderStamp).join('<hr style="border:none;border-top:1px solid var(--line-soft);margin:32px 0">');
     } catch (err) {
-      content.innerHTML = `<div class="loading">Couldn't load ratings (${esc(err.message)}). The service may be waking up - try again in a few seconds.</div>`;
+      content.innerHTML = `<div class="loading">Couldn't load stamps (${esc(err.message)}). The service may be waking up - try again in a few seconds.</div>`;
     }
   }
 
   const params = new URLSearchParams(window.location.search);
-  if (params.get('wallet')) {
-    document.getElementById('walletInput').value = params.get('wallet');
+  const walletFromUrl = params.get('wallet');
+  if (walletFromUrl) {
+    document.getElementById('walletInput').value = walletFromUrl;
     lookup();
+  } else if (localStorage.getItem('travala_wallet_key')) {
+    // No wallet specified - default to checking this session's own real
+    // wallet, derived the same way every other page does.
+    import("https://esm.sh/ethers@6.14.0").then(({ ethers }) => {
+      const address = new ethers.Wallet(localStorage.getItem('travala_wallet_key')).address;
+      document.getElementById('walletInput').value = address;
+      lookup();
+    });
   }
 </script>
 </body>

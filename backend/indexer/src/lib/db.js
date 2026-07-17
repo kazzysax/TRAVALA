@@ -7,6 +7,9 @@ const byCity = new Map(); // cityId -> ratings[] indices
 const byCityService = new Map(); // `${cityId}:${serviceId}` -> indices
 const byRaterCity = new Map(); // `${rater}:${cityId}` -> indices
 
+const stamps = []; // flat list of minted TravelerCredential stamps
+const stampsByOwner = new Map(); // owner (lowercase) -> stamps[] indices
+
 function pushIndex(map, key, idx) {
   const list = map.get(key) || [];
   list.push(idx);
@@ -40,4 +43,23 @@ function getRaterCityRatings(rater, cityId, offset, limit) {
   return paginate(byRaterCity.get(`${rater.toLowerCase()}:${cityId}`) || [], offset, limit);
 }
 
-module.exports = { ingest, getCityRatings, getCityServiceAverage, getRaterCityRatings, all: () => ratings };
+function ingestStamp(stamp) {
+  const idx = stamps.length;
+  stamps.push(stamp);
+  pushIndex(stampsByOwner, stamp.owner.toLowerCase(), idx);
+}
+
+function getStampsByOwner(owner) {
+  const indices = stampsByOwner.get(owner.toLowerCase()) || [];
+  return indices.map((i) => stamps[i]);
+}
+
+module.exports = {
+  ingest,
+  getCityRatings,
+  getCityServiceAverage,
+  getRaterCityRatings,
+  all: () => ratings,
+  ingestStamp,
+  getStampsByOwner,
+};

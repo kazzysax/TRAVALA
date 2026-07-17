@@ -253,6 +253,18 @@
     } catch { document.getElementById('walletBal').textContent = '—'; }
   }
 
+  async function loadStamps(){
+    try {
+      const res = await fetch(`${INDEXER_API}/wallets/${wallet.address}/stamps`);
+      const stamps = await res.json();
+      const strip = document.getElementById('stampStrip');
+      const addBtn = `<a href="login.html" class="mini-stamp add"><span class="plus">+</span><span class="lbl">New city</span></a>`;
+      strip.innerHTML = stamps.map(s =>
+        `<a href="stamp.html?wallet=${wallet.address}" class="mini-stamp"><div class="c">${esc(s.city)}</div><div class="n">NO. ${String(s.serial).padStart(3,'0')}</div></a>`
+      ).join('') + addBtn;
+    } catch { /* stamp strip just shows the add button if this fails */ }
+  }
+
   async function loadLocation(){
     const city = localStorage.getItem('travala_city');
     const country = localStorage.getItem('travala_country');
@@ -362,6 +374,7 @@
   loadWallet();
   loadLocation();
   loadBudget();
+  loadStamps();
 </script>
 </body>
 </html>
