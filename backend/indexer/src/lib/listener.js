@@ -32,29 +32,42 @@ async function startListening() {
   const provider = new ethers.JsonRpcProvider(MONAD_RPC_URL);
   const contract = new ethers.Contract(SERVICE_RATING_ADDRESS, RATING_SUBMITTED_ABI, provider);
 
-  const startBlock = Number(START_BLOCK || 0);
-  const latestBlock = await provider.getBlockNumber();
-  console.log(`Backfilling RatingSubmitted from block ${startBlock} to ${latestBlock}...`);
-
-  // Monad's public RPC caps eth_getLogs at a 100-block range per call - a
-  // single wide queryFilter always fails here. Chunking is required, not
-  // an optimization; a single failed call previously aborted startListening
-  // entirely, silently skipping live listener registration too.
-  const CHUNK = 100;
-  let totalBackfilled = 0;
-  for (let from = startBlock; from <= latestBlock; from += CHUNK) {
-    const to = Math.min(from + CHUNK - 1, latestBlock);
-    const events = await contract.queryFilter(contract.filters.RatingSubmitted(), from, to);
-    for (const event of events) ingest(eventToRating(event));
-    totalBackfilled += events.length;
-  }
-  console.log(`Backfilled ${totalBackfilled} ratings.`);
-
+  // Live listener registers before backfill even starts, so new ratings are
+  // captured immediately regardless of how long a large historical backfill
+  // takes - a slow/failing backfill must never block this.
   contract.on("RatingSubmitted", (...args) => {
     const event = args[args.length - 1];
     ingest(eventToRating(event));
   });
   console.log("Listening for new RatingSubmitted events...");
+
+  const startBlock = Number(START_BLOCK || 0);
+  const latestBlock = await provider.getBlockNumber();
+  console.log(`Backfilling RatingSubmitted from block ${startBlock} to ${latestBlock}...`);
+
+  // Monad's public RPC caps eth_getLogs at a 100-block range per call, so
+  // this is chunked - and run with limited concurrency (not fully
+  // sequential) since a wide block range can otherwise take a very long time
+  // one chunk at a time against a public, rate-limited endpoint.
+  const CHUNK = 100;
+  const CONCURRENCY = 20;
+  const ranges = [];
+  for (let from = startBlock; from <= latestBlock; from += CHUNK) {
+    ranges.push([from, Math.min(from + CHUNK - 1, latestBlock)]);
+  }
+
+  let totalBackfilled = 0;
+  for (let i = 0; i < ranges.length; i += CONCURRENCY) {
+    const batch = ranges.slice(i, i + CONCURRENCY);
+    const results = await Promise.all(
+      batch.map(([from, to]) => contract.queryFilter(contract.filters.RatingSubmitted(), from, to))
+    );
+    for (const events of results) {
+      for (const event of events) ingest(eventToRating(event));
+      totalBackfilled += events.length;
+    }
+  }
+  console.log(`Backfilled ${totalBackfilled} ratings.`);
 }
 
 module.exports = { startListening };
