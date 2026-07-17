@@ -1,9 +1,12 @@
 const express = require("express");
 const { getCityRatings, getCityServiceAverage, getRaterCityRatings } = require("../lib/db");
-// Same canonical helper as content-api and the contracts test suite - see
-// the note in contracts/hardhat/lib/cityId.js for why this must never be
-// re-derived independently.
-const { toCityId } = require("../../../../contracts/hardhat/lib/cityId");
+// Local copy of the same canonical helper used by content-api and the
+// contracts test suite (contracts/hardhat/lib/cityId.js) - see that file's
+// header comment for why the hashing logic must never be re-derived
+// independently. Kept as a local copy rather than a cross-directory require
+// because Render's per-service root-directory isolation breaks reaching
+// outside a service's own deployed root (ethers isn't resolvable there).
+const { toCityId } = require("../lib/cityId");
 
 const router = express.Router();
 

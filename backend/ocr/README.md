@@ -6,14 +6,17 @@ so vision/translate API keys never reach the frontend (technical-plan.md 3.5).
 
 ## Requires before this actually runs
 
-- `VISION_API_KEY` - written against Google Cloud Vision's REST API; swap
-  `src/lib/vision.js` for AWS Textract/Azure/etc. if you'd rather use those.
-- `TRANSLATE_API_KEY` - written against Google Cloud Translate v2's REST API;
-  swap `src/lib/translate.js` for DeepL/etc. if preferred.
+- `VISION_API_KEY` - written against Google Cloud Vision's REST API (this one
+  isn't free - billing must be enabled on the Google Cloud project). Swap
+  `src/lib/vision.js` for AWS Textract/Azure/etc. if you'd rather avoid that.
+- Translation needs nothing - `src/lib/translate.js` uses MyMemory, which is
+  free with no API key. Optionally set `MYMEMORY_EMAIL` to raise the daily
+  quota from 5,000 to 50,000 characters (a free registration, not billing).
 
 technical-plan.md leaves the exact provider choice open ("default
-recommendation is fine") - Google was picked here only because both its
-Vision and Translate REST APIs need nothing but an API key, no SDK install.
+recommendation is fine"). Translation defaults to MyMemory specifically to
+avoid a billing requirement; swap `src/lib/translate.js` for DeepL/Google/a
+self-hosted LibreTranslate instance if you outgrow its quota later.
 
 ## Run locally
 

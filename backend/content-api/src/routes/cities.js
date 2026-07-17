@@ -2,13 +2,14 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 
-// Reused directly from Stage 1's canonical helper rather than re-derived
-// here, per the cityId lock-down decision (DEPLOY_TO_MAINNET.md #0: writers
-// and readers must agree on this convention or city-scoped lookups silently
-// return empty). This cross-directory require is fine within this
-// single-repo prototype; a real deployment should hoist lib/cityId.js into
-// a shared workspace package instead of reaching across service boundaries.
-const { toCityId } = require("../../../../contracts/hardhat/lib/cityId");
+// Local copy of Stage 1's canonical helper (contracts/hardhat/lib/cityId.js)
+// - kept in sync manually. A cross-directory require back into
+// contracts/hardhat/ was tried first but breaks on Render: each service's
+// root directory is isolated, so ethers is never installed relative to a
+// file living outside that root. Per the cityId lock-down decision
+// (DEPLOY_TO_MAINNET.md #0), the actual hashing logic here must stay
+// byte-for-byte identical to contracts/hardhat/lib/cityId.js.
+const { toCityId } = require("../lib/cityId");
 
 const router = express.Router();
 const DATA_DIR = path.join(__dirname, "..", "..", "data", "cities");

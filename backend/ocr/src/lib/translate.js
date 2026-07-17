@@ -1,20 +1,29 @@
-// REQUIRES: TRANSLATE_API_KEY. Written against Google Cloud Translate v2's
-// REST API (no SDK needed) - see .env.example for swapping providers.
-
+// Uses MyMemory (mymemory.translated.net) - free, no API key, no signup, no
+// credit card. Anonymous quota is 5,000 chars/day; setting MYMEMORY_EMAIL (a
+// free courtesy registration, not a paid account) raises that to 50,000/day.
+// Swap this file for DeepL/Google/a self-hosted LibreTranslate instance if
+// you outgrow MyMemory's quota later - src/routes/scan.js doesn't need to
+// change either way.
 async function translateLines(lines, targetLanguage) {
-  const { TRANSLATE_API_KEY } = process.env;
-  if (!TRANSLATE_API_KEY) throw new Error("TRANSLATE_API_KEY not set - see .env.example");
   if (lines.length === 0) return [];
 
-  const res = await fetch(`https://translation.googleapis.com/language/translate/v2?key=${TRANSLATE_API_KEY}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ q: lines, target: targetLanguage, format: "text" }),
-  });
-  if (!res.ok) throw new Error(`translate API failed: ${res.status} ${await res.text()}`);
+  const translations = [];
+  for (const line of lines) {
+    const params = new URLSearchParams({
+      q: line,
+      langpair: `autodetect|${targetLanguage}`,
+    });
+    if (process.env.MYMEMORY_EMAIL) params.set("de", process.env.MYMEMORY_EMAIL);
 
-  const data = await res.json();
-  return data.data.translations.map((t) => t.translatedText);
+    const res = await fetch(`https://api.mymemory.translated.net/get?${params}`);
+    if (!res.ok) throw new Error(`MyMemory translate failed: ${res.status}`);
+    const data = await res.json();
+    if (data.responseStatus && Number(data.responseStatus) >= 400) {
+      throw new Error(`MyMemory translate error: ${data.responseDetails || data.responseStatus}`);
+    }
+    translations.push(data?.responseData?.translatedText ?? line);
+  }
+  return translations;
 }
 
 module.exports = { translateLines };
