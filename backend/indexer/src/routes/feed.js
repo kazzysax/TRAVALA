@@ -10,19 +10,31 @@ const { toCityId } = require("../lib/cityId");
 
 const router = express.Router();
 
-router.get("/cities/:cityId/ratings", (req, res) => {
-  const { offset = 0, limit = 20 } = req.query;
-  res.json(getCityRatings(req.params.cityId, Number(offset), Number(limit)));
+router.get("/cities/:cityId/ratings", async (req, res) => {
+  try {
+    const { offset = 0, limit = 20 } = req.query;
+    res.json(await getCityRatings(req.params.cityId, Number(offset), Number(limit)));
+  } catch (err) {
+    res.status(502).json({ error: err.message });
+  }
 });
 
-router.get("/cities/:cityId/services/:serviceId/average", (req, res) => {
-  res.json(getCityServiceAverage(req.params.cityId, req.params.serviceId));
+router.get("/cities/:cityId/services/:serviceId/average", async (req, res) => {
+  try {
+    res.json(await getCityServiceAverage(req.params.cityId, req.params.serviceId));
+  } catch (err) {
+    res.status(502).json({ error: err.message });
+  }
 });
 
 /// The "check a stamp" read path: one wallet's ratings in one city only.
-router.get("/wallets/:address/cities/:cityId/ratings", (req, res) => {
-  const { offset = 0, limit = 20 } = req.query;
-  res.json(getRaterCityRatings(req.params.address, req.params.cityId, Number(offset), Number(limit)));
+router.get("/wallets/:address/cities/:cityId/ratings", async (req, res) => {
+  try {
+    const { offset = 0, limit = 20 } = req.query;
+    res.json(await getRaterCityRatings(req.params.address, req.params.cityId, Number(offset), Number(limit)));
+  } catch (err) {
+    res.status(502).json({ error: err.message });
+  }
 });
 
 /// Convenience: look up a cityId from human-readable city/country, so the
@@ -37,14 +49,20 @@ router.get("/city-id", (req, res) => {
 /// stamp this wallet owns (from indexed StampMinted events), each paired
 /// with that same wallet's real ratings in that stamp's own city - not a
 /// city typed in by hand, but the city the NFT itself was minted for.
-router.get("/wallets/:address/stamps", (req, res) => {
-  const stamps = getStampsByOwner(req.params.address);
-  const withRatings = stamps.map((stamp) => {
-    const cityId = toCityId(stamp.city, stamp.country);
-    const ratings = getRaterCityRatings(req.params.address, cityId, 0, 50);
-    return { ...stamp, cityId, ratings };
-  });
-  res.json(withRatings);
+router.get("/wallets/:address/stamps", async (req, res) => {
+  try {
+    const stamps = await getStampsByOwner(req.params.address);
+    const withRatings = await Promise.all(
+      stamps.map(async (stamp) => {
+        const cityId = toCityId(stamp.city, stamp.country);
+        const ratings = await getRaterCityRatings(req.params.address, cityId, 0, 50);
+        return { ...stamp, cityId, ratings };
+      })
+    );
+    res.json(withRatings);
+  } catch (err) {
+    res.status(502).json({ error: err.message });
+  }
 });
 
 module.exports = router;

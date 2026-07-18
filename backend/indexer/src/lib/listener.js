@@ -1,5 +1,5 @@
 const { ethers } = require("ethers");
-const { ingest, ingestStamp } = require("./db");
+const { migrate, ingest, ingestStamp, getLastSyncedBlock, setLastSyncedBlock } = require("./db");
 
 const RATING_SUBMITTED_ABI = [
   "event RatingSubmitted(address indexed rater, bytes32 indexed cityId, bytes32 indexed serviceId, uint256 ratingIndex, uint8 value, string tag, uint64 timestamp)",
@@ -41,6 +41,7 @@ function eventToStamp(event) {
 }
 
 async function fetchRange(contract, eventFilter, from, to, onEvent) {
+  if (from > to) return 0;
   const ranges = [];
   for (let b = from; b <= to; b += CHUNK) ranges.push([b, Math.min(b + CHUNK - 1, to)]);
 
@@ -49,17 +50,19 @@ async function fetchRange(contract, eventFilter, from, to, onEvent) {
     const batch = ranges.slice(i, i + CONCURRENCY);
     const results = await Promise.all(batch.map(([f, t]) => contract.queryFilter(eventFilter, f, t)));
     for (const events of results) {
-      for (const event of events) onEvent(event);
+      for (const event of events) await onEvent(event);
       count += events.length;
     }
   }
   return count;
 }
 
-/// Backfills and then keeps polling for both RatingSubmitted (ServiceRating)
-/// and StampMinted (TravelerCredential) events - indexing both is what lets
-/// a wallet's real owned stamps be linked to that same wallet's real
-/// ratings in the same city (technical-plan.md 3.6's "check a stamp" flow).
+/// Backfills only the blocks not yet synced (persisted in Postgres, so a
+/// restart never repeats this from START_BLOCK/genesis again), then keeps
+/// polling for both RatingSubmitted (ServiceRating) and StampMinted
+/// (TravelerCredential) events. Indexing both is what lets a wallet's real
+/// owned stamps be linked to that same wallet's real ratings in the same
+/// city (technical-plan.md 3.6's "check a stamp" flow).
 ///
 /// Deliberately NOT using ethers' contract.on(...): that relies on
 /// eth_newFilter/eth_getFilterChanges, which Monad's public RPC doesn't
@@ -71,6 +74,8 @@ async function startListening() {
   if (!MONAD_RPC_URL) throw new Error("MONAD_RPC_URL not set - see .env.example");
   if (!SERVICE_RATING_ADDRESS) throw new Error("SERVICE_RATING_ADDRESS not set - see .env.example");
 
+  await migrate();
+
   const provider = new ethers.JsonRpcProvider(MONAD_RPC_URL);
   const rating = new ethers.Contract(SERVICE_RATING_ADDRESS, RATING_SUBMITTED_ABI, provider);
   const credential = TRAVELER_CREDENTIAL_ADDRESS
@@ -80,9 +85,16 @@ async function startListening() {
     console.log("TRAVELER_CREDENTIAL_ADDRESS not set - stamp indexing disabled, ratings indexing still runs.");
   }
 
-  const startBlock = Number(START_BLOCK || 0);
+  const configuredStart = Number(START_BLOCK || 0);
+  const lastSynced = await getLastSyncedBlock();
+  const startBlock = lastSynced !== null ? lastSynced + 1 : configuredStart;
   const latestBlock = await provider.getBlockNumber();
-  console.log(`Backfilling from block ${startBlock} to ${latestBlock}...`);
+
+  console.log(
+    lastSynced !== null
+      ? `Resuming from persisted block ${startBlock} (last synced: ${lastSynced}) to ${latestBlock}...`
+      : `First run - backfilling from block ${startBlock} to ${latestBlock}...`
+  );
 
   const ratingsBackfilled = await fetchRange(rating, rating.filters.RatingSubmitted(), startBlock, latestBlock, (e) =>
     ingest(eventToRating(e))
@@ -101,6 +113,8 @@ async function startListening() {
   }
 
   let lastPolledBlock = latestBlock;
+  await setLastSyncedBlock(lastPolledBlock);
+
   console.log("Polling for new events...");
   setInterval(async () => {
     try {
@@ -122,6 +136,7 @@ async function startListening() {
           if (newStamps > 0) console.log(`Indexed ${newStamps} new stamp(s) up to block ${current}.`);
         }
         lastPolledBlock = current;
+        await setLastSyncedBlock(lastPolledBlock);
       }
     } catch (err) {
       console.error("Poll error (will retry next interval):", err.message);
