@@ -3,6 +3,7 @@ const express = require("express");
 const feedRoutes = require("./routes/feed");
 const rpcRoutes = require("./routes/rpc");
 const { startListening } = require("./lib/listener");
+const { startKeepAlive } = require("./lib/keepAlive");
 
 const app = express();
 app.use((req, res, next) => {
@@ -18,7 +19,10 @@ app.use(rpcRoutes);
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 const port = process.env.PORT || 4006;
-app.listen(port, () => console.log(`indexer service listening on :${port}`));
+app.listen(port, () => {
+  console.log(`indexer service listening on :${port}`);
+  startKeepAlive("https://indexer-y2zq.onrender.com");
+});
 
 startListening().catch((err) => {
   console.error("Failed to start event listener:", err.message);

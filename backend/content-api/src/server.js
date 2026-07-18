@@ -3,6 +3,7 @@ const express = require("express");
 const cityRoutes = require("./routes/cities");
 const nearbyRoutes = require("./routes/nearby");
 const { router: rosterRoutes } = require("./routes/roster");
+const { startKeepAlive } = require("./lib/keepAlive");
 
 const app = express();
 app.use((req, res, next) => {
@@ -18,4 +19,7 @@ app.use(rosterRoutes);
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 const port = process.env.PORT || 4003;
-app.listen(port, () => console.log(`content-api service listening on :${port}`));
+app.listen(port, () => {
+  console.log(`content-api service listening on :${port}`);
+  startKeepAlive("https://content-api-zr40.onrender.com");
+});

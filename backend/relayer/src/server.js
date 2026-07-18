@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const fundRoutes = require("./routes/fund");
+const { startKeepAlive } = require("./lib/keepAlive");
 
 const app = express();
 app.use((req, res, next) => {
@@ -16,4 +17,7 @@ app.use(fundRoutes);
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 const port = process.env.PORT || 4002;
-app.listen(port, () => console.log(`relayer service listening on :${port}`));
+app.listen(port, () => {
+  console.log(`relayer service listening on :${port}`);
+  startKeepAlive("https://relayer-rb93.onrender.com");
+});

@@ -12,6 +12,7 @@ PRIVY_APP_SECRET=
 PRIVY_CLIENT_ID=
 MONAD_RPC_URL=
 RELAYER_PRIVATE_KEY=
+MINTER_PRIVATE_KEY=
 ```
 
 ## relayer (https://relayer-rb93.onrender.com)

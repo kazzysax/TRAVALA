@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const scanRoutes = require("./routes/scan");
+const { startKeepAlive } = require("./lib/keepAlive");
 
 const app = express();
 app.use((req, res, next) => {
@@ -16,4 +17,7 @@ app.use(scanRoutes);
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 const port = process.env.PORT || 4005;
-app.listen(port, () => console.log(`ocr service listening on :${port}`));
+app.listen(port, () => {
+  console.log(`ocr service listening on :${port}`);
+  startKeepAlive("https://ocr-w9bs.onrender.com");
+});

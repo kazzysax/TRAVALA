@@ -3,6 +3,7 @@ const express = require("express");
 const expenseRoutes = require("./routes/expenses");
 const budgetRoutes = require("./routes/budget");
 const splitRoutes = require("./routes/splits");
+const { startKeepAlive } = require("./lib/keepAlive");
 
 const app = express();
 app.use((req, res, next) => {
@@ -20,4 +21,7 @@ app.use(splitRoutes);
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 const port = process.env.PORT || 4004;
-app.listen(port, () => console.log(`expense service listening on :${port}`));
+app.listen(port, () => {
+  console.log(`expense service listening on :${port}`);
+  startKeepAlive("https://expense-17td.onrender.com");
+});

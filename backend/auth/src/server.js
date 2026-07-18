@@ -5,6 +5,7 @@ const signupRoutes = require("./routes/signup");
 const sessionKeyRoutes = require("./routes/sessionKey");
 const rateRoutes = require("./routes/rate");
 const mintRoutes = require("./routes/mint");
+const { startKeepAlive } = require("./lib/keepAlive");
 
 const app = express();
 app.use((req, res, next) => {
@@ -38,4 +39,7 @@ app.get("/config", (_req, res) => {
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 const port = process.env.PORT || 4001;
-app.listen(port, () => console.log(`auth service listening on :${port}`));
+app.listen(port, () => {
+  console.log(`auth service listening on :${port}`);
+  startKeepAlive("https://auth-jtty.onrender.com");
+});
