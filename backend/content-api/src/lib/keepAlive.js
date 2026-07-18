@@ -1,5 +1,5 @@
 // Self-ping keep-alive: on Render's free tier a service sleeps after ~15min
-// with no inbound traffic. Every 10 minutes, each Travala service pings
+// with no inbound traffic. Every 5 minutes, each Travala service pings
 // every OTHER service's /health endpoint - a real public HTTPS round trip
 // counts as inbound traffic (unlike an in-process call), so the cluster
 // stays warm as long as at least one service in it is already awake. This
@@ -20,7 +20,7 @@ const SERVICES = [
   "https://content-api-zr40.onrender.com",
 ];
 
-const PING_INTERVAL_MS = 10 * 60 * 1000;
+const PING_INTERVAL_MS = 5 * 60 * 1000;
 
 function startKeepAlive(selfUrl) {
   const targets = SERVICES.filter((url) => url !== selfUrl);
