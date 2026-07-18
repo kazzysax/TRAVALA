@@ -133,6 +133,17 @@ async function getStampsByOwner(owner) {
   return rows.map(rowToStamp);
 }
 
+/// Every real stamp minted for a given city, across all owners - this is
+/// what a "who else has been here, and what did they rate" community
+/// showcase reads from.
+async function getStampsByCity(city, country) {
+  const { rows } = await pool.query(
+    `SELECT * FROM stamps WHERE LOWER(city) = LOWER($1) AND LOWER(country) = LOWER($2) ORDER BY token_id`,
+    [city, country]
+  );
+  return rows.map(rowToStamp);
+}
+
 async function getLastSyncedBlock() {
   const { rows } = await pool.query(`SELECT last_block FROM sync_state WHERE id = 1`);
   return rows.length ? Number(rows[0].last_block) : null;
@@ -154,6 +165,7 @@ module.exports = {
   getRaterCityRatings,
   ingestStamp,
   getStampsByOwner,
+  getStampsByCity,
   getLastSyncedBlock,
   setLastSyncedBlock,
 };

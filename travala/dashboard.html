@@ -88,6 +88,19 @@
   .tip .body .who{font-weight:500;font-size:12.5px;color:var(--ink-soft)}
   .tip .body .verified{color:var(--teal);font-size:11px;margin-left:5px}
 
+  /* NFT showcase */
+  .showcase-stamp{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+  .showcase-stamp:last-child{border-bottom:none;padding-bottom:0}
+  .showcase-stamp .mini{width:56px;height:56px;border-radius:12px;background:var(--ink);border:1.5px dashed rgba(232,98,46,0.5);display:flex;align-items:center;justify-content:center;color:var(--cream);font-size:11px;font-weight:600;flex-shrink:0;text-align:center;line-height:1.2}
+  .showcase-stamp .info{flex:1;min-width:0}
+  .showcase-stamp .owner{font-family:'SF Mono',monospace;font-size:12.5px;color:var(--ink-soft)}
+  .showcase-stamp .rlist{margin-top:6px;display:flex;flex-direction:column;gap:4px}
+  .showcase-stamp .rlist .r{font-size:13px;display:flex;gap:8px;align-items:center}
+  .showcase-stamp .rlist .stars{color:var(--coral);font-size:12px}
+  .showcase-stamp .rlist .svc-name{color:var(--ink-soft)}
+  .showcase-stamp .rlist .tag{font-size:11px;background:var(--cream-deep);color:var(--ink-soft);padding:1px 8px;border-radius:100px}
+  .showcase-stamp .none{font-size:12.5px;color:var(--ink-soft)}
+
   /* tip of day */
   .totd{background:linear-gradient(0deg,var(--cream-deep),var(--cream-deep));border:1px solid var(--line-soft);border-radius:16px;padding:20px 22px}
   .totd .k{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
@@ -182,6 +195,12 @@
           <div class="txt" id="tipOfDayText"></div>
         </div>
       </div>
+
+      <!-- NFT showcase: other real travelers' stamps for this same city, with their real ratings -->
+      <div class="card col-12" id="showcaseCard" style="display:none">
+        <h2><span id="showcaseTitle">Other travelers here</span> <span style="font-size:12px;color:var(--ink-soft);font-weight:400" id="showcaseCount"></span></h2>
+        <div id="showcaseBody"></div>
+      </div>
     </div>
   </main>
 </div>
@@ -265,6 +284,56 @@
     } catch { /* stamp strip just shows the add button if this fails */ }
   }
 
+  // Same known-coordinates fallback used in recommendations.html - only
+  // used to look up real place names for display, never to fabricate data.
+  const CITY_COORDS = {
+    "Lisbon": { lat: 38.7223, lon: -9.1393 },
+    "Tokyo": { lat: 35.6762, lon: 139.6503 },
+    "Lagos": { lat: 6.5244, lon: 3.3792 },
+    "Mexico City": { lat: 19.4326, lon: -99.1332 },
+  };
+
+  async function loadShowcase(city, country){
+    const card = document.getElementById('showcaseCard');
+    try {
+      const res = await fetch(`${INDEXER_API}/cities/${encodeURIComponent(city)}/${encodeURIComponent(country)}/stamps`);
+      const stamps = await res.json();
+      const others = stamps.filter(s => s.owner.toLowerCase() !== wallet.address.toLowerCase());
+
+      if (others.length === 0) return; // nothing to show yet - don't display an empty "community" card
+
+      // Best-effort service-name resolution against this city's currently
+      // discoverable real places - ratings for services outside today's
+      // search radius just show a generic label instead of a fabricated name.
+      let nameById = {};
+      const coords = CITY_COORDS[city];
+      if (coords) {
+        try {
+          const nearbyRes = await fetch(`${CONTENT_API}/nearby?lat=${coords.lat}&lon=${coords.lon}&radius=2000`);
+          const places = await nearbyRes.json();
+          nameById = Object.fromEntries(places.map(p => [p.serviceId, p.name]));
+        } catch { /* showcase still works without names */ }
+      }
+
+      document.getElementById('showcaseTitle').textContent = `Other travelers who stamped ${city}`;
+      document.getElementById('showcaseCount').textContent = `${others.length} traveler${others.length===1?'':'s'}`;
+      document.getElementById('showcaseBody').innerHTML = others.map(s => `
+        <div class="showcase-stamp">
+          <div class="mini">${esc(s.city)}<br>NO.${String(s.serial).padStart(3,'0')}</div>
+          <div class="info">
+            <div class="owner">${esc(s.owner.slice(0,6))}…${esc(s.owner.slice(-4))}</div>
+            <div class="rlist">
+              ${s.ratings.length ? s.ratings.slice(0,3).map(r => `
+                <div class="r"><span class="stars">${'★'.repeat(r.value)}</span><span class="svc-name">${esc(nameById[r.serviceId] || 'a local service')}</span>${r.tag ? `<span class="tag">${esc(r.tag)}</span>` : ''}</div>
+              `).join('') : '<div class="none">Hasn\'t rated anything here yet</div>'}
+            </div>
+          </div>
+        </div>
+      `).join('');
+      card.style.display = '';
+    } catch { /* showcase card just stays hidden if this fails */ }
+  }
+
   async function loadLocation(){
     const city = localStorage.getItem('travala_city');
     const country = localStorage.getItem('travala_country');
@@ -273,6 +342,7 @@
       return;
     }
     document.getElementById('locLine').innerHTML = `<span class="flag">📍</span> You're in ${esc(city)}, ${esc(country)}`;
+    loadShowcase(city, country);
 
     const slug = `${city}-${country}`.toLowerCase().trim().replace(/\s+/g, '-');
     try {
