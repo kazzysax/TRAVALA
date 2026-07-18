@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#222018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="travala">
 <title>travala — rate &amp; recommend</title>
 <style>
   :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--teal-dark:#237a6e;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff}
@@ -159,6 +164,7 @@
 
 <script type="module">
   import { ethers } from "https://esm.sh/ethers@6.14.0";
+  import { requireWallet } from "./wallet.js";
 
   const CONTENT_API = "https://content-api-zr40.onrender.com";
   const INDEXER_API = "https://indexer-y2zq.onrender.com";
@@ -176,21 +182,12 @@
   };
   const ICONS = { restaurant: "🍽️", taxi: "🚕", cafe: "☕" };
 
-  // Real client-side wallet, generated once and kept locally - no seed
-  // phrase shown to the user, matching the product's promise, but real
-  // signing via ethers, not a simulation.
-  function getOrCreateWallet(){
-    let key = localStorage.getItem('travala_wallet_key');
-    if (!key) {
-      const w = ethers.Wallet.createRandom();
-      key = w.privateKey;
-      localStorage.setItem('travala_wallet_key', key);
-    }
-    return key;
-  }
-  const privateKey = getOrCreateWallet();
+  // Resolved to { address, provider, getSigner } once requireWallet()
+  // finishes below - no private key ever lives in this page; real signing
+  // happens through Privy's embedded wallet via getSigner(), matching the
+  // product's "no seed phrase" promise while still being a real signature.
+  let wallet;
   const provider = new ethers.JsonRpcProvider(RPC_PROXY);
-  const wallet = new ethers.Wallet(privateKey, provider);
 
   let cityId = null;
   let services = [];
@@ -337,8 +334,10 @@
       document.getElementById('chainMsg').textContent = 'Pushing rating to chain…';
       document.getElementById('chainSub').textContent = 'submitting to Monad';
 
+      document.getElementById('chainMsg').textContent = 'Waiting for your signature…';
       const service = services[cur.idx];
-      const contract = new ethers.Contract(SERVICE_RATING_ADDRESS, RATING_ABI, wallet);
+      const signer = await wallet.getSigner();
+      const contract = new ethers.Contract(SERVICE_RATING_ADDRESS, RATING_ABI, signer);
       const tx = await contract.submitRating(cityId, service.serviceId, cur.stars, cur.tags.join(', '), { value: needed });
       const receipt = await tx.wait();
 
@@ -356,8 +355,11 @@
 
   document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
 
-  refreshWalletDisplay();
-  loadServices();
+  (async function init(){
+    wallet = await requireWallet();
+    refreshWalletDisplay();
+    loadServices();
+  })();
 </script>
 </body>
 </html>

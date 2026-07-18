@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#222018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="travala">
 <title>travala — money</title>
 <style>
   :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff;--amber:#c98a1a}
@@ -153,15 +158,16 @@
   const CATEGORY_COLORS = { "Food & drink": "var(--teal)", "Lodging": "var(--coral)", "Transport": "#5b3ac4", "Activities": "var(--amber)" };
   const CATEGORY_ICONS = { "Food & drink": "🍽️", "Lodging": "🛏️", "Transport": "🚕", "Activities": "🎫" };
 
-  // No real login wired up yet - persist a stable anonymous id locally so
-  // this page has a consistent user to track expenses against. Replaced by
-  // the real Privy wallet address once auth is wired into the frontend.
-  function getUserId(){
-    let id = localStorage.getItem('travala_demo_user_id');
-    if (!id) { id = 'demo-' + crypto.randomUUID(); localStorage.setItem('travala_demo_user_id', id); }
-    return id;
+  // Real Privy wallet address, resolved below before refresh()/
+  // loadFairFareData() run - kept as a classic (non-module) script so the
+  // existing onclick="..." handlers keep working; wallet.js is loaded via a
+  // dynamic import() instead of a top-level module import.
+  let USER_ID;
+  async function initUser(){
+    const { requireWallet } = await import("./wallet.js");
+    const wallet = await requireWallet();
+    USER_ID = wallet.address;
   }
-  const USER_ID = getUserId();
 
   let fairFareMax = null;
   let homeCurrency = null;
@@ -295,8 +301,11 @@
     renderExpenses(expenses);
   }
 
-  loadFairFareData();
-  refresh();
+  (async function init(){
+    await initUser();
+    loadFairFareData();
+    refresh();
+  })();
 </script>
 </body>
 </html>

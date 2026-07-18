@@ -21,11 +21,18 @@ app.use(sessionKeyRoutes);
 app.use(rateRoutes);
 app.use(mintRoutes);
 
-/// The Privy App ID is meant to be public - it's embedded in every Privy
-/// client-side SDK bundle by design. Served here so the frontend never needs
-/// it hardcoded, and so it never has to be typed anywhere sensitive.
+/// The Privy App ID and Client ID are both meant to be public - they're
+/// embedded in every Privy client-side SDK bundle by design (unlike
+/// PRIVY_APP_SECRET, which never leaves this service). SESSION_PERMISSION_ADDRESS
+/// is a deployed contract address, also public - the frontend needs it to
+/// build the grantSession/revokeSession calls for the auto-sign toggle in
+/// settings.html. Served here so none of this needs hardcoding per-page.
 app.get("/config", (_req, res) => {
-  res.json({ privyAppId: process.env.PRIVY_APP_ID || null });
+  res.json({
+    privyAppId: process.env.PRIVY_APP_ID || null,
+    privyClientId: process.env.PRIVY_CLIENT_ID || null,
+    sessionPermissionAddress: process.env.SESSION_PERMISSION_ADDRESS || null,
+  });
 });
 
 app.get("/health", (_req, res) => res.json({ ok: true }));

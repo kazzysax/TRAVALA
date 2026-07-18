@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#222018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="travala">
 <title>travala — getting you set up</title>
 <style>
   :root{
@@ -102,14 +107,33 @@
     <i id="p1" class="on"></i><i id="p2"></i><i id="p3"></i>
   </div>
 
-  <!-- STEP 1: creating wallet -->
+  <!-- STEP 1: email login -->
   <div class="panel" id="step1">
     <div class="orb">
       <div class="ring r1"></div><div class="ring r2"></div>
       <div class="core">t<span class="cdot"></span></div>
     </div>
-    <h1>Setting up your travel wallet</h1>
-    <p class="sub">No seed phrase, no downloads. We're creating a secure wallet for you — this takes a second.</p>
+    <h1>Log in to travala</h1>
+    <p class="sub">No seed phrase, no downloads. Enter your email — your wallet follows you to any device.</p>
+    <div class="city-search" style="margin-bottom:8px">
+      <input type="email" placeholder="you@example.com" id="emailInput" autocomplete="email"
+        style="width:100%;font-family:inherit;font-size:16px;padding:15px 18px;border:1px solid var(--line);border-radius:13px;background:var(--white);color:var(--ink)">
+    </div>
+    <div id="emailErr" style="color:var(--coral);font-size:13px;margin:4px 0 16px;min-height:16px"></div>
+    <button class="btn btn-primary" id="sendCodeBtn" onclick="doSendCode()">Send code →</button>
+  </div>
+
+  <!-- STEP 1a: enter emailed code -->
+  <div class="panel hidden" id="stepOtp">
+    <h1>Check your email</h1>
+    <p class="sub" id="otpSub">Enter the 6-digit code we sent you.</p>
+    <div class="city-search" style="margin-bottom:8px">
+      <input type="text" inputmode="numeric" maxlength="6" placeholder="123456" id="otpInput"
+        style="width:100%;font-family:inherit;font-size:20px;letter-spacing:0.3em;text-align:center;padding:15px 18px;border:1px solid var(--line);border-radius:13px;background:var(--white);color:var(--ink)">
+    </div>
+    <div id="otpErr" style="color:var(--coral);font-size:13px;margin:4px 0 16px;min-height:16px"></div>
+    <button class="btn btn-primary" id="verifyBtn" onclick="doVerifyCode()">Verify →</button>
+    <button class="btn btn-ghost" onclick="backToEmail()">← use a different email</button>
   </div>
 
   <!-- STEP 1b: wallet ready + advisory -->
@@ -164,10 +188,9 @@
 
 <script type="module">
   import { ethers } from "https://esm.sh/ethers@6.14.0";
+  import { AUTH_API, INDEXER_API, getSession, loginWithEmail, submitOtp } from "./wallet.js";
 
-  const AUTH_API = "https://auth-jtty.onrender.com";
   const RELAYER_API = "https://relayer-rb93.onrender.com";
-  const INDEXER_API = "https://indexer-y2zq.onrender.com";
   const CONTENT_API = "https://content-api-zr40.onrender.com";
   const provider = new ethers.JsonRpcProvider(`${INDEXER_API}/rpc`);
 
@@ -202,22 +225,59 @@
     document.getElementById('cityList').innerHTML = html || '<div style="padding:20px 0;text-align:center;color:var(--ink-soft);font-size:13.5px">No cities match.</div>';
   }
 
-  // Same wallet/localStorage key used everywhere else in the app (money,
-  // recommendations, etc.) - one real wallet across the whole product, not a
-  // new one per page.
-  function getOrCreateWallet(){
-    let key = localStorage.getItem('travala_wallet_key');
-    if (!key) {
-      key = ethers.Wallet.createRandom().privateKey;
-      localStorage.setItem('travala_wallet_key', key);
+  // The resolved wallet address for this login - set once email OTP
+  // succeeds (or immediately, if a session already exists on this device).
+  // Never a private key: Privy custodies signing, this page only ever
+  // handles the public address.
+  let walletAddress = null;
+
+  window.doSendCode = async function(){
+    const email = document.getElementById('emailInput').value.trim();
+    const errEl = document.getElementById('emailErr');
+    errEl.textContent = '';
+    if (!email || !email.includes('@')) { errEl.textContent = 'Enter a valid email address.'; return; }
+    const btn = document.getElementById('sendCodeBtn');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      await loginWithEmail(email);
+      document.getElementById('otpSub').textContent = `Enter the 6-digit code we sent to ${email}.`;
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('stepOtp').classList.remove('hidden');
+    } catch (err) {
+      errEl.textContent = err.message || 'Could not send code - try again.';
+    } finally {
+      btn.disabled = false; btn.textContent = 'Send code →';
     }
-    return new ethers.Wallet(key, provider);
-  }
-  const wallet = getOrCreateWallet();
+  };
+
+  window.backToEmail = function(){
+    document.getElementById('stepOtp').classList.add('hidden');
+    document.getElementById('step1').classList.remove('hidden');
+  };
+
+  window.doVerifyCode = async function(){
+    const email = document.getElementById('emailInput').value.trim();
+    const code = document.getElementById('otpInput').value.trim();
+    const errEl = document.getElementById('otpErr');
+    errEl.textContent = '';
+    if (!code) { errEl.textContent = 'Enter the code from your email.'; return; }
+    const btn = document.getElementById('verifyBtn');
+    btn.disabled = true; btn.textContent = 'Verifying…';
+    try {
+      const result = await submitOtp(email, code);
+      walletAddress = result.walletAddress;
+      document.getElementById('stepOtp').classList.add('hidden');
+      await setupWallet();
+    } catch (err) {
+      errEl.textContent = err.message || 'Invalid or expired code - try again.';
+    } finally {
+      btn.disabled = false; btn.textContent = 'Verify →';
+    }
+  };
 
   async function setupWallet(){
     document.getElementById('walletAddrDisplay').textContent =
-      wallet.address.slice(0,6) + '…' + wallet.address.slice(-4);
+      walletAddress.slice(0,6) + '…' + walletAddress.slice(-4);
 
     document.getElementById('step1').classList.add('hidden');
     document.getElementById('step1b').classList.remove('hidden');
@@ -225,11 +285,11 @@
     document.getElementById('p2').classList.add('on');
 
     try {
-      const balance = await provider.getBalance(wallet.address);
+      const balance = await provider.getBalance(walletAddress);
       if (balance === 0n) {
         const res = await fetch(`${RELAYER_API}/fund`, {
           method: 'POST', headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({ walletAddress: wallet.address }),
+          body: JSON.stringify({ walletAddress }),
         });
         const data = await res.json();
         if (data.funded) {
@@ -243,7 +303,7 @@
         document.getElementById('fundNote').innerHTML = `◆ Wallet already has ${Number(ethers.formatEther(balance)).toFixed(2)} MON`;
       }
     } catch (err) {
-      document.getElementById('fundNote').innerHTML = `◆ Wallet created - funding check failed (${err.message})`;
+      document.getElementById('fundNote').innerHTML = `◆ Wallet ready - funding check failed (${err.message})`;
     }
   }
   window.goStep2 = function(){
@@ -290,7 +350,7 @@
     try {
       const res = await fetch(`${AUTH_API}/mint`, {
         method: 'POST', headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ walletAddress: wallet.address, country: picked.country, city: picked.city }),
+        body: JSON.stringify({ walletAddress, country: picked.country, city: picked.city }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'mint failed');
@@ -305,7 +365,27 @@
   };
   window.enterApp = function(){ window.location.href = 'dashboard.html'; };
 
-  setupWallet();
+  // On load: if this device already has a valid Privy session, skip the
+  // email/code screens entirely - straight to dashboard if a city's already
+  // set, or straight to location setup if not. Only show the login form if
+  // nobody's signed in here.
+  (async function init(){
+    try {
+      const session = await getSession();
+      if (session) {
+        walletAddress = session.walletAddress;
+        if (localStorage.getItem('travala_city') && localStorage.getItem('travala_country')) {
+          window.location.href = 'dashboard.html';
+          return;
+        }
+        document.getElementById('step1').classList.add('hidden');
+        document.getElementById('p1').classList.replace('on','done');
+        document.getElementById('p2').classList.add('on');
+        document.getElementById('step2').classList.remove('hidden');
+        loadRoster();
+      }
+    } catch { /* not logged in - leave the email form showing */ }
+  })();
 </script>
 </body>
 </html>

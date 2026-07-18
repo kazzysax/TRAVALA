@@ -8,6 +8,7 @@
 
 const users = new Map(); // id -> user
 const usersByWallet = new Map(); // walletAddress -> id
+const usersByPrivyId = new Map(); // privyUserId -> id
 const sessionKeys = new Map(); // sessionKeyAddress -> record
 
 let nextUserId = 1;
@@ -17,11 +18,17 @@ function createUser({ privyUserId, walletAddress }) {
   const user = { id, privyUserId, walletAddress, createdAt: new Date().toISOString() };
   users.set(id, user);
   usersByWallet.set(walletAddress.toLowerCase(), id);
+  usersByPrivyId.set(privyUserId, id);
   return user;
 }
 
 function getUserByWallet(walletAddress) {
   const id = usersByWallet.get(walletAddress.toLowerCase());
+  return id ? users.get(id) : undefined;
+}
+
+function getUserByPrivyId(privyUserId) {
+  const id = usersByPrivyId.get(privyUserId);
   return id ? users.get(id) : undefined;
 }
 
@@ -33,4 +40,4 @@ function getSessionKey(sessionKeyAddress) {
   return sessionKeys.get(sessionKeyAddress.toLowerCase());
 }
 
-module.exports = { createUser, getUserByWallet, saveSessionKey, getSessionKey };
+module.exports = { createUser, getUserByWallet, getUserByPrivyId, saveSessionKey, getSessionKey };

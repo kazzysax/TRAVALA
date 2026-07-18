@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#222018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="travala">
 <title>travala — stamp</title>
 <style>
   :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--teal-dark:#237a6e;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff}
@@ -142,13 +147,16 @@
   if (walletFromUrl) {
     document.getElementById('walletInput').value = walletFromUrl;
     lookup();
-  } else if (localStorage.getItem('travala_wallet_key')) {
+  } else {
     // No wallet specified - default to checking this session's own real
-    // wallet, derived the same way every other page does.
-    import("https://esm.sh/ethers@6.14.0").then(({ ethers }) => {
-      const address = new ethers.Wallet(localStorage.getItem('travala_wallet_key')).address;
-      document.getElementById('walletInput').value = address;
-      lookup();
+    // wallet, if logged in. This page also works for looking up someone
+    // else's stamp with no login at all, so don't force a redirect here.
+    import("./wallet.js").then(async ({ getSession }) => {
+      const session = await getSession().catch(() => null);
+      if (session) {
+        document.getElementById('walletInput').value = session.walletAddress;
+        lookup();
+      }
     });
   }
 </script>

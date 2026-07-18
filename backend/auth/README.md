@@ -37,4 +37,4 @@ npm start
 - `POST /rate/auto` `{ sessionKeyAddress, cityId, serviceId, value, tag, feeWei }` -> submits a rating via the granted session key, no per-rating user signature
 - `POST /rate/manual/ack` `{ txHash }` -> records that a manually-signed rating happened (the actual submission is the frontend calling `ServiceRating.submitRating` directly)
 - `POST /mint` `{ walletAddress, country, city }` -> mints a real TravelerCredential stamp using the backend's dedicated `MINTER_PRIVATE_KEY`, returns `{ txHash }`
-- `GET /config` -> `{ privyAppId }` - the public (non-secret) Privy App ID for the frontend's client-side SDK
+- `GET /config` -> `{ privyAppId, privyClientId, sessionPermissionAddress }` - public (non-secret) values the frontend needs: Privy's App ID/Client ID for its client-side SDK, and the deployed SessionPermission contract address for the auto-sign grant/revoke calls

@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#222018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="travala">
 <title>travala — settings</title>
 <style>
   :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--teal-dark:#237a6e;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff;--amber:#c98a1a;--red:#c0392b}
@@ -79,7 +84,7 @@
     <a href="recommendations.html" class="nav-item"><span class="ic">⭐</span>Rate &amp; recommend</a>
     <div class="spacer"></div>
     <a href="settings.html" class="nav-item active"><span class="ic">⚙️</span>Settings</a>
-    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div><div class="row"><span class="bal">1.9 MON</span></div></div></a>
+    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr" id="miniAddr">loading…</span><span class="mon">Monad</span></div><div class="row"><span class="bal" id="miniBal">–</span></div></div></a>
   </aside>
 
   <main class="main">
@@ -88,8 +93,8 @@
     <div class="sec-label">Wallet</div>
     <div class="wallet-card">
       <div class="top">
-        <div><div class="bal-big">1.9 MON</div><div class="bal-lbl">gas balance · Monad</div></div>
-        <span class="addr-pill">0x7a3f…e21b</span>
+        <div><div class="bal-big" id="walletBalBig">–</div><div class="bal-lbl">gas balance · Monad</div></div>
+        <span class="addr-pill" id="walletAddrPill">loading…</span>
       </div>
       <div class="acts">
         <button class="wc-btn fund" onclick="openFund()">Add MON</button>
@@ -137,7 +142,7 @@
     <div class="card">
       <div class="row">
         <div class="lbl">Revoke app permissions <small>Removes Travala's ability to auto-sign ratings. You can re-grant anytime.</small></div>
-        <button class="danger-btn" onclick="alert('Auto-sign permission revoked. Ratings will require manual signing.')">Revoke</button>
+        <button class="danger-btn" onclick="revokeAccess()">Revoke</button>
       </div>
     </div>
   </main>
@@ -149,8 +154,8 @@
     <h3>Add MON</h3>
     <p class="sub">Send MON to your Travala wallet to cover rating fees.</p>
     <div class="advisory-note">◆ You only need about 50 MON — sending more isn't necessary. Each rating costs just 0.1 MON.</div>
-    <div class="field"><label>Your wallet address</label><input type="text" value="0x7a3f…e21b" readonly></div>
-    <button class="btn btn-primary" onclick="closeM('fundModal')">Copy address</button>
+    <div class="field"><label>Your wallet address</label><input type="text" id="fundAddrInput" value="" readonly></div>
+    <button class="btn btn-primary" onclick="copyAddress()">Copy address</button>
     <button class="btn btn-ghost" onclick="closeM('fundModal')">Close</button>
   </div>
 </div>
@@ -161,8 +166,9 @@
     <h3>Withdraw MON</h3>
     <p class="sub">Move MON out of your Travala wallet.</p>
     <div class="manual-note">🔒 Withdrawals always require a manual signature — auto-sign never applies here.</div>
-    <div class="field"><label>Amount</label><input type="number" placeholder="0.0" value="1.9"></div>
-    <div class="field"><label>Send to address</label><input type="text" placeholder="0x…"></div>
+    <div class="field"><label>Amount</label><input type="number" step="0.001" placeholder="0.0" id="wdAmount"></div>
+    <div class="field"><label>Send to address</label><input type="text" placeholder="0x…" id="wdTo"></div>
+    <div id="wdErr" style="color:var(--red);font-size:13px;margin-bottom:12px"></div>
     <button class="btn btn-dark" onclick="signWithdraw()">Sign &amp; withdraw</button>
     <button class="btn btn-ghost" onclick="closeM('withdrawModal')">Cancel</button>
   </div>
@@ -176,29 +182,157 @@
   </div>
 </div>
 
-<script>
-  function toggleAuto(){
-    const on=document.getElementById('autoSign').checked;
-    window.__travalaAutoSign=on; // shared with recommendations page in-session
+<script type="module">
+  import { ethers } from "https://esm.sh/ethers@6.14.0";
+  import { AUTH_API, requireWallet, getConfig } from "./wallet.js";
+
+  const SESSION_PERMISSION_ABI = [
+    "function grantSession(address sessionKey, uint64 expiry) external",
+    "function revokeSession(address sessionKey) external",
+  ];
+  const AUTO_SIGN_EXPIRY_SECONDS = 30 * 24 * 60 * 60; // 30 days
+
+  let wallet;       // { address, provider, getSigner }
+  let sessionPermissionAddress = null;
+
+  function sessionKeyStorageKey(address){ return `travala_session_key_${address.toLowerCase()}`; }
+  function getStoredSessionKey(address){
+    try { return JSON.parse(localStorage.getItem(sessionKeyStorageKey(address)) || 'null'); }
+    catch { return null; }
   }
-  function openFund(){document.getElementById('fundModal').classList.add('show')}
-  function openWithdraw(){
+  function setStoredSessionKey(address, record){
+    if (record) localStorage.setItem(sessionKeyStorageKey(address), JSON.stringify(record));
+    else localStorage.removeItem(sessionKeyStorageKey(address));
+  }
+
+  async function refreshWalletDisplay(){
+    const short = wallet.address.slice(0,6) + '…' + wallet.address.slice(-4);
+    document.getElementById('miniAddr').textContent = short;
+    document.getElementById('walletAddrPill').textContent = short;
+    document.getElementById('fundAddrInput').value = wallet.address;
+    try {
+      const bal = await wallet.provider.getBalance(wallet.address);
+      const balStr = Number(ethers.formatEther(bal)).toFixed(3) + ' MON';
+      document.getElementById('miniBal').textContent = balStr;
+      document.getElementById('walletBalBig').textContent = balStr;
+    } catch {
+      document.getElementById('miniBal').textContent = '—';
+      document.getElementById('walletBalBig').textContent = '—';
+    }
+  }
+
+  function initAutoSignToggle(){
+    const stored = getStoredSessionKey(wallet.address);
+    const valid = stored && Math.floor(Date.now()/1000) < stored.expiry;
+    document.getElementById('autoSign').checked = !!valid;
+  }
+
+  window.toggleAuto = async function(){
+    const checkbox = document.getElementById('autoSign');
+    const turningOn = checkbox.checked;
+    checkbox.disabled = true;
+    try {
+      if (!sessionPermissionAddress) throw new Error('SessionPermission address not configured on the backend yet');
+      const signer = await wallet.getSigner();
+      const contract = new ethers.Contract(sessionPermissionAddress, SESSION_PERMISSION_ABI, signer);
+
+      if (turningOn) {
+        const res = await fetch(`${AUTH_API}/wallet/${wallet.address}/session-key`, {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ expirySeconds: AUTO_SIGN_EXPIRY_SECONDS }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'could not create a session key');
+
+        const tx = await contract.grantSession(data.sessionKeyAddress, data.expiry);
+        await tx.wait();
+        setStoredSessionKey(wallet.address, { sessionKeyAddress: data.sessionKeyAddress, expiry: data.expiry });
+      } else {
+        const stored = getStoredSessionKey(wallet.address);
+        if (stored) {
+          const tx = await contract.revokeSession(stored.sessionKeyAddress);
+          await tx.wait();
+        }
+        setStoredSessionKey(wallet.address, null);
+      }
+    } catch (err) {
+      alert(`Couldn't ${turningOn ? 'enable' : 'disable'} auto-sign: ${err.shortMessage || err.message}`);
+      checkbox.checked = !turningOn; // revert on failure/rejection
+    } finally {
+      checkbox.disabled = false;
+    }
+  };
+
+  window.revokeAccess = async function(){
+    const checkbox = document.getElementById('autoSign');
+    if (!checkbox.checked) { alert('Auto-sign is already off.'); return; }
+    checkbox.checked = false;
+    await window.toggleAuto();
+  };
+
+  window.copyAddress = async function(){
+    try { await navigator.clipboard.writeText(wallet.address); } catch {}
+    closeM('fundModal');
+  };
+
+  window.openFund = function(){ document.getElementById('fundModal').classList.add('show'); };
+  window.openWithdraw = async function(){
+    document.getElementById('wdErr').textContent = '';
+    document.getElementById('wdTo').value = '';
+    try {
+      const bal = await wallet.provider.getBalance(wallet.address);
+      document.getElementById('wdAmount').value = Number(ethers.formatEther(bal)).toFixed(3);
+    } catch { document.getElementById('wdAmount').value = ''; }
     document.getElementById('wdBody').classList.remove('hidden');
     document.getElementById('wdDone').classList.add('hidden');
     document.getElementById('withdrawModal').classList.add('show');
-  }
-  function closeM(id){document.getElementById(id).classList.remove('show')}
-  function signWithdraw(){
+  };
+  window.closeM = function(id){ document.getElementById(id).classList.remove('show'); };
+
+  window.signWithdraw = async function(){
+    const errEl = document.getElementById('wdErr');
+    errEl.textContent = '';
+    const amount = document.getElementById('wdAmount').value;
+    const to = document.getElementById('wdTo').value.trim();
+    if (!amount || Number(amount) <= 0) { errEl.textContent = 'Enter an amount.'; return; }
+    if (!ethers.isAddress(to)) { errEl.textContent = 'Enter a valid destination address.'; return; }
+
     document.getElementById('wdBody').classList.add('hidden');
     document.getElementById('wdDone').classList.remove('hidden');
-    setTimeout(()=>{
-      document.getElementById('wdSpin').style.display='none';
-      document.getElementById('wdMsg').textContent='Withdrawal confirmed';
-      document.getElementById('wdTx').textContent='tx 0x9c2e…f4a1';
+    document.getElementById('wdSpin').style.display = '';
+    document.getElementById('wdMsg').textContent = 'Waiting for your signature…';
+    document.getElementById('wdTx').textContent = '';
+    document.getElementById('wdClose').classList.add('hidden');
+
+    try {
+      // Always a real, explicitly user-signed transaction - withdrawals
+      // never go through auto-sign, per technical-plan.md's security
+      // checklist.
+      const signer = await wallet.getSigner();
+      const tx = await signer.sendTransaction({ to, value: ethers.parseEther(amount) });
+      document.getElementById('wdMsg').textContent = 'Confirming on chain…';
+      const receipt = await tx.wait();
+      document.getElementById('wdSpin').style.display = 'none';
+      document.getElementById('wdMsg').textContent = 'Withdrawal confirmed';
+      document.getElementById('wdTx').textContent = `tx ${receipt.hash}`;
       document.getElementById('wdClose').classList.remove('hidden');
-    },2200);
-  }
+      refreshWalletDisplay();
+    } catch (err) {
+      document.getElementById('wdSpin').style.display = 'none';
+      document.getElementById('wdMsg').textContent = `Withdrawal failed: ${err.shortMessage || err.message}`;
+      document.getElementById('wdClose').classList.remove('hidden');
+    }
+  };
+
   document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+
+  (async function init(){
+    wallet = await requireWallet();
+    const config = await getConfig();
+    sessionPermissionAddress = config.sessionPermissionAddress;
+    refreshWalletDisplay();
+    initAutoSignToggle();
+  })();
 </script>
 </body>
 </html>

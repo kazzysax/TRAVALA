@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#222018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="travala">
 <title>travala — dashboard</title>
 <style>
   :root{--ink:#222018;--ink-soft:#4a463b;--coral:#E8622E;--coral-dark:#c44e20;--cream:#F7F5EF;--cream-deep:#efece2;--teal:#2F9E8F;--teal-dark:#237a6e;--line:#e2ddd0;--line-soft:#ebe7db;--white:#fff;--amber:#c98a1a}
@@ -241,6 +246,7 @@
 
 <script type="module">
   import { ethers } from "https://esm.sh/ethers@6.14.0";
+  import { requireWallet } from "./wallet.js";
 
   const CONTENT_API = "https://content-api-zr40.onrender.com";
   const EXPENSE_API = "https://expense-17td.onrender.com";
@@ -250,12 +256,10 @@
 
   function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 
-  function getOrCreateWallet(){
-    let key = localStorage.getItem('travala_wallet_key');
-    if (!key) { key = ethers.Wallet.createRandom().privateKey; localStorage.setItem('travala_wallet_key', key); }
-    return new ethers.Wallet(key, provider);
-  }
-  const wallet = getOrCreateWallet();
+  // Resolved to { address, provider, getSigner } once requireWallet()
+  // finishes below - it bounces to login.html on this device if there's no
+  // active Privy session, so everything else waits on it.
+  let wallet;
 
   function getUserId(){
     let id = localStorage.getItem('travala_demo_user_id');
@@ -300,7 +304,15 @@
       const stamps = await res.json();
       const others = stamps.filter(s => s.owner.toLowerCase() !== wallet.address.toLowerCase());
 
-      if (others.length === 0) return; // nothing to show yet - don't display an empty "community" card
+      document.getElementById('showcaseTitle').textContent = `Other travelers who stamped ${city}`;
+      document.getElementById('showcaseCount').textContent = `${others.length} traveler${others.length===1?'':'s'}`;
+
+      if (others.length === 0) {
+        document.getElementById('showcaseBody').innerHTML =
+          `<div class="none" style="padding:8px 0">No other travelers have stamped ${esc(city)} yet — be the first to leave a rating here.</div>`;
+        card.style.display = '';
+        return;
+      }
 
       // Best-effort service-name resolution against this city's currently
       // discoverable real places - ratings for services outside today's
@@ -315,8 +327,6 @@
         } catch { /* showcase still works without names */ }
       }
 
-      document.getElementById('showcaseTitle').textContent = `Other travelers who stamped ${city}`;
-      document.getElementById('showcaseCount').textContent = `${others.length} traveler${others.length===1?'':'s'}`;
       document.getElementById('showcaseBody').innerHTML = others.map(s => `
         <div class="showcase-stamp">
           <div class="mini">${esc(s.city)}<br>NO.${String(s.serial).padStart(3,'0')}</div>
@@ -331,7 +341,7 @@
         </div>
       `).join('');
       card.style.display = '';
-    } catch { /* showcase card just stays hidden if this fails */ }
+    } catch { /* showcase card stays hidden only on an actual fetch failure */ }
   }
 
   async function loadLocation(){
@@ -441,10 +451,13 @@
 
   document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
 
-  loadWallet();
-  loadLocation();
-  loadBudget();
-  loadStamps();
+  (async function init(){
+    wallet = await requireWallet();
+    loadWallet();
+    loadLocation();
+    loadBudget();
+    loadStamps();
+  })();
 </script>
 </body>
 </html>
