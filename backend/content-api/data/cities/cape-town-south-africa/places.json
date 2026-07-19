@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Salsify at The Roundhouse", "category": "restaurant", "neighborhood": "Camps Bay", "cuisine": "Contemporary, Seafood" },
+    { "name": "La Colombe", "category": "restaurant", "neighborhood": "Constantia", "cuisine": "French Fine Dining" },
+    { "name": "Codfather Seafood & Sushi", "category": "restaurant", "neighborhood": "Camps Bay", "cuisine": "Seafood, Sushi" },
+    { "name": "Mykonos Taverna", "category": "restaurant", "neighborhood": "Sea Point", "cuisine": "Greek" },
+    { "name": "Origin Coffee Roasting", "category": "cafe", "neighborhood": "De Waterkant", "cuisine": "Coffee" },
+    { "name": "Truth Coffee Roasting", "category": "cafe", "neighborhood": "City Bowl", "cuisine": "Coffee" },
+    { "name": "Deluxe Coffeeworks", "category": "cafe", "neighborhood": "City Bowl", "cuisine": "Coffee" },
+    { "name": "Our Local", "category": "cafe", "cuisine": "Coffee, Brunch" }
+  ]
+}

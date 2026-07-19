@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Nomad", "category": "restaurant", "neighborhood": "Medina", "cuisine": "Moroccan-Mediterranean fusion" },
+    { "name": "Dar Yacout", "category": "restaurant", "neighborhood": "Medina", "cuisine": "Moroccan" },
+    { "name": "+61 Marrakech", "category": "restaurant", "neighborhood": "Gueliz", "cuisine": "Mediterranean-Moroccan fusion" },
+    { "name": "Le Comptoir Darna", "category": "restaurant", "neighborhood": "Hivernage", "cuisine": "Moroccan-Mediterranean" },
+    { "name": "Cafe des Epices", "category": "cafe", "neighborhood": "Medina", "cuisine": "Moroccan, coffee" },
+    { "name": "Bacha Coffee", "category": "cafe", "neighborhood": "Medina", "cuisine": "Coffee" },
+    { "name": "Cafe de France", "category": "cafe", "neighborhood": "Medina", "cuisine": "Moroccan tea, coffee" },
+    { "name": "Grand Cafe de la Poste", "category": "cafe", "neighborhood": "Gueliz", "cuisine": "French colonial cafe" }
+  ]
+}

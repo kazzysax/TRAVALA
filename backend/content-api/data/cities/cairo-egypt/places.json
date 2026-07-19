@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Zooba", "category": "restaurant", "neighborhood": "Zamalek", "cuisine": "Egyptian street food" },
+    { "name": "Andrea", "category": "restaurant", "neighborhood": "Mariouteya, Giza", "cuisine": "Egyptian grill" },
+    { "name": "Felfela", "category": "restaurant", "neighborhood": "Downtown Cairo", "cuisine": "Egyptian" },
+    { "name": "Koshary Abou Tarek", "category": "restaurant", "neighborhood": "Downtown Cairo", "cuisine": "Egyptian, Koshary" },
+    { "name": "Cafe Riche", "category": "cafe", "neighborhood": "Downtown Cairo", "cuisine": "Historic Egyptian cafe" },
+    { "name": "El Fishawy", "category": "cafe", "neighborhood": "Khan El Khalili", "cuisine": "Tea, shisha" },
+    { "name": "Cake Cafe", "category": "cafe", "neighborhood": "Zamalek", "cuisine": "Coffee, desserts" },
+    { "name": "Sip", "category": "cafe", "neighborhood": "Zamalek", "cuisine": "Specialty coffee" }
+  ]
+}

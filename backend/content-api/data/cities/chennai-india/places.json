@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Southern Spice", "category": "restaurant", "neighborhood": "Nungambakkam", "cuisine": "South Indian" },
+    { "name": "Jamavar", "category": "restaurant", "neighborhood": "MRC Nagar", "cuisine": "North Indian" },
+    { "name": "Peshawri", "category": "restaurant", "neighborhood": "Guindy", "cuisine": "North-West Frontier" },
+    { "name": "Murugan Idli Shop", "category": "restaurant", "cuisine": "South Indian" },
+    { "name": "Anjappar Chettinad Restaurant", "category": "restaurant", "cuisine": "Chettinad" },
+    { "name": "Wild Garden Cafe at Amethyst", "category": "cafe", "neighborhood": "Royapettah", "cuisine": "Italian" },
+    { "name": "Higginbotham's Writer's Café", "category": "cafe", "neighborhood": "Gopalapuram", "cuisine": "Cafe, Continental" },
+    { "name": "Sandy's Chocolate Laboratory", "category": "cafe", "neighborhood": "Mylapore", "cuisine": "Chocolate, Desserts" }
+  ]
+}

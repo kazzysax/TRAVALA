@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Moby Dick", "category": "restaurant", "neighborhood": "Sheraton Road", "cuisine": "Egyptian, camel steak" },
+    { "name": "GAD", "category": "restaurant", "neighborhood": "El Dahar", "cuisine": "Egyptian" },
+    { "name": "Stone Restaurant & Bar", "category": "restaurant", "neighborhood": "Hurghada Marina", "cuisine": "European, seafood" },
+    { "name": "Red Dragon - Asian Kitchen & Bar", "category": "restaurant", "neighborhood": "Hurghada Marina", "cuisine": "Asian" },
+    { "name": "The Heaven Restaurant", "category": "restaurant", "neighborhood": "Marina Boulevard", "cuisine": "Steak, seafood" },
+    { "name": "Mokka Cafe", "category": "cafe", "neighborhood": "Sheraton Road", "cuisine": "Coffee, pastries" },
+    { "name": "Cilantro", "category": "cafe", "neighborhood": "Sheraton Road", "cuisine": "Coffee" }
+  ]
+}

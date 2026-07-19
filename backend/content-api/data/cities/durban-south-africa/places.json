@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Dukkah", "category": "restaurant", "neighborhood": "Florida Road", "cuisine": "Mediterranean, North African" },
+    { "name": "Spiga", "category": "restaurant", "neighborhood": "Florida Road", "cuisine": "Italian" },
+    { "name": "House of Curries", "category": "restaurant", "neighborhood": "Florida Road", "cuisine": "Indian, Curry" },
+    { "name": "The Oyster Box Grill Room", "category": "restaurant", "neighborhood": "Umhlanga", "cuisine": "Seafood, Fine Dining" },
+    { "name": "Lineage Coffee", "category": "cafe", "neighborhood": "Hillcrest", "cuisine": "Coffee" },
+    { "name": "Tiki Tonga Coffee Roasters", "category": "cafe", "neighborhood": "Umhlanga", "cuisine": "Coffee" },
+    { "name": "Cafe Jiran", "category": "cafe", "neighborhood": "Golden Mile", "cuisine": "Coffee" },
+    { "name": "The Glenwood Bakery", "category": "cafe", "neighborhood": "Glenwood", "cuisine": "Bakery, Coffee" }
+  ]
+}

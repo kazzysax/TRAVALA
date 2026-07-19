@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Quanjude", "category": "restaurant", "neighborhood": "Qianmen", "cuisine": "Peking duck" },
+    { "name": "Dadong", "category": "restaurant", "neighborhood": "Dongcheng District", "cuisine": "Peking duck" },
+    { "name": "Siji Minfu", "category": "restaurant", "neighborhood": "Qianmen", "cuisine": "Peking duck" },
+    { "name": "Li Qun Roast Duck", "category": "restaurant", "neighborhood": "Qianmen", "cuisine": "Peking duck" },
+    { "name": "Huajia Yiyuan", "category": "restaurant", "neighborhood": "Dongzhimen", "cuisine": "Beijing cuisine" },
+    { "name": "Metal Hands Coffee", "category": "cafe", "neighborhood": "Wudaoying Hutong", "cuisine": "Coffee" },
+    { "name": "Voyage Coffee", "category": "cafe", "neighborhood": "798 Art District", "cuisine": "Coffee" },
+    { "name": "Cafe Flatwhite", "category": "cafe", "cuisine": "Coffee" }
+  ]
+}

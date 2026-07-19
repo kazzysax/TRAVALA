@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Chunji Roast Goose", "category": "restaurant", "neighborhood": "Xiufeng District", "cuisine": "Roast goose" },
+    { "name": "Jinlong Zhai", "category": "restaurant", "neighborhood": "Xiufeng District", "cuisine": "Guilin local cuisine" },
+    { "name": "Zhengyang Soup City", "category": "restaurant", "neighborhood": "Zhengyang Pedestrian Street", "cuisine": "Cantonese soup" },
+    { "name": "Chongshan Rice Noodles", "category": "restaurant", "cuisine": "Guilin rice noodles" },
+    { "name": "Laodong Jiang Mifen", "category": "restaurant", "cuisine": "Guilin rice noodles" },
+    { "name": "Shire Hobbiton Cafe", "category": "cafe", "cuisine": "Coffee" },
+    { "name": "Sharon's Cafe", "category": "cafe", "cuisine": "Coffee" },
+    { "name": "KAYA Coffee House", "category": "cafe", "neighborhood": "Zhonghua Road", "cuisine": "Coffee" }
+  ]
+}

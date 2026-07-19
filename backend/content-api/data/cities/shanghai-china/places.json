@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Da Hu Chun", "category": "restaurant", "neighborhood": "Huangpu District", "cuisine": "Shanghainese" },
+    { "name": "Lu Bo Lang", "category": "restaurant", "neighborhood": "Yu Garden", "cuisine": "Shanghainese dim sum" },
+    { "name": "Fu He Hui", "category": "restaurant", "neighborhood": "Jing'an District", "cuisine": "Vegetarian" },
+    { "name": "TAN Sichuan Cuisine", "category": "restaurant", "neighborhood": "Yu Garden", "cuisine": "Sichuanese" },
+    { "name": "Xin Rong Ji", "category": "restaurant", "cuisine": "Shanghainese" },
+    { "name": "Seesaw Coffee", "category": "cafe", "neighborhood": "Jing'an District", "cuisine": "Coffee" },
+    { "name": "Manner Coffee", "category": "cafe", "neighborhood": "Xuhui District", "cuisine": "Coffee" },
+    { "name": "Cafe del Volcan", "category": "cafe", "neighborhood": "Xuhui District", "cuisine": "Coffee" }
+  ]
+}

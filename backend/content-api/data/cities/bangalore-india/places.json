@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Paragon", "category": "restaurant", "cuisine": "Multi-cuisine, Seafood" },
+    { "name": "MTR (Mavalli Tiffin Rooms)", "category": "restaurant", "neighborhood": "Basavanagudi", "cuisine": "South Indian" },
+    { "name": "Vidyarthi Bhavan", "category": "restaurant", "neighborhood": "Basavanagudi", "cuisine": "South Indian" },
+    { "name": "Karavalli", "category": "restaurant", "neighborhood": "Residency Road", "cuisine": "Mangalorean, Coastal" },
+    { "name": "Kopitiam Lah", "category": "restaurant", "neighborhood": "Indiranagar", "cuisine": "Malaysian" },
+    { "name": "Lavonne Cafe & Patisserie", "category": "cafe", "neighborhood": "Indiranagar", "cuisine": "French Pastry, Coffee" },
+    { "name": "Glen's Bakehouse", "category": "cafe", "neighborhood": "Koramangala", "cuisine": "Bakery, Desserts" },
+    { "name": "The Hole in the Wall Cafe", "category": "cafe", "neighborhood": "Indiranagar", "cuisine": "Continental, Breakfast" }
+  ]
+}

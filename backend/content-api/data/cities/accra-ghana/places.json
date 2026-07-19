@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Santoku", "category": "restaurant", "neighborhood": "Airport Residential Area", "cuisine": "Japanese" },
+    { "name": "La Chaumiere", "category": "restaurant", "neighborhood": "Airport Residential Area", "cuisine": "French-Mediterranean" },
+    { "name": "Gold Coast Restaurant & Cocktail Bar", "category": "restaurant", "neighborhood": "Airport Residential Area", "cuisine": "Ghanaian, seafood" },
+    { "name": "The Buka Restaurant", "category": "restaurant", "neighborhood": "Osu", "cuisine": "West African" },
+    { "name": "Le Petit Oiseau", "category": "restaurant", "neighborhood": "Osu", "cuisine": "Afro-French fusion" },
+    { "name": "Jamestown Coffee Company", "category": "cafe", "neighborhood": "Jamestown", "cuisine": "Coffee" },
+    { "name": "Vida e Caffe", "category": "cafe", "neighborhood": "East Legon", "cuisine": "Coffee" },
+    { "name": "Second Cup", "category": "cafe", "cuisine": "Coffee" }
+  ]
+}

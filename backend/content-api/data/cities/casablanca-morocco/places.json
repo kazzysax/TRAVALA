@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "La Sqala", "category": "restaurant", "neighborhood": "Old Medina", "cuisine": "Moroccan" },
+    { "name": "Rick's Cafe", "category": "restaurant", "neighborhood": "Old Medina", "cuisine": "International, Moroccan" },
+    { "name": "Cabestan Ocean View", "category": "restaurant", "neighborhood": "Ain Diab, Corniche", "cuisine": "Seafood, French" },
+    { "name": "Niya", "category": "restaurant", "neighborhood": "Gauthier", "cuisine": "Vegan" },
+    { "name": "Port de Peche", "category": "restaurant", "neighborhood": "Casablanca fishing port", "cuisine": "Seafood" },
+    { "name": "EspressoLab", "category": "cafe", "neighborhood": "Maarif", "cuisine": "Coffee" },
+    { "name": "Cafe Imperial", "category": "cafe", "neighborhood": "Habous", "cuisine": "Moroccan tea, coffee" },
+    { "name": "Patisserie Bennis Habous", "category": "cafe", "neighborhood": "Habous", "cuisine": "Moroccan pastries" }
+  ]
+}

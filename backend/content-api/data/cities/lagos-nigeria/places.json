@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Nok by Alara", "category": "restaurant", "neighborhood": "Victoria Island", "cuisine": "Pan-African" },
+    { "name": "Terra Kulture", "category": "restaurant", "neighborhood": "Victoria Island", "cuisine": "Nigerian" },
+    { "name": "Yellow Chilli", "category": "restaurant", "cuisine": "Nigerian" },
+    { "name": "RSVP", "category": "restaurant", "neighborhood": "Victoria Island", "cuisine": "Continental" },
+    { "name": "Cafe Neo", "category": "cafe", "neighborhood": "Victoria Island", "cuisine": "Coffee" },
+    { "name": "Eric Kayser", "category": "cafe", "neighborhood": "Victoria Island", "cuisine": "French Bakery" },
+    { "name": "Cafe One by Sterling", "category": "cafe", "neighborhood": "Ikoyi", "cuisine": "Coffee" },
+    { "name": "Orchid House", "category": "cafe", "neighborhood": "Lekki", "cuisine": "Coffee, Brunch" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "The Grillhouse", "category": "restaurant", "neighborhood": "Rosebank", "cuisine": "Steakhouse" },
+    { "name": "Marble", "category": "restaurant", "neighborhood": "Rosebank", "cuisine": "South African Grill" },
+    { "name": "Proud Mary", "category": "restaurant", "neighborhood": "Rosebank", "cuisine": "Contemporary" },
+    { "name": "Saint Restaurant", "category": "restaurant", "neighborhood": "Sandton", "cuisine": "Italian, Pizza" },
+    { "name": "Doubleshot Coffee & Tea", "category": "cafe", "neighborhood": "Braamfontein", "cuisine": "Coffee" },
+    { "name": "Father Coffee", "category": "cafe", "neighborhood": "Braamfontein", "cuisine": "Coffee" },
+    { "name": "Bertrand Cafe", "category": "cafe", "neighborhood": "Maboneng", "cuisine": "French-African" },
+    { "name": "Salvation Cafe", "category": "cafe", "neighborhood": "44 Stanley", "cuisine": "Coffee, Brunch" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Gourmand Seafood City", "category": "restaurant", "neighborhood": "Gongbei", "cuisine": "Seafood" },
+    { "name": "Huangchao Wuyuehua Restaurant", "category": "restaurant", "neighborhood": "Xiangzhou District", "cuisine": "Cantonese" },
+    { "name": "Hao Xuan Ge", "category": "restaurant", "neighborhood": "Lovers' Road", "cuisine": "Hot pot" },
+    { "name": "Indian Kitchen", "category": "restaurant", "neighborhood": "Jida", "cuisine": "Indian" },
+    { "name": "Tui Ji Tea Restaurant", "category": "restaurant", "neighborhood": "Meijing", "cuisine": "Cantonese" },
+    { "name": "Peaberry Coffee", "category": "cafe", "neighborhood": "Gongbei", "cuisine": "Coffee" },
+    { "name": "For Love Coffee", "category": "cafe", "neighborhood": "Tangjia", "cuisine": "Coffee" },
+    { "name": "Camel Coffee", "category": "cafe", "cuisine": "Coffee" }
+  ]
+}

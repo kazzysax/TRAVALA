@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Peshawri", "category": "restaurant", "neighborhood": "Fatehabad Road", "cuisine": "North-West Frontier" },
+    { "name": "Esphahan", "category": "restaurant", "neighborhood": "Taj East Gate", "cuisine": "Mughlai" },
+    { "name": "Pinch of Spice", "category": "restaurant", "neighborhood": "Fatehabad Road", "cuisine": "North Indian" },
+    { "name": "Dasaprakash", "category": "restaurant", "neighborhood": "Taj Ganj", "cuisine": "South Indian" },
+    { "name": "Sheroes Hangout Cafe", "category": "cafe", "neighborhood": "Taj Ganj", "cuisine": "Cafe, Continental" },
+    { "name": "Joney's Place", "category": "cafe", "neighborhood": "Taj Ganj", "cuisine": "Indian Breakfast" },
+    { "name": "Tea'se Me", "category": "cafe", "neighborhood": "Taj Ganj", "cuisine": "Tea, Indian" },
+    { "name": "The Salt Cafe Kitchen & Bar", "category": "cafe", "neighborhood": "Taj Ganj", "cuisine": "Italian, North Indian" }
+  ]
+}

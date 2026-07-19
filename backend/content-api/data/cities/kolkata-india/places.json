@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Peter Cat", "category": "restaurant", "neighborhood": "Park Street", "cuisine": "Continental, Kebabs" },
+    { "name": "6 Ballygunge Place", "category": "restaurant", "neighborhood": "Ballygunge", "cuisine": "Bengali" },
+    { "name": "Oh! Calcutta", "category": "restaurant", "neighborhood": "Elgin Road", "cuisine": "Bengali" },
+    { "name": "Suruchi", "category": "restaurant", "neighborhood": "Elliot Road", "cuisine": "Bengali Thali" },
+    { "name": "Trincas", "category": "restaurant", "neighborhood": "Park Street", "cuisine": "Continental, Chinese" },
+    { "name": "Flurys", "category": "cafe", "neighborhood": "Park Street", "cuisine": "Bakery, Continental" },
+    { "name": "Kathleen Confectioners", "category": "cafe", "neighborhood": "Park Street", "cuisine": "Bakery" },
+    { "name": "Chai Break", "category": "cafe", "neighborhood": "Elgin Road", "cuisine": "Tea, Continental" }
+  ]
+}

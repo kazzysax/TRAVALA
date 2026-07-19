@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Bar Palladio", "category": "restaurant", "neighborhood": "Civil Lines", "cuisine": "Italian, Mediterranean" },
+    { "name": "Peshawri", "category": "restaurant", "neighborhood": "Palace Road", "cuisine": "North-West Frontier" },
+    { "name": "Suvarna Mahal", "category": "restaurant", "neighborhood": "Rambagh", "cuisine": "Royal Rajasthani" },
+    { "name": "Handi Restaurant", "category": "restaurant", "neighborhood": "MI Road", "cuisine": "North Indian, Mughlai" },
+    { "name": "Laxmi Mishthan Bhandar (LMB)", "category": "restaurant", "neighborhood": "Johari Bazaar", "cuisine": "Rajasthani Sweets, Thali" },
+    { "name": "Anokhi Café", "category": "cafe", "neighborhood": "C Scheme", "cuisine": "Continental, Organic" },
+    { "name": "Tapri Central", "category": "cafe", "cuisine": "Tea, Street Food" },
+    { "name": "Lassiwala", "category": "cafe", "neighborhood": "MI Road", "cuisine": "Lassi" }
+  ]
+}

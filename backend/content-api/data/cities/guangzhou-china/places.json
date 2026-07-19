@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Guangzhou Restaurant", "category": "restaurant", "neighborhood": "Liwan District", "cuisine": "Cantonese" },
+    { "name": "Panxi Restaurant", "category": "restaurant", "neighborhood": "Liwan District", "cuisine": "Cantonese" },
+    { "name": "Lei Garden", "category": "restaurant", "neighborhood": "Tianhe District", "cuisine": "Cantonese" },
+    { "name": "Dian Dou De", "category": "restaurant", "neighborhood": "Liwan District", "cuisine": "Dim sum" },
+    { "name": "1200 Bookshop", "category": "cafe", "neighborhood": "Tianhe District", "cuisine": "Coffee" },
+    { "name": "Kafelaku", "category": "cafe", "neighborhood": "Shamian Island", "cuisine": "Coffee" },
+    { "name": "Yuyuan Coffee", "category": "cafe", "cuisine": "Coffee" }
+  ]
+}

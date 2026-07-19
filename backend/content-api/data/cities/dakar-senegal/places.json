@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Chez Fatou", "category": "restaurant", "neighborhood": "Almadies", "cuisine": "Senegalese, Seafood" },
+    { "name": "Chez Loutcha", "category": "restaurant", "neighborhood": "Plateau", "cuisine": "Senegalese, Creole" },
+    { "name": "Alkimia", "category": "restaurant", "neighborhood": "Almadies", "cuisine": "Mediterranean" },
+    { "name": "La Mer a Table", "category": "restaurant", "neighborhood": "Almadies", "cuisine": "Seafood" },
+    { "name": "Layu Cafe", "category": "cafe", "neighborhood": "Almadies", "cuisine": "Coffee" },
+    { "name": "Coffee Loft Dakar", "category": "cafe", "neighborhood": "Plateau", "cuisine": "Coffee" },
+    { "name": "Cafe de Rome", "category": "cafe", "neighborhood": "Plateau", "cuisine": "French, Senegalese" },
+    { "name": "Simone Cafe", "category": "cafe", "neighborhood": "Mermoz", "cuisine": "Brazilian, Desserts" }
+  ]
+}
