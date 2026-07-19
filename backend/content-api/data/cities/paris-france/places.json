@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Chez Georges", "category": "restaurant", "neighborhood": "2nd Arrondissement", "cuisine": "French" },
+    { "name": "Bouillon Chartier", "category": "restaurant", "neighborhood": "9th Arrondissement", "cuisine": "French" },
+    { "name": "Allard", "category": "restaurant", "neighborhood": "Saint-Germain-des-Pres", "cuisine": "French" },
+    { "name": "La Fontaine de Mars", "category": "restaurant", "neighborhood": "7th Arrondissement", "cuisine": "French" },
+    { "name": "Le Square Trousseau", "category": "restaurant", "neighborhood": "12th Arrondissement", "cuisine": "French" },
+    { "name": "Cafe de Flore", "category": "cafe", "neighborhood": "Saint-Germain-des-Pres", "cuisine": "Coffee, French cafe" },
+    { "name": "Coutume Cafe", "category": "cafe", "neighborhood": "7th Arrondissement", "cuisine": "Coffee" },
+    { "name": "Boot Cafe", "category": "cafe", "neighborhood": "Le Marais", "cuisine": "Coffee" }
+  ]
+}

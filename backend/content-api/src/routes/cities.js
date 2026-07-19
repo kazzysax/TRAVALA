@@ -9,7 +9,7 @@ const path = require("path");
 // file living outside that root. Per the cityId lock-down decision
 // (DEPLOY_TO_MAINNET.md #0), the actual hashing logic here must stay
 // byte-for-byte identical to contracts/hardhat/lib/cityId.js.
-const { toCityId } = require("../lib/cityId");
+const { toCityId, toServiceId } = require("../lib/cityId");
 
 const router = express.Router();
 const DATA_DIR = path.join(__dirname, "..", "..", "data", "cities");
@@ -53,6 +53,27 @@ router.get("/cities/:slug/city-id", (req, res) => {
   if (!file) return res.status(404).json({ error: "city not found" });
   const data = JSON.parse(fs.readFileSync(file, "utf8"));
   res.json({ cityId: toCityId(data.city, data.country) });
+});
+
+function slugifyName(name) {
+  return name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+/// Curated real restaurants/cafes for cities that already have a full
+/// hand-authored guide - a stable, real alternative to the live Overpass
+/// /nearby lookup, which is rate-limited and unreliable from Render's
+/// shared egress IP. Each place gets a stable serviceId derived the same
+/// way OSM-sourced places do (toServiceId over a unique slug), so rating
+/// one of these writes onchain against a consistent identifier every time.
+router.get("/cities/:slug/places", (req, res) => {
+  const file = path.join(DATA_DIR, req.params.slug, "places.json");
+  if (!fs.existsSync(file)) return res.json([]);
+  const data = JSON.parse(fs.readFileSync(file, "utf8"));
+  const withIds = (data.places || []).map((p) => {
+    const placeSlug = `curated-${req.params.slug}-${slugifyName(p.name)}`;
+    return { ...p, slug: placeSlug, serviceId: toServiceId(placeSlug) };
+  });
+  res.json(withIds);
 });
 
 module.exports = router;

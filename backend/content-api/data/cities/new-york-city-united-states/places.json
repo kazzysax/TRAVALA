@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Carbone", "category": "restaurant", "neighborhood": "Greenwich Village", "cuisine": "Italian-American" },
+    { "name": "Katz's Delicatessen", "category": "restaurant", "neighborhood": "Lower East Side", "cuisine": "Deli" },
+    { "name": "Nom Wah Tea Parlor", "category": "restaurant", "neighborhood": "Chinatown", "cuisine": "Dim Sum, Chinese" },
+    { "name": "Cosme", "category": "restaurant", "neighborhood": "Flatiron", "cuisine": "Mexican" },
+    { "name": "Peter Luger Steak House", "category": "restaurant", "neighborhood": "Williamsburg, Brooklyn", "cuisine": "Steakhouse" },
+    { "name": "Caffe Reggio", "category": "cafe", "neighborhood": "Greenwich Village", "cuisine": "Coffee, Historic cafe" },
+    { "name": "Joe Coffee", "category": "cafe", "neighborhood": "Greenwich Village", "cuisine": "Coffee" },
+    { "name": "Devocion", "category": "cafe", "neighborhood": "Williamsburg, Brooklyn", "cuisine": "Coffee" }
+  ]
+}

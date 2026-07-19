@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Leopold Cafe", "category": "restaurant", "neighborhood": "Colaba", "cuisine": "Multi-cuisine" },
+    { "name": "Britannia & Co.", "category": "restaurant", "neighborhood": "Ballard Estate", "cuisine": "Parsi" },
+    { "name": "Trishna", "category": "restaurant", "neighborhood": "Fort", "cuisine": "Seafood" },
+    { "name": "Khyber", "category": "restaurant", "neighborhood": "Fort", "cuisine": "North Indian" },
+    { "name": "Bademiya", "category": "restaurant", "neighborhood": "Colaba", "cuisine": "Kebabs" },
+    { "name": "Kyani & Co.", "category": "cafe", "neighborhood": "Marine Lines", "cuisine": "Irani cafe" },
+    { "name": "Yazdani Bakery", "category": "cafe", "neighborhood": "Fort", "cuisine": "Irani bakery" },
+    { "name": "Blue Tokai Coffee Roasters", "category": "cafe", "neighborhood": "Bandra West", "cuisine": "Coffee" }
+  ]
+}

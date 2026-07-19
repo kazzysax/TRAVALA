@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Seraser Fine Dining Restaurant", "category": "restaurant", "neighborhood": "Kaleici", "cuisine": "Turkish, International" },
+    { "name": "Arma Restaurant", "category": "restaurant", "neighborhood": "Kaleici Marina", "cuisine": "Mediterranean, Seafood" },
+    { "name": "Balikci Meyhanesi Kaleici", "category": "restaurant", "neighborhood": "Kaleici", "cuisine": "Turkish Meyhane, Fish" },
+    { "name": "7 Mehmet", "category": "restaurant", "neighborhood": "Konyaalti", "cuisine": "Turkish, Mediterranean" },
+    { "name": "Lara Balik", "category": "restaurant", "neighborhood": "Konyaalti", "cuisine": "Seafood" },
+    { "name": "The Sudd Coffee", "category": "cafe", "neighborhood": "Kaleici", "cuisine": "Coffee" },
+    { "name": "Cozy Coffee House", "category": "cafe", "neighborhood": "Lara", "cuisine": "Coffee" },
+    { "name": "Coffeetainer", "category": "cafe", "neighborhood": "Muratpasa", "cuisine": "Coffee" }
+  ]
+}

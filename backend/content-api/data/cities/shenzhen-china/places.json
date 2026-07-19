@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Shang Palace", "category": "restaurant", "neighborhood": "Luohu", "cuisine": "Cantonese" },
+    { "name": "The Bay by Chef Fei", "category": "restaurant", "neighborhood": "Futian", "cuisine": "Cantonese/Chaoshan" },
+    { "name": "Haidilao Hotpot", "category": "restaurant", "neighborhood": "Futian", "cuisine": "Hotpot" },
+    { "name": "Chaoshan Damu Beef Hot Pot", "category": "restaurant", "neighborhood": "Futian", "cuisine": "Chaoshan beef hotpot" },
+    { "name": "Old Heaven Books", "category": "cafe", "neighborhood": "OCT-Loft, Nanshan", "cuisine": "Coffee" },
+    { "name": "Seesaw Coffee", "category": "cafe", "neighborhood": "Luohu", "cuisine": "Coffee" },
+    { "name": "%Arabica", "category": "cafe", "neighborhood": "Shenzhen Bay, Nanshan", "cuisine": "Coffee" }
+  ]
+}

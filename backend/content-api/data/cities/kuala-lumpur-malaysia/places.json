@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Yut Kee Restaurant", "category": "restaurant", "neighborhood": "Chow Kit", "cuisine": "Hainanese" },
+    { "name": "Precious Old China", "category": "restaurant", "neighborhood": "Central Market", "cuisine": "Peranakan / Nyonya" },
+    { "name": "Madam Kwan's", "category": "restaurant", "neighborhood": "Bukit Bintang (Pavilion KL)", "cuisine": "Malaysian" },
+    { "name": "Wong Ah Wah Restaurant", "category": "restaurant", "neighborhood": "Jalan Alor, Bukit Bintang", "cuisine": "Chinese-Malaysian grill" },
+    { "name": "Hai Kah Lang", "category": "restaurant", "neighborhood": "Cheras", "cuisine": "Seafood noodle" },
+    { "name": "VCR", "category": "cafe", "neighborhood": "Bukit Bintang (Pudu)", "cuisine": "Coffee" },
+    { "name": "103 Coffee", "category": "cafe", "neighborhood": "Heritage Row", "cuisine": "Coffee" },
+    { "name": "Merchant's Lane", "category": "cafe", "neighborhood": "Petaling Street", "cuisine": "Coffee, fusion cafe" }
+  ]
+}

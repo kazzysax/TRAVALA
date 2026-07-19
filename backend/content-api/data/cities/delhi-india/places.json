@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Karim's", "category": "restaurant", "neighborhood": "Jama Masjid, Chandni Chowk", "cuisine": "Mughlai" },
+    { "name": "Kake Di Hatti", "category": "restaurant", "neighborhood": "Chandni Chowk", "cuisine": "North Indian" },
+    { "name": "Naivedyam", "category": "restaurant", "neighborhood": "Hauz Khas Village", "cuisine": "South Indian" },
+    { "name": "Bukhara", "category": "restaurant", "neighborhood": "Chanakyapuri", "cuisine": "North Indian tandoor" },
+    { "name": "United Coffee House", "category": "cafe", "neighborhood": "Connaught Place", "cuisine": "Coffee" },
+    { "name": "Coffee Home", "category": "cafe", "neighborhood": "Connaught Place", "cuisine": "Coffee" },
+    { "name": "The Big Chill Cafe", "category": "cafe", "neighborhood": "Khan Market", "cuisine": "Italian/Continental" }
+  ]
+}

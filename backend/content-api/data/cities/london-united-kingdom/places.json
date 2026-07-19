@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "The Devonshire", "category": "restaurant", "neighborhood": "Soho", "cuisine": "British, Pub" },
+    { "name": "Mountain", "category": "restaurant", "neighborhood": "Soho", "cuisine": "Spanish, Grill" },
+    { "name": "Cecconi's", "category": "restaurant", "neighborhood": "Mayfair", "cuisine": "Italian" },
+    { "name": "OMA", "category": "restaurant", "neighborhood": "Borough Market", "cuisine": "Greek" },
+    { "name": "Padella", "category": "restaurant", "neighborhood": "Borough Market", "cuisine": "Italian, Pasta" },
+    { "name": "Ozone Coffee Roasters", "category": "cafe", "neighborhood": "Shoreditch", "cuisine": "Coffee" },
+    { "name": "Flying Horse Coffee", "category": "cafe", "neighborhood": "Notting Hill", "cuisine": "Coffee" },
+    { "name": "Fabrique", "category": "cafe", "neighborhood": "Notting Hill", "cuisine": "Coffee, Bakery" }
+  ]
+}

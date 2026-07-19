@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Restaurante Litoral", "category": "restaurant", "neighborhood": "A-Ma Temple area", "cuisine": "Macanese" },
+    { "name": "O-Manel", "category": "restaurant", "neighborhood": "Taipa Village", "cuisine": "Portuguese" },
+    { "name": "Casa Maquista", "category": "restaurant", "neighborhood": "Taipa Village", "cuisine": "Macanese" },
+    { "name": "Wing Lei", "category": "restaurant", "neighborhood": "Cotai (Wynn Palace)", "cuisine": "Cantonese, dim sum" },
+    { "name": "Chalou", "category": "restaurant", "neighborhood": "Cotai (Grand Lisboa Palace)", "cuisine": "Cantonese" },
+    { "name": "Lord Stow's Bakery", "category": "cafe", "neighborhood": "Coloane Village", "cuisine": "Portuguese egg tarts" },
+    { "name": "Single Origin", "category": "cafe", "neighborhood": "Guia Fortress area", "cuisine": "Coffee" },
+    { "name": "Terra Coffee House", "category": "cafe", "neighborhood": "near Dom Pedro V Theatre", "cuisine": "Coffee" }
+  ]
+}

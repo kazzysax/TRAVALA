@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Al Majlis", "category": "restaurant", "neighborhood": "Raffles Makkah Palace, near Masjid al-Haram", "cuisine": "Levantine" },
+    { "name": "Al Shorfa Restaurant", "category": "restaurant", "neighborhood": "Abraj Al Bait", "cuisine": "Middle Eastern buffet" },
+    { "name": "Mado", "category": "restaurant", "neighborhood": "Abraj Al Bait (Clock Towers)", "cuisine": "Turkish" },
+    { "name": "Al Dira", "category": "restaurant", "neighborhood": "Makkah Clock Royal Tower", "cuisine": "Bedouin, Levantine buffet" },
+    { "name": "Al Baik", "category": "restaurant", "neighborhood": "Multiple branches, Mecca", "cuisine": "Saudi fried chicken" },
+    { "name": "Camel Step", "category": "cafe", "neighborhood": "Jabal Omar (Souk Al Khalil Mall)", "cuisine": "Coffee" },
+    { "name": "Zeeka Cafe", "category": "cafe", "neighborhood": "Waly Al Ahd District", "cuisine": "Coffee" },
+    { "name": "Chocochino", "category": "cafe", "neighborhood": "Al Jamiah (Makkah Mall)", "cuisine": "Chocolate, coffee" }
+  ]
+}

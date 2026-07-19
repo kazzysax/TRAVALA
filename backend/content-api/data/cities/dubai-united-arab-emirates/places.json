@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "La Petite Maison", "category": "restaurant", "neighborhood": "DIFC", "cuisine": "French" },
+    { "name": "Zuma", "category": "restaurant", "neighborhood": "DIFC", "cuisine": "Japanese" },
+    { "name": "Pierchic", "category": "restaurant", "neighborhood": "Madinat Jumeirah", "cuisine": "Seafood, Italian" },
+    { "name": "Ravi Restaurant", "category": "restaurant", "neighborhood": "Satwa", "cuisine": "Pakistani" },
+    { "name": "Arabian Tea House", "category": "cafe", "neighborhood": "Al Fahidi", "cuisine": "Emirati, Tea" },
+    { "name": "Tom&Serg", "category": "cafe", "neighborhood": "Al Quoz", "cuisine": "Coffee, Brunch" },
+    { "name": "NETTE", "category": "cafe", "neighborhood": "Al Quoz", "cuisine": "French-Japanese" },
+    { "name": "Pekoe Tea", "category": "cafe", "neighborhood": "Alserkal Avenue", "cuisine": "Tea, Coffee" }
+  ]
+}

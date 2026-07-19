@@ -205,6 +205,30 @@
     }
   }
 
+  function mapsUrl(name, extra, city){
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([name, extra, city].filter(Boolean).join(', '))}`;
+  }
+
+  function renderServiceCards(city){
+    const list = document.getElementById('serviceList');
+    list.innerHTML = services.map((s, i) => {
+      const sub = [s.neighborhood, s.cuisine].filter(Boolean).join(' · ');
+      const maps = mapsUrl(s.name, s.neighborhood || s.address, city);
+      return `
+        <div class="svc-card">
+          <div class="ic">${ICONS[s.category] || '📍'}</div>
+          <div class="info">
+            <div class="nm">${esc(s.name)}</div>
+            ${sub ? `<div class="meta">${esc(sub)} · <a href="${maps}" target="_blank" rel="noopener">View on Google Maps ↗</a></div>` : `<div class="meta"><a href="${maps}" target="_blank" rel="noopener">View on Google Maps ↗</a></div>`}
+            <div class="meta" id="meta-${i}">Loading rating…</div>
+          </div>
+          <button class="rate-btn" onclick="window.openRate(${i})">Rate</button>
+        </div>`;
+    }).join('') || '<div class="loading">No real nearby places found - try enabling location, or widen the search.</div>';
+
+    services.forEach((s, i) => loadAverage(s, i));
+  }
+
   async function loadServices(){
     const city = localStorage.getItem('travala_city');
     const country = localStorage.getItem('travala_country');
@@ -212,10 +236,24 @@
       document.getElementById('serviceList').innerHTML = `<div class="loading">No location set yet - <a href="login.html">set your city</a> first so real nearby places and ratings load for the right place.</div>`;
       return;
     }
+    const citySlug = `${city}-${country}`.toLowerCase().trim().replace(/\s+/g, '-');
 
     try {
       const cityRes = await fetch(`${INDEXER_API}/city-id?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}`);
       cityId = (await cityRes.json()).cityId;
+
+      // Curated, real, hand-picked places (content-api's own list, not a
+      // live third-party lookup) - preferred whenever this city has one,
+      // since Overpass is rate-limited/unreliable from Render's shared
+      // egress IP. Falls back to the live nearby-places search below only
+      // when this city doesn't have a curated list yet.
+      const curatedRes = await fetch(`${CONTENT_API}/cities/${citySlug}/places`);
+      const curated = curatedRes.ok ? await curatedRes.json() : [];
+      if (Array.isArray(curated) && curated.length > 0) {
+        services = curated;
+        renderServiceCards(city);
+        return;
+      }
 
       let coords = CITY_COORDS[city] || null;
       try {
@@ -240,16 +278,7 @@
         throw new Error((places && places.error) || `content-api returned ${nearbyRes.status}`);
       }
       services = places.slice(0, 12);
-
-      const list = document.getElementById('serviceList');
-      list.innerHTML = services.map((s, i) => `
-        <div class="svc-card">
-          <div class="ic">${ICONS[s.category] || '📍'}</div>
-          <div class="info"><div class="nm">${esc(s.name)}</div><div class="meta" id="meta-${i}">Loading rating…</div></div>
-          <button class="rate-btn" onclick="window.openRate(${i})">Rate</button>
-        </div>`).join('') || '<div class="loading">No real nearby places found - try enabling location, or widen the search.</div>';
-
-      services.forEach((s, i) => loadAverage(s, i));
+      renderServiceCards(city);
     } catch (err) {
       document.getElementById('serviceList').innerHTML = `<div class="loading">Couldn't load real nearby places (${esc(err.message)}). The service may be waking up - try refreshing.</div>`;
     }

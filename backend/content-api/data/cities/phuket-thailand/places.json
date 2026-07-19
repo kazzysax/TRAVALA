@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Raya Restaurant", "category": "restaurant", "neighborhood": "Phuket Old Town", "cuisine": "Southern Thai" },
+    { "name": "Tambu", "category": "restaurant", "neighborhood": "Patong", "cuisine": "Indian" },
+    { "name": "The Boathouse", "category": "restaurant", "neighborhood": "Kata Beach", "cuisine": "Thai, Seafood" },
+    { "name": "Kwong Shop Seafood", "category": "restaurant", "neighborhood": "Kata Beach", "cuisine": "Seafood" },
+    { "name": "L'Arome by the Sea", "category": "restaurant", "neighborhood": "Kalim, Patong", "cuisine": "French" },
+    { "name": "Campus Coffee Roaster", "category": "cafe", "neighborhood": "Phuket Old Town", "cuisine": "Coffee" },
+    { "name": "Graph Coffee Co.", "category": "cafe", "neighborhood": "Phuket Old Town", "cuisine": "Coffee" },
+    { "name": "ROOF Pudding & Cafe", "category": "cafe", "neighborhood": "Phuket Old Town", "cuisine": "Coffee, Dessert" }
+  ]
+}

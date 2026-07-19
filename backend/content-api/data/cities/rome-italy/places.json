@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Da Enzo al 29", "category": "restaurant", "neighborhood": "Trastevere", "cuisine": "Roman, Trattoria" },
+    { "name": "Antico Arco", "category": "restaurant", "neighborhood": "Gianicolo, Trastevere", "cuisine": "Contemporary Italian" },
+    { "name": "Matricianella", "category": "restaurant", "neighborhood": "Centro Storico", "cuisine": "Roman" },
+    { "name": "Flavio al Velavevodetto", "category": "restaurant", "neighborhood": "Testaccio", "cuisine": "Roman, Trattoria" },
+    { "name": "Checchino dal 1887", "category": "restaurant", "neighborhood": "Testaccio", "cuisine": "Roman" },
+    { "name": "Antico Caffe Greco", "category": "cafe", "neighborhood": "Via dei Condotti", "cuisine": "Coffee, Historic cafe" },
+    { "name": "Caffe Sant'Eustachio", "category": "cafe", "neighborhood": "Centro Storico", "cuisine": "Coffee" },
+    { "name": "Sciascia Caffe", "category": "cafe", "neighborhood": "Prati", "cuisine": "Coffee" }
+  ]
+}

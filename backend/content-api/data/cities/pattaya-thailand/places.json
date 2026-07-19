@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Mum Aroi", "category": "restaurant", "neighborhood": "Naklua", "cuisine": "Thai Seafood" },
+    { "name": "The Glass House", "category": "restaurant", "neighborhood": "Na Jomtien", "cuisine": "Thai, Seafood" },
+    { "name": "Preecha Seafood", "category": "restaurant", "neighborhood": "Na Jomtien", "cuisine": "Seafood" },
+    { "name": "PIC Kitchen", "category": "restaurant", "neighborhood": "North Pattaya", "cuisine": "Thai" },
+    { "name": "Cafe des Amis", "category": "restaurant", "neighborhood": "Pratumnak", "cuisine": "French, European" },
+    { "name": "BRU Coffee & Bar", "category": "cafe", "neighborhood": "East Pattaya", "cuisine": "Coffee" },
+    { "name": "Common Cafe", "category": "cafe", "neighborhood": "Central Pattaya", "cuisine": "Coffee" },
+    { "name": "King of Coffee", "category": "cafe", "neighborhood": "Pratumnak Soi 5", "cuisine": "Coffee" }
+  ]
+}

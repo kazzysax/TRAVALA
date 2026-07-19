@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Ichiran", "category": "restaurant", "neighborhood": "Shinjuku", "cuisine": "Tonkotsu ramen" },
+    { "name": "Tenko", "category": "restaurant", "neighborhood": "Kagurazaka", "cuisine": "Tempura" },
+    { "name": "Daikokuya Tempura", "category": "restaurant", "neighborhood": "Asakusa", "cuisine": "Tempura" },
+    { "name": "Japanese Soba Noodles Tsuta", "category": "restaurant", "neighborhood": "Yoyogi-Uehara", "cuisine": "Ramen" },
+    { "name": "Sushi Dai", "category": "restaurant", "neighborhood": "Toyosu", "cuisine": "Sushi" },
+    { "name": "Cafe de l'Ambre", "category": "cafe", "neighborhood": "Ginza", "cuisine": "Coffee" },
+    { "name": "Bear Pond Espresso", "category": "cafe", "neighborhood": "Shimokitazawa", "cuisine": "Coffee" },
+    { "name": "About Life Coffee Brewers", "category": "cafe", "neighborhood": "Shibuya", "cuisine": "Coffee" }
+  ]
+}

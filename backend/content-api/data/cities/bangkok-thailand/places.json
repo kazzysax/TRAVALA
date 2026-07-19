@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Le Du", "category": "restaurant", "neighborhood": "Silom", "cuisine": "Modern Thai" },
+    { "name": "Nusara", "category": "restaurant", "neighborhood": "Old Town (Ta Tien)", "cuisine": "Thai" },
+    { "name": "Gaggan Anand", "category": "restaurant", "neighborhood": "Sukhumvit (Asoke)", "cuisine": "Indian" },
+    { "name": "Potong", "category": "restaurant", "neighborhood": "Charoen Krung", "cuisine": "Thai-Chinese" },
+    { "name": "Somtum Der", "category": "restaurant", "neighborhood": "Silom", "cuisine": "Isaan Thai" },
+    { "name": "NANA Coffee Roasters", "category": "cafe", "neighborhood": "Ari", "cuisine": "Coffee" },
+    { "name": "Roots at The Commons", "category": "cafe", "neighborhood": "Thong Lo", "cuisine": "Coffee" },
+    { "name": "CHATA Specialty Coffee", "category": "cafe", "neighborhood": "Chinatown", "cuisine": "Coffee" }
+  ]
+}

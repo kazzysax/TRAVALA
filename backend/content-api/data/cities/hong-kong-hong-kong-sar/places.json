@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Lin Heung Lau", "category": "restaurant", "neighborhood": "Sheung Wan", "cuisine": "Cantonese dim sum" },
+    { "name": "Fu Sing Seafood Restaurant", "category": "restaurant", "neighborhood": "Causeway Bay", "cuisine": "Cantonese seafood" },
+    { "name": "Tim Ho Wan", "category": "restaurant", "neighborhood": "Central", "cuisine": "Dim sum" },
+    { "name": "Yung Kee Restaurant", "category": "restaurant", "neighborhood": "Central", "cuisine": "Cantonese roast goose" },
+    { "name": "Lan Fong Yuen", "category": "cafe", "neighborhood": "Central", "cuisine": "Hong Kong milk tea" },
+    { "name": "Australia Dairy Company", "category": "cafe", "neighborhood": "Jordan", "cuisine": "Cha chaan teng" },
+    { "name": "Elephant Grounds", "category": "cafe", "neighborhood": "Sheung Wan", "cuisine": "Coffee" }
+  ]
+}

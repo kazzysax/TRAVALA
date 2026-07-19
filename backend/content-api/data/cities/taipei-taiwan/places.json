@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Din Tai Fung", "category": "restaurant", "neighborhood": "Da'an District", "cuisine": "Xiaolongbao, Shanghainese" },
+    { "name": "Ay-Chung Flour-Rice Noodle", "category": "restaurant", "neighborhood": "Ximending, Wanhua District", "cuisine": "Taiwanese street food" },
+    { "name": "Yong He Soy Milk King", "category": "restaurant", "neighborhood": "Zhongzheng District", "cuisine": "Taiwanese breakfast" },
+    { "name": "Shin Yeh Taiwanese Cuisine", "category": "restaurant", "neighborhood": "Zhongshan District", "cuisine": "Taiwanese" },
+    { "name": "Tripod King", "category": "restaurant", "neighborhood": "Ximending, Wanhua District", "cuisine": "Spicy hot pot" },
+    { "name": "Fika Fika Cafe", "category": "cafe", "neighborhood": "Zhongshan District", "cuisine": "Coffee" },
+    { "name": "Simple Kaffa Sola", "category": "cafe", "neighborhood": "Xinyi District (Taipei 101)", "cuisine": "Coffee" },
+    { "name": "VWI by CHADWANG", "category": "cafe", "neighborhood": "Da'an District", "cuisine": "Coffee" }
+  ]
+}

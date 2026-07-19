@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Tian Tian Hainanese Chicken Rice", "category": "restaurant", "neighborhood": "Maxwell Food Centre, Chinatown", "cuisine": "Hainanese chicken rice" },
+    { "name": "Liao Fan Hawker Chan", "category": "restaurant", "neighborhood": "Chinatown Complex", "cuisine": "Cantonese, soya sauce chicken" },
+    { "name": "Jian Bo Shui Kueh", "category": "restaurant", "neighborhood": "Tiong Bahru Market", "cuisine": "Teochew rice cake" },
+    { "name": "Zam Zam Restaurant", "category": "restaurant", "neighborhood": "Kampong Glam", "cuisine": "Indian-Muslim, murtabak" },
+    { "name": "328 Katong Laksa", "category": "restaurant", "neighborhood": "Katong, East Coast Road", "cuisine": "Laksa" },
+    { "name": "Tiong Bahru Bakery", "category": "cafe", "neighborhood": "Tiong Bahru", "cuisine": "French bakery, coffee" },
+    { "name": "PS.Cafe", "category": "cafe", "neighborhood": "Dempsey Hill", "cuisine": "Western cafe" },
+    { "name": "Nylon Coffee Roasters", "category": "cafe", "neighborhood": "Tanjong Pagar (Everton Park)", "cuisine": "Coffee" }
+  ]
+}

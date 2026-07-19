@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Karakoy Lokantasi", "category": "restaurant", "neighborhood": "Karakoy", "cuisine": "Turkish, Ottoman" },
+    { "name": "Ciya Sofrasi", "category": "restaurant", "neighborhood": "Kadikoy", "cuisine": "Anatolian Turkish" },
+    { "name": "Balikci Lokantasi", "category": "restaurant", "neighborhood": "Kadikoy", "cuisine": "Seafood" },
+    { "name": "Pepo Restaurant & Bar", "category": "restaurant", "neighborhood": "Galata, Karakoy", "cuisine": "Turkish" },
+    { "name": "Van Kahvalti Evi", "category": "restaurant", "neighborhood": "Cihangir", "cuisine": "Turkish Breakfast" },
+    { "name": "Kronotrop", "category": "cafe", "neighborhood": "Karakoy", "cuisine": "Coffee" },
+    { "name": "Coffee Sapiens", "category": "cafe", "neighborhood": "Karakoy", "cuisine": "Coffee" },
+    { "name": "Norm Coffee", "category": "cafe", "neighborhood": "Cihangir", "cuisine": "Coffee" }
+  ]
+}
