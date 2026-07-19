@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Maguro no Tsukasa Chiba Ekimae ten", "category": "restaurant", "neighborhood": "Chiba Station", "cuisine": "Seafood, Izakaya" },
+    { "name": "Sakaba Diana Chiba ten", "category": "restaurant", "neighborhood": "Sakaecho", "cuisine": "Izakaya, Sushi" },
+    { "name": "TEPPAN Kin Kurito", "category": "restaurant", "neighborhood": "Yoshikawacho", "cuisine": "Teppanyaki" },
+    { "name": "Perrier Chiba Niku", "category": "restaurant", "neighborhood": "Chiba Station", "cuisine": "Yakiniku, BBQ" },
+    { "name": "Cafe Rin", "category": "cafe", "neighborhood": "Chiba Station", "cuisine": "Coffee" },
+    { "name": "Merengue Koko", "category": "cafe", "neighborhood": "Kaihin Makuhari", "cuisine": "Coffee, Sweets" },
+    { "name": "THE SURF OCEAN TERRACE", "category": "cafe", "neighborhood": "Kemigawa", "cuisine": "Coffee, Ocean-view cafe" },
+    { "name": "Midtree Cafe", "category": "cafe", "neighborhood": "Kaihin Makuhari", "cuisine": "Coffee" }
+  ]
+}

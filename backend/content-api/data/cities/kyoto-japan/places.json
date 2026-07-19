@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Kikunoi", "category": "restaurant", "neighborhood": "Higashiyama", "cuisine": "Kaiseki" },
+    { "name": "Hyotei", "category": "restaurant", "neighborhood": "Nanzenji", "cuisine": "Kaiseki" },
+    { "name": "Omen Ginkakuji Honten", "category": "restaurant", "neighborhood": "Sakyo Ward", "cuisine": "Udon" },
+    { "name": "Kyoto Wagyu Ryouri Isseki Sanchou", "category": "restaurant", "neighborhood": "Umekoji", "cuisine": "Wagyu, Yakiniku" },
+    { "name": "% Arabica Kyoto Higashiyama", "category": "cafe", "neighborhood": "Higashiyama", "cuisine": "Coffee" },
+    { "name": "Zen Cafe (Kagizen Yoshifusa)", "category": "cafe", "neighborhood": "Gion", "cuisine": "Japanese sweets, Tea" },
+    { "name": "Smart Coffee", "category": "cafe", "neighborhood": "Teramachi, Nakagyo Ward", "cuisine": "Coffee, Kissaten" },
+    { "name": "Kamo Mitarashi Chaya", "category": "cafe", "neighborhood": "Demachiyanagi", "cuisine": "Japanese sweets, Dango" }
+  ]
+}

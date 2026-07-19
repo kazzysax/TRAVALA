@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Meng Kee Bak Kut Teh", "category": "restaurant", "neighborhood": "Taman Mount Austin", "cuisine": "Bak Kut Teh" },
+    { "name": "Ho Seng Kee Wanton Mee", "category": "restaurant", "neighborhood": "Jalan Tan Hiok Nee", "cuisine": "Wanton Mee, Chinese" },
+    { "name": "Ikan Bakar Tampin", "category": "restaurant", "neighborhood": "Taman Century", "cuisine": "Grilled Seafood, Malay" },
+    { "name": "Hiap Joo Bakery & Biscuit Factory", "category": "cafe", "neighborhood": "Jalan Tan Hiok Nee", "cuisine": "Bakery" },
+    { "name": "Tiong Hoe Specialty Coffee", "category": "cafe", "neighborhood": "Jalan Molek", "cuisine": "Coffee" },
+    { "name": "Roast & Coffee (R&C)", "category": "cafe", "neighborhood": "Jalan Tan Hiok Nee", "cuisine": "Nanyang Coffee, Kopitiam" },
+    { "name": "Flower In A Window", "category": "cafe", "neighborhood": "Jalan Tan Hiok Nee", "cuisine": "Tea, Cakes" }
+  ]
+}

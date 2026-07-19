@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Tek Sen", "category": "restaurant", "neighborhood": "Lebuh Carnarvon, George Town", "cuisine": "Chinese, Zi Char" },
+    { "name": "Restoran Sup Hameed", "category": "restaurant", "neighborhood": "Jalan Penang, George Town", "cuisine": "Mamak, Indian-Muslim" },
+    { "name": "Ah Leng Char Koay Teow", "category": "restaurant", "neighborhood": "George Town", "cuisine": "Char Koay Teow" },
+    { "name": "Joo Hooi Cafe", "category": "restaurant", "neighborhood": "Penang Road, George Town", "cuisine": "Hawker, Assam Laksa" },
+    { "name": "China House", "category": "cafe", "neighborhood": "Lebuh Pantai (Beach Street), George Town", "cuisine": "Cakes, Cafe" },
+    { "name": "Kek Seng Cafe", "category": "cafe", "neighborhood": "Penang Road, George Town", "cuisine": "Ice Kacang, Dessert" },
+    { "name": "Toh Soon Cafe", "category": "cafe", "neighborhood": "Lebuh Campbell, George Town", "cuisine": "Kopitiam, Coffee" },
+    { "name": "Mugshot Cafe", "category": "cafe", "neighborhood": "Lebuh Chulia, George Town", "cuisine": "Coffee" }
+  ]
+}

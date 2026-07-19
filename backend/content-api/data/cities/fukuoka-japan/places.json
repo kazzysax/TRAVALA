@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Ippudo Daimyo Honten", "category": "restaurant", "neighborhood": "Daimyo, Chuo Ward", "cuisine": "Tonkotsu Ramen" },
+    { "name": "Ichiran Nakasu Honten", "category": "restaurant", "neighborhood": "Nakasu", "cuisine": "Tonkotsu Ramen" },
+    { "name": "Motsunabe Oyama", "category": "restaurant", "neighborhood": "Tenjin", "cuisine": "Motsunabe" },
+    { "name": "Shin Shin Tenjin Honten", "category": "restaurant", "neighborhood": "Tenjin", "cuisine": "Tonkotsu Ramen" },
+    { "name": "Ganso Hakata Mentaiju", "category": "restaurant", "neighborhood": "Nishinakasu", "cuisine": "Mentaiko" },
+    { "name": "REC COFFEE", "category": "cafe", "neighborhood": "Yakuin", "cuisine": "Coffee" },
+    { "name": "FIKA COFFEE", "category": "cafe", "neighborhood": "Nakasu Kawabata", "cuisine": "Coffee" }
+  ]
+}
