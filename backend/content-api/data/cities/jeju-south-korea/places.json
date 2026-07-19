@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Dombedon", "category": "restaurant", "neighborhood": "Black Pork Street, Jeju City", "cuisine": "Korean (black pork BBQ)" },
+    { "name": "Yongduam Badang Hoe Guksu", "category": "restaurant", "neighborhood": "Near Yongduam Rock, Jeju City", "cuisine": "Korean seafood" },
+    { "name": "Dongmun Olle Susan", "category": "restaurant", "neighborhood": "Dongmun Traditional Market, Jeju City", "cuisine": "Korean seafood" },
+    { "name": "Osulloc Tea Museum", "category": "cafe", "neighborhood": "Andeok-myeon, Seogwipo", "cuisine": "Tea" },
+    { "name": "Cafe Delmoondo", "category": "cafe", "neighborhood": "Hamdeok Beach, Jocheon-eup", "cuisine": "Coffee" },
+    { "name": "Orrrn", "category": "cafe", "neighborhood": "Seongsan-eup, Seogwipo", "cuisine": "Coffee" },
+    { "name": "Manor Blanc", "category": "cafe", "neighborhood": "Seogwipo", "cuisine": "Coffee" }
+  ]
+}

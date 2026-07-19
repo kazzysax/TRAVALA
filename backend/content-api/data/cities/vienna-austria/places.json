@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Mraz und Sohn", "category": "restaurant", "neighborhood": "Brigittenau (20th district)", "cuisine": "Austrian fine dining" },
+    { "name": "Glacis Beisl", "category": "restaurant", "neighborhood": "Museumsquartier (7th district)", "cuisine": "Viennese" },
+    { "name": "Palmenhaus", "category": "restaurant", "neighborhood": "Burggarten (1st district)", "cuisine": "Austrian-Mediterranean" },
+    { "name": "Ristorante Sole", "category": "restaurant", "neighborhood": "Innere Stadt (1st district)", "cuisine": "Italian" },
+    { "name": "Cafe Central", "category": "cafe", "neighborhood": "Innere Stadt (1st district)", "cuisine": "Viennese coffeehouse" },
+    { "name": "Cafe Sacher", "category": "cafe", "neighborhood": "Innere Stadt (1st district)", "cuisine": "Viennese coffeehouse" },
+    { "name": "Demel", "category": "cafe", "neighborhood": "Innere Stadt (1st district)", "cuisine": "Viennese confectionery" },
+    { "name": "Cafe Hawelka", "category": "cafe", "neighborhood": "Innere Stadt (1st district)", "cuisine": "Viennese coffeehouse" }
+  ]
+}

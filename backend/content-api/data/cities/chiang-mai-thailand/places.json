@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Huen Phen", "category": "restaurant", "neighborhood": "Old City", "cuisine": "Northern Thai" },
+    { "name": "SP Chicken", "category": "restaurant", "neighborhood": "Phra Singh, Old City", "cuisine": "Thai grilled chicken" },
+    { "name": "Tong Tem Toh", "category": "restaurant", "neighborhood": "Nimman", "cuisine": "Northern Thai" },
+    { "name": "Ristr8to", "category": "cafe", "neighborhood": "Nimman", "cuisine": "Coffee" },
+    { "name": "Graph", "category": "cafe", "neighborhood": "Nimman", "cuisine": "Coffee" },
+    { "name": "Akha Ama Coffee", "category": "cafe", "neighborhood": "Old City", "cuisine": "Coffee" },
+    { "name": "Khagee", "category": "cafe", "neighborhood": "Wat Ket", "cuisine": "Bakery, Coffee" }
+  ]
+}

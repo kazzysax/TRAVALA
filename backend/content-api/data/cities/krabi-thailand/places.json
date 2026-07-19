@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "The River Restaurant and Bar", "category": "restaurant", "neighborhood": "Krabi Town", "cuisine": "Thai seafood" },
+    { "name": "The Grotto", "category": "restaurant", "neighborhood": "Phra Nang Beach, Railay", "cuisine": "Thai seafood" },
+    { "name": "Lae Lay Grill", "category": "restaurant", "neighborhood": "Ao Nang", "cuisine": "Thai seafood" },
+    { "name": "The Hilltop", "category": "restaurant", "neighborhood": "Ao Nang", "cuisine": "Thai" },
+    { "name": "REEVE Beach Club", "category": "restaurant", "neighborhood": "Ao Nang", "cuisine": "Thai, International" },
+    { "name": "Cafe 8.98", "category": "cafe", "neighborhood": "Ao Nang", "cuisine": "Coffee" },
+    { "name": "Chao Fah Pier Cafe", "category": "cafe", "neighborhood": "Krabi Town", "cuisine": "Coffee" }
+  ]
+}

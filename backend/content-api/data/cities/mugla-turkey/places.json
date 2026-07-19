@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Orfoz", "category": "restaurant", "neighborhood": "Kumbahce, Bodrum", "cuisine": "Seafood" },
+    { "name": "Zuma Bodrum", "category": "restaurant", "neighborhood": "Yalikavak Marina, Bodrum", "cuisine": "Japanese" },
+    { "name": "Nobu Bodrum", "category": "restaurant", "neighborhood": "Yalikavak Marina, Bodrum", "cuisine": "Japanese-Peruvian" },
+    { "name": "Nusr-Et Bodrum", "category": "restaurant", "neighborhood": "Yalikavak Marina, Bodrum", "cuisine": "Turkish steakhouse" },
+    { "name": "Kortan Restaurant", "category": "restaurant", "neighborhood": "Bahcelievler, Bodrum", "cuisine": "Turkish seafood" },
+    { "name": "Cafe Chives", "category": "cafe", "neighborhood": "Eskicesme, Bodrum", "cuisine": "Bakery, Coffee" },
+    { "name": "Frenk", "category": "cafe", "neighborhood": "Tepecik, Bodrum", "cuisine": "Coffee, Breakfast" }
+  ]
+}
