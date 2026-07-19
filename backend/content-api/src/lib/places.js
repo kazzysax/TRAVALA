@@ -15,7 +15,14 @@ function buildQuery(lat, lon, radiusMeters) {
 out body;`;
 }
 
-async function findNearbyServices(lat, lon, radiusMeters = 1500) {
+function sleep(ms) { return new Promise((resolve) => setTimeout(resolve, ms)); }
+
+// Overpass's public instance is fair-use rate-limited per IP and, when a
+// caller is near that limit, tends to silently stall/504 rather than reject
+// cleanly - the same query from a fresh IP routinely succeeds in ~2s. A
+// short retry absorbs that transient case instead of failing every rating
+// lookup the first time Render's shared egress IP gets throttled.
+async function fetchOverpass(lat, lon, radiusMeters, attempt = 1) {
   const res = await fetch(OVERPASS_URL, {
     method: "POST",
     headers: {
@@ -26,8 +33,18 @@ async function findNearbyServices(lat, lon, radiusMeters = 1500) {
     },
     body: `data=${encodeURIComponent(buildQuery(lat, lon, radiusMeters))}`,
   });
-  if (!res.ok) throw new Error(`Overpass API failed: ${res.status}`);
+  if (!res.ok) {
+    if (attempt < 3) {
+      await sleep(1000 * attempt);
+      return fetchOverpass(lat, lon, radiusMeters, attempt + 1);
+    }
+    throw new Error(`Overpass API failed: ${res.status}`);
+  }
+  return res;
+}
 
+async function findNearbyServices(lat, lon, radiusMeters = 1500) {
+  const res = await fetchOverpass(lat, lon, radiusMeters);
   const data = await res.json();
   return data.elements
     .filter((el) => el.tags && el.tags.name)
