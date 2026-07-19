@@ -82,6 +82,7 @@
     <a href="help.html" class="nav-item"><span class="ic">🆘</span>Local help</a>
     <a href="money.html" class="nav-item"><span class="ic">💸</span>Money</a>
     <a href="recommendations.html" class="nav-item"><span class="ic">⭐</span>Rate &amp; recommend</a>
+    <a href="stamp.html" class="nav-item"><span class="ic">🏷️</span>Check a stamp</a>
     <div class="spacer"></div>
     <a href="settings.html" class="nav-item active"><span class="ic">⚙️</span>Settings</a>
     <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr" id="miniAddr">loading…</span><span class="mon">Monad</span></div><div class="row"><span class="bal" id="miniBal">–</span></div></div></a>
@@ -115,28 +116,24 @@
     <div class="card">
       <div class="row">
         <div class="lbl">Home currency <small>Expenses are converted to this automatically.</small></div>
-        <select><option>GBP £</option><option>USD $</option><option>EUR €</option><option>NGN ₦</option></select>
+        <select id="homeCurrencySelect" onchange="saveBudgetPrefs()"><option value="GBP">GBP £</option><option value="USD">USD $</option><option value="EUR">EUR €</option><option value="NGN">NGN ₦</option></select>
       </div>
       <div class="row">
-        <div class="lbl">Home country <small>Used to show your nearest embassy in Local Help.</small></div>
-        <select><option>United Kingdom</option><option>United States</option><option>Nigeria</option><option>Portugal</option></select>
+        <div class="lbl">Home country <small>Used to show your nearest embassy in Local Help - we don't have an embassy directory yet, so this just remembers your country for now.</small></div>
+        <select id="homeCountrySelect" onchange="saveHomeCountry()"><option>United Kingdom</option><option>United States</option><option>Nigeria</option><option>Portugal</option></select>
       </div>
       <div class="row">
         <div class="lbl">Daily budget <small>You'll get a nudge as you approach it.</small></div>
-        <select><option>€60</option><option>€40</option><option>€80</option><option>€100</option></select>
+        <input type="number" id="dailyBudgetInput" step="1" min="0" style="width:90px;font-family:inherit;font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--cream)" onchange="saveBudgetPrefs()">
       </div>
       <div class="row">
         <div class="lbl">Budget &amp; tip notifications</div>
-        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+        <label class="switch"><input type="checkbox" id="notifToggle" checked onchange="saveNotifPref()"><span class="slider"></span></label>
       </div>
     </div>
 
     <div class="sec-label">Your stamps</div>
-    <div class="card">
-      <a href="stamp.html" class="row" style="cursor:pointer"><div class="lbl">Lisbon, Portugal <small>Stamp NO. 014 · soulbound · tied to your wallet</small></div><span style="font-size:12px;color:var(--teal-dark)">◆ owned →</span></a>
-      <a href="stamp.html" class="row" style="cursor:pointer"><div class="lbl">Tokyo, Japan <small>Stamp NO. 027 · soulbound</small></div><span style="font-size:12px;color:var(--teal-dark)">◆ owned →</span></a>
-      <a href="stamp.html" class="row" style="cursor:pointer"><div class="lbl">Lagos, Nigeria <small>Stamp NO. 041 · soulbound</small></div><span style="font-size:12px;color:var(--teal-dark)">◆ owned →</span></a>
-    </div>
+    <div class="card" id="stampsCard"><div class="row"><div class="lbl">Loading your real stamps…</div></div></div>
 
     <div class="sec-label">Access</div>
     <div class="card">
@@ -184,7 +181,10 @@
 
 <script type="module">
   import { ethers } from "https://esm.sh/ethers@6.14.0";
-  import { AUTH_API, requireWallet, getConfig } from "./wallet.js";
+  import { AUTH_API, INDEXER_API, requireWallet, getConfig } from "./wallet.js";
+
+  const EXPENSE_API = "https://expense-17td.onrender.com";
+  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 
   const SESSION_PERMISSION_ABI = [
     "function grantSession(address sessionKey, uint64 expiry) external",
@@ -263,6 +263,63 @@
     }
   };
 
+  // Home currency + daily budget are the real fields the expense service
+  // already tracks (same GET/PUT /users/:userId/budget money.html uses) -
+  // this card was previously a static mockup that never read or wrote them.
+  let currentTripBudget = null;
+  async function loadBudgetPrefs(){
+    try {
+      const res = await fetch(`${EXPENSE_API}/users/${wallet.address}/budget`);
+      const budget = await res.json();
+      currentTripBudget = budget.tripBudget ?? null;
+      if (budget.homeCurrency) document.getElementById('homeCurrencySelect').value = budget.homeCurrency;
+      if (budget.dailyBudget) document.getElementById('dailyBudgetInput').value = budget.dailyBudget;
+    } catch { /* leave defaults if the expense service is waking up */ }
+  }
+  window.saveBudgetPrefs = async function(){
+    const homeCurrency = document.getElementById('homeCurrencySelect').value;
+    const dailyBudget = parseFloat(document.getElementById('dailyBudgetInput').value);
+    if (!dailyBudget || dailyBudget <= 0) return;
+    await fetch(`${EXPENSE_API}/users/${wallet.address}/budget`, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dailyBudget, tripBudget: currentTripBudget, homeCurrency }),
+    });
+  };
+
+  // No embassy directory exists anywhere in content-api yet, so this can't
+  // show a real address/phone number - it just remembers the country so
+  // help.html can at least say which country you set, honestly, instead of
+  // silently doing nothing like the old static dropdown did.
+  window.saveHomeCountry = function(){
+    localStorage.setItem('travala_home_country', document.getElementById('homeCountrySelect').value);
+  };
+  function loadHomeCountry(){
+    const saved = localStorage.getItem('travala_home_country');
+    if (saved) document.getElementById('homeCountrySelect').value = saved;
+  }
+
+  window.saveNotifPref = function(){
+    localStorage.setItem('travala_budget_notif', document.getElementById('notifToggle').checked ? '1' : '0');
+  };
+  function loadNotifPref(){
+    const saved = localStorage.getItem('travala_budget_notif');
+    if (saved !== null) document.getElementById('notifToggle').checked = saved === '1';
+  }
+
+  async function loadStamps(){
+    const card = document.getElementById('stampsCard');
+    try {
+      const res = await fetch(`${INDEXER_API}/wallets/${wallet.address}/stamps`);
+      const stamps = await res.json();
+      card.innerHTML = stamps.length
+        ? stamps.map(s => `
+          <a href="stamp.html?wallet=${wallet.address}" class="row" style="cursor:pointer"><div class="lbl">${esc(s.city)}, ${esc(s.country)} <small>Stamp NO. ${String(s.serial).padStart(3,'0')} · soulbound · tied to your wallet</small></div><span style="font-size:12px;color:var(--teal-dark)">◆ owned →</span></a>`).join('')
+        : `<div class="row"><div class="lbl">No stamps minted yet <small>Set a city at login to mint your first one.</small></div></div>`;
+    } catch (err) {
+      card.innerHTML = `<div class="row"><div class="lbl">Couldn't load your stamps (${esc(err.message)}) - the indexer may be waking up.</div></div>`;
+    }
+  }
+
   window.revokeAccess = async function(){
     const checkbox = document.getElementById('autoSign');
     if (!checkbox.checked) { alert('Auto-sign is already off.'); return; }
@@ -332,6 +389,10 @@
     sessionPermissionAddress = config.sessionPermissionAddress;
     refreshWalletDisplay();
     initAutoSignToggle();
+    loadBudgetPrefs();
+    loadHomeCountry();
+    loadNotifPref();
+    loadStamps();
   })();
 </script>
 </body>

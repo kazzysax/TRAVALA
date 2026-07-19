@@ -179,7 +179,7 @@
       <div class="ring"></div>
       <div class="city" id="mCity">Lisbon</div>
       <div class="country" id="mCountry">Portugal</div>
-      <div class="no" id="mNo">NO. 014</div>
+      <div class="no" id="mNo">NO. …</div>
     </div>
     <div class="mint-status" id="mintStatus"><span class="spin"></span> minting your soulbound stamp…</div>
     <button class="btn btn-primary hidden" id="enterBtn" onclick="enterApp()">Enter Travala →</button>
@@ -195,10 +195,25 @@
   const provider = new ethers.JsonRpcProvider(`${INDEXER_API}/rpc`);
 
   let roster = [];
+  // The roster's own "researched" flag only means "went through the full
+  // verified-data pipeline" (entry/visa, public holidays, emergency
+  // numbers via generate-researched-cities.js) - it's narrower than "has a
+  // guide at all". Lisbon and Lagos were hand-authored outside that
+  // pipeline, so they have a real etiquette/neighborhoods/etc. guide but
+  // researched:false, which wrongly showed "guide coming soon" for cities
+  // that already have one. content-api's own /cities list is the
+  // authoritative source for "does a guide actually exist".
+  let realGuideSlugs = new Set();
+
   async function loadRoster(){
     try {
-      const res = await fetch(`${CONTENT_API}/roster`);
-      roster = await res.json();
+      const [rosterRes, citiesRes] = await Promise.all([
+        fetch(`${CONTENT_API}/roster`),
+        fetch(`${CONTENT_API}/cities`),
+      ]);
+      roster = await rosterRes.json();
+      const realCities = await citiesRes.json();
+      realGuideSlugs = new Set(realCities.map(c => c.slug));
       renderCityList(roster);
     } catch (err) {
       document.getElementById('cityList').innerHTML = `<div style="padding:20px 0;text-align:center;color:var(--ink-soft);font-size:13.5px">Couldn't load the city roster (${err.message}) - try refreshing.</div>`;
@@ -215,12 +230,15 @@
     let html = '';
     for (const [continent, cities] of Object.entries(byContinent)) {
       html += `<div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);margin:10px 0 4px;padding:0 2px">${esc(continent)}</div>`;
-      html += cities.map(c => `
+      html += cities.map(c => {
+        const hasGuide = c.researched || realGuideSlugs.has(c.slug);
+        return `
         <button class="city-opt" data-city="${esc(c.city)}" data-country="${esc(c.country)}" onclick="selCity(this)">
           <span class="flag">📍</span>
-          <div><div class="nm">${esc(c.city)}${!c.researched ? ' <span style="font-size:10px;font-weight:500;color:var(--ink-soft)">· guide coming soon</span>' : ''}</div><div class="cn">${esc(c.country)}</div></div>
+          <div><div class="nm">${esc(c.city)}${!hasGuide ? ' <span style="font-size:10px;font-weight:500;color:var(--ink-soft)">· guide coming soon</span>' : ''}</div><div class="cn">${esc(c.country)}</div></div>
           <span class="chk">✓</span>
-        </button>`).join('');
+        </button>`;
+      }).join('');
     }
     document.getElementById('cityList').innerHTML = html || '<div style="padding:20px 0;text-align:center;color:var(--ink-soft);font-size:13.5px">No cities match.</div>';
   }
@@ -354,6 +372,8 @@
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'mint failed');
+
+      if (data.serial) document.getElementById('mNo').textContent = `NO. ${String(data.serial).padStart(3,'0')}`;
 
       statusEl.classList.add('ok');
       statusEl.innerHTML = `◆ stamp minted · tx ${data.txHash.slice(0,10)}…`;

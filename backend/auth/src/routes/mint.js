@@ -5,6 +5,7 @@ const router = express.Router();
 
 const CREDENTIAL_ABI = [
   "function mintStamp(address to, string country, string city) external returns (uint256 tokenId)",
+  "event StampMinted(address indexed to, uint256 indexed tokenId, string country, string city, uint256 serial)",
 ];
 
 let signer;
@@ -40,7 +41,16 @@ router.post("/mint", async (req, res) => {
 
     const tx = await credential.mintStamp(walletAddress, country, city);
     const receipt = await tx.wait();
-    res.status(201).json({ txHash: receipt.hash });
+
+    const mintedEvent = receipt.logs
+      .map((log) => { try { return credential.interface.parseLog(log); } catch { return null; } })
+      .find((parsed) => parsed && parsed.name === "StampMinted");
+
+    res.status(201).json({
+      txHash: receipt.hash,
+      tokenId: mintedEvent ? mintedEvent.args.tokenId.toString() : null,
+      serial: mintedEvent ? mintedEvent.args.serial.toString() : null,
+    });
   } catch (err) {
     res.status(502).json({ error: err.message });
   }

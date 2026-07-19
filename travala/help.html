@@ -74,9 +74,10 @@
     <a href="help.html" class="nav-item active"><span class="ic">🆘</span>Local help</a>
     <a href="money.html" class="nav-item"><span class="ic">💸</span>Money</a>
     <a href="recommendations.html" class="nav-item"><span class="ic">⭐</span>Rate &amp; recommend</a>
+    <a href="stamp.html" class="nav-item"><span class="ic">🏷️</span>Check a stamp</a>
     <div class="spacer"></div>
     <a href="settings.html" class="nav-item"><span class="ic">⚙️</span>Settings</a>
-    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div><div class="row"><span class="bal">1.9 MON</span></div></div></a>
+    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr" id="walletAddr">loading…</span><span class="mon">Monad</span></div><div class="row"><span class="bal" id="walletBal">–</span></div></div></a>
   </aside>
 
   <main class="main">
@@ -152,9 +153,14 @@
       document.getElementById('pageTitle').textContent = "Local help";
       document.getElementById('pageLoc').textContent = `${data.city}, ${data.country} — help when you need it fast`;
 
+      const homeCountry = localStorage.getItem('travala_home_country');
+      const embassyRow = homeCountry
+        ? `<div class="sos-row"><span class="lbl">Nearest ${esc(homeCountry)} embassy</span><span class="num" style="font-size:12px;color:var(--ink-soft)">no directory yet</span></div>`
+        : '<div class="sos-row"><span class="lbl">Nearest embassy — set your country in Settings</span><span class="num">—</span></div>';
+
       document.getElementById('emergencyCard').innerHTML = '<h2><span class="ico">🚨</span>Emergency</h2>' +
         data.emergency.map(e => `<div class="sos-row"><span class="lbl">${esc(e.label)}</span><span class="num">${esc(e.number)}</span></div>`).join('') +
-        '<div class="sos-row"><span class="lbl">Nearest embassy — set your country in Settings</span><span class="num">—</span></div>';
+        embassyRow;
 
       const NOT_YET = '<div style="color:var(--ink-soft);font-size:13.5px">Not researched in detail yet for this city.</div>';
 
@@ -196,6 +202,20 @@
   }
   function quick(t){ document.getElementById('trIn').value = t; translate(); }
 
+  async function loadWallet(){
+    const { requireWallet } = await import("./wallet.js");
+    const { ethers } = await import("https://esm.sh/ethers@6.14.0");
+    const wallet = await requireWallet();
+    document.getElementById('walletAddr').textContent = wallet.address.slice(0,6) + '…' + wallet.address.slice(-4);
+    try {
+      const bal = await wallet.provider.getBalance(wallet.address);
+      document.getElementById('walletBal').textContent = Number(ethers.formatEther(bal)).toFixed(3) + ' MON';
+    } catch {
+      document.getElementById('walletBal').textContent = '—';
+    }
+  }
+
+  loadWallet();
   loadCityData();
 </script>
 </body>

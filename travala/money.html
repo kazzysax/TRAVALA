@@ -84,9 +84,10 @@
     <a href="help.html" class="nav-item"><span class="ic">🆘</span>Local help</a>
     <a href="money.html" class="nav-item active"><span class="ic">💸</span>Money</a>
     <a href="recommendations.html" class="nav-item"><span class="ic">⭐</span>Rate &amp; recommend</a>
+    <a href="stamp.html" class="nav-item"><span class="ic">🏷️</span>Check a stamp</a>
     <div class="spacer"></div>
     <a href="settings.html" class="nav-item"><span class="ic">⚙️</span>Settings</a>
-    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr">0x7a3f…e21b</span><span class="mon">Monad</span></div><div class="row"><span class="bal">1.9 MON</span></div></div></a>
+    <a href="settings.html" style="margin-top:8px"><div class="wallet-mini"><div class="row"><span class="addr" id="walletAddr">loading…</span><span class="mon">Monad</span></div><div class="row"><span class="bal" id="walletBal">–</span></div></div></a>
   </aside>
 
   <main class="main">
@@ -165,8 +166,16 @@
   let USER_ID;
   async function initUser(){
     const { requireWallet } = await import("./wallet.js");
+    const { ethers } = await import("https://esm.sh/ethers@6.14.0");
     const wallet = await requireWallet();
     USER_ID = wallet.address;
+    document.getElementById('walletAddr').textContent = wallet.address.slice(0,6) + '…' + wallet.address.slice(-4);
+    try {
+      const bal = await wallet.provider.getBalance(wallet.address);
+      document.getElementById('walletBal').textContent = Number(ethers.formatEther(bal)).toFixed(3) + ' MON';
+    } catch {
+      document.getElementById('walletBal').textContent = '—';
+    }
   }
 
   let fairFareMax = null;
