@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Myeongdong Kyoja", "category": "restaurant", "neighborhood": "Myeongdong", "cuisine": "Korean, Noodles" },
+    { "name": "Tosokchon Samgyetang", "category": "restaurant", "neighborhood": "Jongno (Seochon)", "cuisine": "Korean, Chicken Soup" },
+    { "name": "Jungsik", "category": "restaurant", "neighborhood": "Cheongdam-dong, Gangnam", "cuisine": "Korean, Fine Dining" },
+    { "name": "Baekjeong", "category": "restaurant", "neighborhood": "Myeongdong", "cuisine": "Korean BBQ" },
+    { "name": "Osegyehyang", "category": "restaurant", "neighborhood": "Insa-dong", "cuisine": "Korean, Vegetarian" },
+    { "name": "%Arabica", "category": "cafe", "neighborhood": "Gangnam", "cuisine": "Coffee" },
+    { "name": "Cafe Onion", "category": "cafe", "neighborhood": "Anguk", "cuisine": "Coffee, Bakery" },
+    { "name": "Anthracite Coffee", "category": "cafe", "neighborhood": "Seongsu-dong", "cuisine": "Coffee" }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Al-Romansiah", "category": "restaurant", "neighborhood": "King Abdul Aziz Road", "cuisine": "Saudi, Mandi" },
+    { "name": "Arabesque Restaurant", "category": "restaurant", "neighborhood": "Near Al-Masjid an-Nabawi", "cuisine": "Mediterranean" },
+    { "name": "Al Tazaj", "category": "restaurant", "neighborhood": "Qurban Street", "cuisine": "Saudi, Grilled Chicken" },
+    { "name": "Al Baik", "category": "restaurant", "neighborhood": "Near Al-Masjid an-Nabawi", "cuisine": "Saudi, Fried Chicken" },
+    { "name": "Five Minutes Cafe", "category": "cafe", "neighborhood": "Al-Areed", "cuisine": "Coffee" },
+    { "name": "Java Coffee", "category": "cafe", "neighborhood": "Al Haram", "cuisine": "Coffee" }
+  ]
+}

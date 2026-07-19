@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Al-Romansiah", "category": "restaurant", "neighborhood": "Al Faisaliyah", "cuisine": "Saudi, Mandi" },
+    { "name": "Herfy", "category": "restaurant", "neighborhood": "Al Faisaliyah", "cuisine": "Fast Food, Burgers" },
+    { "name": "Ennabi Grill", "category": "restaurant", "neighborhood": "Al Faisaliyah", "cuisine": "Middle Eastern, Grill" },
+    { "name": "Fish Market", "category": "restaurant", "neighborhood": "Al Khobar Corniche", "cuisine": "Seafood" },
+    { "name": "Al Sultan Brahim", "category": "restaurant", "neighborhood": "Al Khobar", "cuisine": "Seafood" },
+    { "name": "Dr. Cafe", "category": "cafe", "neighborhood": "Al Khobar Corniche", "cuisine": "Coffee" },
+    { "name": "Inside Cafe", "category": "cafe", "neighborhood": "Al Khobar Corniche", "cuisine": "Coffee" }
+  ]
+}

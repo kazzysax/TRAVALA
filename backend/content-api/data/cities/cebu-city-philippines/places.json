@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Golden Cowrie Native Restaurant", "category": "restaurant", "neighborhood": "Lahug", "cuisine": "Filipino" },
+    { "name": "Zubuchon", "category": "restaurant", "neighborhood": "Lahug", "cuisine": "Filipino, Lechon" },
+    { "name": "CnT Lechon", "category": "restaurant", "cuisine": "Filipino, Lechon" },
+    { "name": "Casa Verde", "category": "restaurant", "neighborhood": "Ayala Center", "cuisine": "American" },
+    { "name": "Handuraw Pizza", "category": "restaurant", "neighborhood": "Lahug", "cuisine": "Pizza" },
+    { "name": "Bo's Coffee", "category": "cafe", "cuisine": "Coffee" },
+    { "name": "Abaca Baking Company", "category": "cafe", "neighborhood": "Ayala Center", "cuisine": "Coffee, Bakery" },
+    { "name": "Good Cup Coffee Co.", "category": "cafe", "neighborhood": "Near Velez College", "cuisine": "Coffee" }
+  ]
+}

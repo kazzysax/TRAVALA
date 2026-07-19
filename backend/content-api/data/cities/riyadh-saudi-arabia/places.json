@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Najd Village", "category": "restaurant", "cuisine": "Saudi" },
+    { "name": "Al Orjouan", "category": "restaurant", "neighborhood": "Al Olaya", "cuisine": "Saudi" },
+    { "name": "Myazu", "category": "restaurant", "cuisine": "Japanese" },
+    { "name": "Nozomi", "category": "restaurant", "neighborhood": "Al Olaya", "cuisine": "Japanese" },
+    { "name": "Overdose Cafe", "category": "cafe", "cuisine": "Coffee" },
+    { "name": "Cafe Bateel", "category": "cafe", "cuisine": "Coffee" },
+    { "name": "Elixir Bunn Coffee Roasters", "category": "cafe", "neighborhood": "Al Nakheel", "cuisine": "Coffee" }
+  ]
+}
