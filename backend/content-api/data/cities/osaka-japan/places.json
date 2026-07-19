@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Okonomiyaki Mizuno", "category": "restaurant", "neighborhood": "Dotonbori, Chuo Ward", "cuisine": "Okonomiyaki" },
+    { "name": "Dotombori Imai Honten", "category": "restaurant", "neighborhood": "Dotonbori, Chuo Ward", "cuisine": "Udon" },
+    { "name": "Kisoji", "category": "restaurant", "neighborhood": "Shinsaibashi", "cuisine": "Shabu-shabu" },
+    { "name": "Takoyaki Tamaya", "category": "restaurant", "neighborhood": "Kita Ward", "cuisine": "Takoyaki" },
+    { "name": "Tsurugyu", "category": "restaurant", "neighborhood": "Chuo Ward", "cuisine": "Yakiniku" },
+    { "name": "Tonkatsu Matsunoya", "category": "restaurant", "cuisine": "Tonkatsu" },
+    { "name": "Arabiya Coffee", "category": "cafe", "neighborhood": "Namba, Chuo Ward", "cuisine": "Coffee" },
+    { "name": "Rikuro Ojisan", "category": "cafe", "neighborhood": "Namba", "cuisine": "Cheesecake" }
+  ]
+}

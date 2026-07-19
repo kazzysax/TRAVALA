@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Warung Made", "category": "restaurant", "neighborhood": "Kuta", "cuisine": "Indonesian" },
+    { "name": "Menega Cafe", "category": "restaurant", "neighborhood": "Jimbaran", "cuisine": "Seafood" },
+    { "name": "Babi Guling Chandra", "category": "restaurant", "neighborhood": "Jalan Teuku Umar, Denpasar", "cuisine": "Balinese" },
+    { "name": "Nasi Ayam Kedewatan", "category": "restaurant", "neighborhood": "Jalan Tukad Badung, Denpasar", "cuisine": "Balinese" },
+    { "name": "Bebek Bengil (Dirty Duck Diner)", "category": "restaurant", "neighborhood": "Ubud", "cuisine": "Indonesian" },
+    { "name": "Milk & Madu", "category": "cafe", "neighborhood": "Canggu", "cuisine": "Coffee" },
+    { "name": "The Shady Shack", "category": "cafe", "neighborhood": "Canggu", "cuisine": "Vegan" },
+    { "name": "Alchemy", "category": "cafe", "neighborhood": "Ubud", "cuisine": "Vegan" }
+  ]
+}

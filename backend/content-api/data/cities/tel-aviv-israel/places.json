@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "HaBasta", "category": "restaurant", "neighborhood": "Carmel Market", "cuisine": "Mediterranean" },
+    { "name": "Miznon", "category": "restaurant", "neighborhood": "Ibn Gabirol", "cuisine": "Israeli street food" },
+    { "name": "Shila", "category": "restaurant", "neighborhood": "Dizengoff", "cuisine": "Mediterranean" },
+    { "name": "Taizu", "category": "restaurant", "neighborhood": "Menachem Begin Rd", "cuisine": "Asian fusion" },
+    { "name": "Meshek Barzilay", "category": "restaurant", "neighborhood": "Neve Tzedek", "cuisine": "Vegan" },
+    { "name": "Anastasia", "category": "cafe", "neighborhood": "Frishman St", "cuisine": "Vegan" },
+    { "name": "Benedict", "category": "cafe", "neighborhood": "Rothschild Blvd", "cuisine": "Breakfast" },
+    { "name": "Cafe Xoho", "category": "cafe", "neighborhood": "Ben Yehuda St", "cuisine": "Breakfast" }
+  ]
+}

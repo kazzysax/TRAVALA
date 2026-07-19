@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Golden Prawn 933", "category": "restaurant", "neighborhood": "Bengkong", "cuisine": "Seafood" },
+    { "name": "Barelang Seafood Restaurant", "category": "restaurant", "neighborhood": "Barelang", "cuisine": "Seafood" },
+    { "name": "Love Seafood Nagoya", "category": "restaurant", "neighborhood": "Nagoya", "cuisine": "Seafood" },
+    { "name": "Anchor Cafe & Roastery", "category": "cafe", "neighborhood": "Sukajadi, Batam Kota", "cuisine": "Coffee" },
+    { "name": "Hoods Coffee", "category": "cafe", "neighborhood": "Batam Kota", "cuisine": "Coffee" },
+    { "name": "Meilleur Cafe & Patisserie", "category": "cafe", "neighborhood": "Batam Centre", "cuisine": "Coffee" },
+    { "name": "Tatido Coffee Roasters", "category": "cafe", "neighborhood": "Baloi Indah, Lubuk Baja", "cuisine": "Coffee" },
+    { "name": "Olive & Co", "category": "cafe", "neighborhood": "Teluk Tering, Batam Kota", "cuisine": "Coffee" }
+  ]
+}

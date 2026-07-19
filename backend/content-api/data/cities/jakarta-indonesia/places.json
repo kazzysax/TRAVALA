@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "places": [
+    { "name": "Kaum", "category": "restaurant", "neighborhood": "Menteng", "cuisine": "Indonesian" },
+    { "name": "August", "category": "restaurant", "neighborhood": "SCBD, South Jakarta", "cuisine": "Modern Indonesian" },
+    { "name": "Lapo Porsea", "category": "restaurant", "cuisine": "Batak" },
+    { "name": "Kafe Betawi", "category": "restaurant", "cuisine": "Betawi" },
+    { "name": "Titik Temu", "category": "cafe", "neighborhood": "Senopati", "cuisine": "Coffee" },
+    { "name": "Ombe Kofie", "category": "cafe", "neighborhood": "Senopati", "cuisine": "Coffee" },
+    { "name": "% Arabica Jakarta Roastery", "category": "cafe", "neighborhood": "Senopati", "cuisine": "Coffee" },
+    { "name": "Uncle Z Kopitiam", "category": "cafe", "neighborhood": "Senopati", "cuisine": "Kopitiam" }
+  ]
+}
